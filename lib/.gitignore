@@ -1,0 +1,3 @@
+*.o
+.build_info.h
+libjc.a
