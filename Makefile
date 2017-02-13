@@ -1,3 +1,5 @@
+PREFIX ?= /opt/pkg
+
 .PHONY: build
 build:
 	@make -C bin build

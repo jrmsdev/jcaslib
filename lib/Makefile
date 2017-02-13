@@ -1,12 +1,22 @@
-CFLAGS += -Wall -pedantic -std=c11 -I ../include
+BUILDD ?= ../build/lib
+INCD ?= ../include/jclib
+CFLAGS += -Wall -pedantic -std=c11 -fPIC -c
 
-OBJS = build_info.o
+OBJ_CC = $(CC) $(CFLAGS) -I ../include
+OBJS = $(BUILDD)/build_info.o
 
 .PHONY: build
-build: .build_info.h libjc.a
+build: .pre-build .build_info.h $(BUILDD)/libjc.a
 
-libjc.a: $(OBJS)
-	ar -rc libjc.a $(OBJS)
+.PHONY: .pre-build
+.pre-build:
+	@mkdir -vp $(BUILDD)
+
+$(BUILDD)/build_info.o: $(INCD)/build_info.h build_info.c
+	$(OBJ_CC) -o $(BUILDD)/build_info.o build_info.c
+
+$(BUILDD)/libjc.a: $(OBJS)
+	ar -rc $(BUILDD)/libjc.a $(OBJS)
 
 .build_info.h:
 	touch .build_info.h
@@ -18,4 +28,4 @@ libjc.a: $(OBJS)
 
 .PHONY: clean
 clean:
-	@rm -vf .build_info.h libjc.a $(OBJS)
+	@rm -vrf .build_info.h $(BUILDD)

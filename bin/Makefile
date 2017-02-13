@@ -1,13 +1,15 @@
 CFLAGS += -Wall -pedantic -std=c11 -I ../include
+BUILDD ?= ../build
 
 .PHONY: build
-build: jclib.bin
+build: $(BUILDD)/bin/jclib
 
-jclib.bin: jclib.c
+$(BUILDD)/bin/jclib: jclib.c
 	@make -C ../lib build
-	$(CC) $(CFLAGS) -o jclib.bin jclib.c ../lib/libjc.a
+	@mkdir -vp $(BUILDD)/bin
+	$(CC) $(CFLAGS) -o $(BUILDD)/bin/jclib jclib.c $(BUILDD)/lib/libjc.a
 
 .PHONY: clean
 clean:
-	@rm -vf jclib.bin
+	@rm -vrf $(BUILDD)/bin
 	@make -C ../lib clean
