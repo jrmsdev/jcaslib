@@ -2,15 +2,18 @@ BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
 CFLAGS += -Wall -pedantic -std=c11 -fPIC -c
 
-OBJ_CC = $(CC) $(CFLAGS) -I ../include
-OBJS = $(BUILDD)/build_info.o
-
 .PHONY: build
 build: .pre-build .build_info.h $(BUILDD)/libjc.a
 
 .PHONY: .pre-build
 .pre-build:
 	@mkdir -vp $(BUILDD)
+
+OBJ_CC = $(CC) $(CFLAGS) -I ../include
+OBJS = $(BUILDD)/build_info.o $(BUILDD)/version.o
+
+$(BUILDD)/version.o: $(INCD)/version.h version.c
+	$(OBJ_CC) -o $(BUILDD)/version.o version.c
 
 $(BUILDD)/build_info.o: $(INCD)/build_info.h build_info.c
 	$(OBJ_CC) -o $(BUILDD)/build_info.o build_info.c

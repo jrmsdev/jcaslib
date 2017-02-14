@@ -1,9 +1,9 @@
-#include <stdio.h>
 #include <jclib/build_info.h>
+#include <jclib/version.h>
 
 int main()
 {
-    printf("%s\n", "jclib");
+    print_version();
     print_build_info();
     return 0;
 }
