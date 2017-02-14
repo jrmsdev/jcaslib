@@ -10,7 +10,11 @@ build: .pre-build .build_info.h $(BUILDD)/libjc.a
 	@mkdir -vp $(BUILDD)
 
 OBJ_CC = $(CC) $(CFLAGS) -I ../include
-OBJS = $(BUILDD)/build_info.o $(BUILDD)/version.o $(BUILDD)/log.o
+OBJS = $(BUILDD)/build_info.o $(BUILDD)/version.o $(BUILDD)/log.o \
+		$(BUILDD)/config.o
+
+$(BUILDD)/config.o: $(INCD)/config.h config.c
+	$(OBJ_CC) -o $(BUILDD)/config.o config.c
 
 $(BUILDD)/log.o: $(INCD)/log.h log.c
 	$(OBJ_CC) -o $(BUILDD)/log.o log.c

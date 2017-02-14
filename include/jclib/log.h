@@ -1,10 +1,10 @@
 #ifndef JCLIB_LOG_H
 #define JCLIB_LOG_H
 
-int log_print(char * fmt, ...);
-int log_dbg(char * fmt, ...);
-int log_err(char * fmt, ...);
-int log_warn(char * fmt, ...);
-void log_exit(int stat, char * fmt, ...);
+extern int log_print(char * fmt, ...);
+extern int log_dbg(char * fmt, ...);
+extern int log_err(char * fmt, ...);
+extern int log_warn(char * fmt, ...);
+extern void log_exit(int stat, char * fmt, ...);
 
 #endif /* JCLIB_LOG_H */
