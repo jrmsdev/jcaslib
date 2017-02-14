@@ -23,4 +23,4 @@ install: build
 .PHONY: deinstall
 deinstall:
 	@rm -vf $(PREFIX)/bin/jclib $(PREFIX)/lib/libjc.a
-	@rm -rvf $(PREFIX)/include/jclib/
+	@rm -rvf $(PREFIX)/include/jclib
