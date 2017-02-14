@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include <jclib/version.h>
+#include <jclib/log.h>
 
 void print_version() {
-    printf("%s v%s\n", JCL_APP_NAME, JCL_VERSION);
+    log_print("%s v%s", JCL_APP_NAME, JCL_VERSION);
 }
