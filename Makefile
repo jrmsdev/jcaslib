@@ -2,12 +2,14 @@ include vars.mk
 
 .PHONY: build
 build:
-	@make -C bin build
+	@make -C lib depend
+	@make -C bin depend build
 
 .PHONY: clean
 clean:
 	@make -C examples clean
-	@make -C bin clean
+	@make -C bin clean clean-depend
+	@make -C lib clean-depend
 
 .PHONY: install
 install:
