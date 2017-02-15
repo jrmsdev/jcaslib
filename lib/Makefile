@@ -34,7 +34,7 @@ $(BUILDD)/libjc.a: $(OBJS)
 	ar -rc $(BUILDD)/libjc.a $(OBJS)
 
 .build_info.h: .build_info.gen
-	@JCLIB_CC=$(CC) ./.build_info.gen
+	@CC=$(CC) INCD=$(INCD) ./.build_info.gen
 	touch .build_info.h
 
 .PHONY: clean
