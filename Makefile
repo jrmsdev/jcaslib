@@ -11,7 +11,8 @@ clean:
 	@make -C lib clean
 
 .PHONY: install
-install: build
+install:
+	@make clean && make build JCLIB_DEBUG=''
 	@mkdir -vp $(PREFIX)/bin $(PREFIX)/lib $(PREFIX)/include/jclib
 	@$(INSTALL_EXE) build/bin/jclib $(PREFIX)/bin/jclib
 	@$(INSTALL_F) build/lib/libjc.a $(PREFIX)/lib/libjc.a
