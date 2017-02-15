@@ -6,6 +6,7 @@ build:
 
 .PHONY: clean
 clean:
+	@make -C examples clean
 	@make -C bin clean
 
 .PHONY: install
