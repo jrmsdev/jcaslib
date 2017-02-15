@@ -16,6 +16,9 @@
 #ifndef JCL_CC_VERSION
 #define JCL_CC_VERSION "NOVAL"
 #endif
+#ifndef JCL_MODULES
+#define JCL_MODULES "NOVAL"
+#endif
 
 extern void print_build_info();
 
