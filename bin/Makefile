@@ -15,3 +15,11 @@ $(BUILDD)/bin/jclib: jclib.c
 clean:
 	@rm -vrf $(BUILDD)/bin
 	@make -C ../lib clean
+
+.PHONY: depend
+depend:
+	@$(CC) -I ../include -E -MM *.c >.depend
+
+.PHONY: clean-depend
+clean-depend:
+	@rm -vf .depend
