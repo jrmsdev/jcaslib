@@ -14,7 +14,6 @@ void path_join(path_type dst, size_t count, char *str, ...)
     char adds[PATH_MAX_LEN];
     size_t sep_len = strlen(PATH_SEP);
 
-    memset(dst, '\0', PATH_MAX_LEN);
     memset(adds, '\0', PATH_MAX_LEN);
 
     va_start(sl, str);
