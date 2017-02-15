@@ -2,7 +2,7 @@ include ../vars.mk
 
 BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
-CFLAGS += -fPIC -c
+CFLAGS += -fPIC -c -I ../include
 
 .PHONY: build
 build: .pre-build .build_info.h $(BUILDD)/libjc.a
@@ -11,24 +11,7 @@ build: .pre-build .build_info.h $(BUILDD)/libjc.a
 .pre-build:
 	@mkdir -vp $(BUILDD)
 
-OBJ_CC = $(CC) $(CFLAGS) -I ../include
-OBJS = $(BUILDD)/build_info.o $(BUILDD)/version.o $(BUILDD)/log.o \
-		$(BUILDD)/config.o $(BUILDD)/path.o
-
-$(BUILDD)/path.o: $(INCD)/path.h path.c
-	$(OBJ_CC) -o $(BUILDD)/path.o path.c
-
-$(BUILDD)/config.o: $(INCD)/config.h config.c
-	$(OBJ_CC) -o $(BUILDD)/config.o config.c
-
-$(BUILDD)/log.o: $(INCD)/log.h log.c
-	$(OBJ_CC) -o $(BUILDD)/log.o log.c
-
-$(BUILDD)/version.o: $(INCD)/version.h version.c
-	$(OBJ_CC) -o $(BUILDD)/version.o version.c
-
-$(BUILDD)/build_info.o: $(INCD)/build_info.h build_info.c
-	$(OBJ_CC) -o $(BUILDD)/build_info.o build_info.c
+OBJS != ls *.c | sed 's/\.c/\.o/'
 
 $(BUILDD)/libjc.a: $(OBJS)
 	ar -rc $(BUILDD)/libjc.a $(OBJS)
@@ -37,6 +20,14 @@ $(BUILDD)/libjc.a: $(OBJS)
 	@CC=$(CC) INCD=$(INCD) ./.build_info.gen
 	touch .build_info.h
 
+.PHONY: depend
+depend: .build_info.h
+	$(CC) -I ../include -E -MM *.c >.depend
+
+.PHONY: clean-depend
+clean-depend:
+	@rm -vf .depend
+
 .PHONY: clean
 clean:
-	@rm -vrf .build_info.h $(BUILDD)
+	@rm -vrf .build_info.h $(BUILDD) $(OBJS)
