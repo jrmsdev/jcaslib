@@ -2,7 +2,7 @@
 #include <jclib/version.h>
 #include <jclib/log.h>
 
-int main()
+int main(void)
 {
     print_version();
     log_print("");

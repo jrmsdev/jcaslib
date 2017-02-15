@@ -1,6 +1,6 @@
 BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
-CFLAGS += -Wall -pedantic -std=c11 -fPIC -c
+CFLAGS += -Wall -pedantic -std=c11 -ggdb -fPIC -c
 
 .PHONY: build
 build: .pre-build .build_info.h $(BUILDD)/libjc.a
@@ -11,7 +11,10 @@ build: .pre-build .build_info.h $(BUILDD)/libjc.a
 
 OBJ_CC = $(CC) $(CFLAGS) -I ../include
 OBJS = $(BUILDD)/build_info.o $(BUILDD)/version.o $(BUILDD)/log.o \
-		$(BUILDD)/config.o
+		$(BUILDD)/config.o $(BUILDD)/path.o
+
+$(BUILDD)/path.o: $(INCD)/path.h path.c
+	$(OBJ_CC) -o $(BUILDD)/path.o path.c
 
 $(BUILDD)/config.o: $(INCD)/config.h config.c
 	$(OBJ_CC) -o $(BUILDD)/config.o config.c

@@ -1,4 +1,4 @@
-CFLAGS += -Wall -pedantic -std=c11
+CFLAGS += -Wall -pedantic -std=c11 -ggdb
 BUILDD ?= ../build
 
 .PHONY: build
