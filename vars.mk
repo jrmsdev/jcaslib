@@ -1,4 +1,5 @@
-CFLAGS += -Wall -pedantic -std=c11 -ggdb
+JCLIB_DEBUG ?=
+CFLAGS += -Wall -pedantic -std=c11 $(JCLIB_DEBUG)
 
 PREFIX ?= /opt/pkg
 
