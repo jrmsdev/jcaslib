@@ -1,6 +1,8 @@
+include ../vars.mk
+
 BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
-CFLAGS += -Wall -pedantic -std=c11 -ggdb -fPIC -c
+CFLAGS += -fPIC -c
 
 .PHONY: build
 build: .pre-build .build_info.h $(BUILDD)/libjc.a

@@ -1,4 +1,4 @@
-PREFIX ?= /opt/pkg
+include vars.mk
 
 .PHONY: build
 build:
@@ -9,9 +9,6 @@ build:
 clean:
 	@make -C bin clean
 	@make -C lib clean
-
-INSTALL_EXE = install -v -m 0755 -b -B .old
-INSTALL_F = install -v -m 0644 -b -B .old
 
 .PHONY: install
 install: build

@@ -1,4 +1,5 @@
-CFLAGS += -Wall -pedantic -std=c11 -ggdb
+include ../vars.mk
+
 BUILDD ?= ../build
 
 .PHONY: build
