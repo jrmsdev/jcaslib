@@ -7,7 +7,7 @@ build: $(BINS)
 
 .SUFFIXES: .bin .c
 .c.bin: $(.PREFIX).o
-	@make -C ../../lib build
+	@$(MAKE) -C ../../lib build
 	$(CC) $(CFLAGS) -o $(.TARGET) $(.PREFIX).o ../../build/lib/libjc.a
 
 .PHONY: clean

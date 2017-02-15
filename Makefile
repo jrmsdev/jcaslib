@@ -2,14 +2,12 @@ include vars.mk
 
 .PHONY: build
 build:
-	@$(MAKE) -C lib depend
-	@$(MAKE) -C bin depend build
+	@$(MAKE) -C bin build
 
 .PHONY: clean
 clean:
 	@$(MAKE) -C examples clean
-	@$(MAKE) -C bin clean clean-depend
-	@$(MAKE) -C lib clean-depend
+	@$(MAKE) -C bin clean
 
 .PHONY: install
 install:

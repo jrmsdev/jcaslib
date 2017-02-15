@@ -6,7 +6,7 @@ BUILDD ?= ../build
 build: $(BUILDD)/bin/jclib
 
 $(BUILDD)/bin/jclib: jclib.c
-	@make -C ../lib build
+	@$(MAKE) -C ../lib build
 	@mkdir -vp $(BUILDD)/bin
 	$(CC) $(CFLAGS) -I ../include -o $(BUILDD)/bin/jclib \
 			jclib.c $(BUILDD)/lib/libjc.a
@@ -14,7 +14,7 @@ $(BUILDD)/bin/jclib: jclib.c
 .PHONY: clean
 clean:
 	@rm -vrf $(BUILDD)/bin
-	@make -C ../lib clean
+	@$(MAKE) -C ../lib clean
 
 .PHONY: depend
 depend:

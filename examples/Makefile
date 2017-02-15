@@ -1,7 +1,15 @@
 .PHONY: all
 all:
-	@make -C path depend build
+	@$(MAKE) -C path build
 
 .PHONY: clean
 clean:
-	@make -C path clean clean-depend
+	@$(MAKE) -C path clean
+
+.PHONY: depend
+depend:
+	@$(MAKE) -C path depend
+
+.PHONY: clean-depend
+clean-depend:
+	@$(MAKE) -C path clean-depend
