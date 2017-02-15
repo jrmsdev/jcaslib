@@ -1,4 +1,3 @@
-#include <stdarg.h>
 #include <jclib/log.h>
 
 int log_dbg(char *fmt, ...) {

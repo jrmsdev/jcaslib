@@ -2,6 +2,7 @@
 #define JCLIB_LOG_H
 
 #include <stdio.h>
+#include <stdarg.h>
 
 int __logfp(FILE *fp, char *fmt, va_list ap);
 extern int log_print(char * fmt, ...);

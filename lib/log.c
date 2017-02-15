@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdarg.h>
 #include <jclib/log.h>
 
 int __logfp(FILE *fp, char *fmt, va_list ap) {

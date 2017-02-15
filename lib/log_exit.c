@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdarg.h>
 #include <jclib/log.h>
 
 void log_exit(int stat, char *fmt, ...) {
