@@ -2,18 +2,18 @@ include vars.mk
 
 .PHONY: build
 build:
-	@make -C lib depend
-	@make -C bin depend build
+	@$(MAKE) -C lib depend
+	@$(MAKE) -C bin depend build
 
 .PHONY: clean
 clean:
-	@make -C examples clean
-	@make -C bin clean clean-depend
-	@make -C lib clean-depend
+	@$(MAKE) -C examples clean
+	@$(MAKE) -C bin clean clean-depend
+	@$(MAKE) -C lib clean-depend
 
 .PHONY: install
 install:
-	@make clean && make build JCLIB_DEBUG=''
+	@$(MAKE) clean && make build JCLIB_DEBUG=''
 	@mkdir -vp $(PREFIX)/bin $(PREFIX)/lib $(PREFIX)/include/jclib
 	@$(INSTALL_EXE) build/bin/jclib $(PREFIX)/bin/jclib
 	@$(INSTALL_F) build/lib/libjc.a $(PREFIX)/lib/libjc.a
@@ -23,3 +23,7 @@ install:
 deinstall:
 	@rm -vf $(PREFIX)/bin/jclib $(PREFIX)/lib/libjc.a
 	@rm -rvf $(PREFIX)/include/jclib
+
+.PHONY: examples
+examples:
+	@$(MAKE) -C examples all
