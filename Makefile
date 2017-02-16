@@ -39,27 +39,30 @@ examples:
 
 
 .PHONY: install
-install: build .do-install
+install: build installdirs .do-install
+
+
+.PHONY: installdirs
+installdirs:
+	@mkdir -vp $(DESTDIR)$(PREFIX)/include/jclib
+	@mkdir -vp $(DESTDIR)$(PREFIX)/lib
+	@mkdir -vp $(DESTDIR)$(PREFIX)/bin
 
 
 .do-install: $(DESTDIR)$(PREFIX)/bin/jclib $(DESTDIR)$(PREFIX)/lib/libjc.a
-	@mkdir -vp $(DESTDIR)$(PREFIX)/include/jclib
 	@$(INSTALL_F) include/jclib/*.h $(DESTDIR)$(PREFIX)/include/jclib
 	@touch .do-install
 
 
 $(DESTDIR)$(PREFIX)/bin/jclib: build/bin/jclib
-	@mkdir -vp $(DESTDIR)$(PREFIX)/bin
 	@$(INSTALL_EXE) build/bin/jclib $(DESTDIR)$(PREFIX)/bin/jclib
 
 
 $(DESTDIR)$(PREFIX)/lib/libjc.a: build/lib/libjc.a
-	@mkdir -vp $(DESTDIR)$(PREFIX)/lib
 	@$(INSTALL_F) build/lib/libjc.a $(DESTDIR)$(PREFIX)/lib/libjc.a
 
 
 .PHONY: uninstall
 uninstall:
 	@rm -vf $(DESTDIR)$(PREFIX)/bin/jclib $(DESTDIR)$(PREFIX)/lib/libjc.a
-	@rm -vf $(DESTDIR)$(PREFIX)/bin/jclib* $(DESTDIR)$(PREFIX)/lib/libjc.a*
 	@rm -rvf $(DESTDIR)$(PREFIX)/include/jclib
