@@ -1,36 +1,29 @@
-include ../vars.mk
+SCRIPTSD = ../scripts
 
-BUILDD ?= ../build
+.PHONY: all
+all: build
 
 
 .PHONY: build
-build: $(BUILDD)/bin/jclib
-
-
-$(BUILDD)/bin/jclib: jclib.c $(BUILDD)/lib/libjc.a
-	@mkdir -vp $(BUILDD)/bin
-	$(CC) $(CFLAGS) -I ../include -o $(BUILDD)/bin/jclib \
-			jclib.c $(BUILDD)/lib/libjc.a
-
-
-$(BUILDD)/lib/libjc.a:
-	@make -C ../lib $(BUILDD)/lib/libjc.a
+build:
+	@$(SCRIPTSD)/mk-fordirs.sh build
 
 
 .PHONY: clean
 clean:
-	@rm -vrf $(BUILDD)/bin
+	@$(SCRIPTSD)/mk-fordirs.sh clean
 
 
 .PHONY: distclean
-distclean: clean clean-depend
+distclean:
+	@$(SCRIPTSD)/mk-fordirs.sh distclean
 
 
 .PHONY: depend
 depend:
-	$(CC) -I ../include -E -MM *.c >.depend
+	@$(SCRIPTSD)/mk-fordirs.sh depend
 
 
 .PHONY: clean-depend
 clean-depend:
-	@rm -vf .depend
+	@$(SCRIPTSD)/mk-fordirs.sh clean-depend
