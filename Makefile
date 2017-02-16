@@ -81,7 +81,8 @@ distclean:
 
 .PHONY: configure
 configure:
-	@echo "not implemented... yet!"
+	@$(MAKE) -C lib configure
+	@echo "you might want to run '$(MAKE) depend' now..."
 
 
 .PHONY: check

@@ -22,12 +22,12 @@ $(BUILDD)/libjc.a: $(OBJS)
 
 
 .build_info.h: .build_info.gen
-	@CC=$(CC) INCD=$(INCD) ./.build_info.gen
+	@CC=$(CC) INCD=$(INCD) $(SH) ./.build_info.gen
 	touch .build_info.h
 
 
 .PHONY: depend
-depend: .build_info.h
+depend: configure
 	$(CC) -I ../include -E -MM *.c >.depend
 
 
@@ -39,3 +39,8 @@ clean-depend:
 .PHONY: clean
 clean:
 	@rm -vrf .build_info.h $(BUILDD) $(OBJS)
+
+
+.PHONY: configure
+configure: .build_info.h
+	@CC="$(CC)" CFLAGS="$(CFLAGS)" $(SH) ./.configure.libs
