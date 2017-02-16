@@ -15,6 +15,16 @@ clean:
 	@rm -vf .do-install
 	@$(MAKE) -C lib clean
 	@$(MAKE) -C bin clean
+	@$(MAKE) -C examples clean
+
+
+.PHONY: distclean
+distclean:
+	@$(MAKE) clean
+	@$(MAKE) -C lib clean-depend
+	@$(MAKE) -C bin clean-depend
+	@$(MAKE) -C examples clean-depend
+	@rm -rfv build
 
 
 .PHONY: depend
