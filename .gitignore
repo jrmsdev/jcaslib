@@ -3,3 +3,4 @@
 .depend
 build/*
 tmp/*
+.do-install
