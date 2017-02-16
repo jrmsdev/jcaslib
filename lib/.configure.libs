@@ -7,7 +7,7 @@ checklib()
     local objf=.checklib-${lname}.o
     echo "#include <${lname}.h>" >${srcf}
     echo "int main(void){return 0;}" >>${srcf}
-    ${CC} ${CFLAGS} -o ${objf} ${srcf}
+    ${CC} ${CFLAGS} -o ${objf} ${srcf} 2>/dev/null
     ok=$?
     rm -f ${srcf} ${objf}
     if test "${ok}" -eq 0; then
@@ -17,6 +17,12 @@ checklib()
         echo "checklib ${lname} FAIL"
         return 1
     fi
+}
+
+
+uselib_gdbm()
+{
+    echo "should use gdbm..."
 }
 
 
