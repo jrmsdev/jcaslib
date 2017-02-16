@@ -1,22 +1,29 @@
+SCRIPTSD = ../scripts
+
 .PHONY: all
-all:
-	@$(MAKE) -C path build
+all: build
+
+
+.PHONY: build
+build:
+	@$(SCRIPTSD)/mk-fordirs.sh build
 
 
 .PHONY: clean
 clean:
-	@$(MAKE) -C path clean
+	@$(SCRIPTSD)/mk-fordirs.sh clean
 
 
 .PHONY: distclean
-distclean: clean clean-depend
+distclean:
+	@$(SCRIPTSD)/mk-fordirs.sh distclean
 
 
 .PHONY: depend
 depend:
-	@$(MAKE) -C path depend
+	@$(SCRIPTSD)/mk-fordirs.sh depend
 
 
 .PHONY: clean-depend
 clean-depend:
-	@$(MAKE) -C path clean-depend
+	@$(SCRIPTSD)/mk-fordirs.sh clean-depend

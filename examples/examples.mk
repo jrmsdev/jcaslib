@@ -1,5 +1,3 @@
-include ../vars.mk
-
 BINS != ls *.c | sed 's/\.c/\.bin/'
 CFLAGS += -I ../../include
 
@@ -18,6 +16,10 @@ clean:
 	@rm -vf *.bin *.o
 
 
+.PHONY: distclean
+distclean: clean clean-depend
+
+
 .PHONY: clean-lib
 clean-lib: clean
 	@$(MAKE) -C ../../lib clean
@@ -25,7 +27,7 @@ clean-lib: clean
 
 .PHONY: depend
 depend:
-	@$(CC) -I ../../include -E -MM *.c >.depend
+	$(CC) -I ../../include -E -MM *.c >.depend
 
 
 .PHONY: clean-depend
