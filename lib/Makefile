@@ -3,6 +3,7 @@ include ../vars.mk
 BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
 CFLAGS += -fPIC -c -I ../include
+SCRIPTSD ?= ../scripts
 
 
 .PHONY: build
@@ -21,8 +22,8 @@ $(BUILDD)/libjc.a: $(OBJS)
 	ar -rc $(BUILDD)/libjc.a $(OBJS)
 
 
-.build_info.h: .build_info.gen
-	@CC=$(CC) INCD=$(INCD) $(SH) ./.build_info.gen
+.build_info.h: $(SCRIPTSD)/build_info.sh
+	@CC=$(CC) INCD=$(INCD) $(SCRIPTSD)/build_info.sh
 	touch .build_info.h
 
 
@@ -38,9 +39,15 @@ clean-depend:
 
 .PHONY: clean
 clean:
-	@rm -vrf .build_info.h $(BUILDD) $(OBJS)
+	@rm -vrf $(BUILDD) $(OBJS)
+
+
+.PHONY: distclean
+distclean:
+	@$(MAKE) clean clean-depend
+	@rm -vrf .build_info.h
 
 
 .PHONY: configure
 configure: .build_info.h
-	@CC="$(CC)" CFLAGS="$(CFLAGS)" $(SH) ./.configure.libs
+	@CC="$(CC)" CFLAGS="$(CFLAGS)" $(SCRIPTSD)/configure-libs.sh

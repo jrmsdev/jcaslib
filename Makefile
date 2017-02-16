@@ -73,9 +73,9 @@ dist:
 .PHONY: distclean
 distclean:
 	@$(MAKE) clean
-	@$(MAKE) -C lib clean-depend
-	@$(MAKE) -C bin clean-depend
-	@$(MAKE) -C examples clean-depend
+	@$(MAKE) -C lib distclean
+	@$(MAKE) -C bin distclean
+	@$(MAKE) -C examples distclean
 	@rm -rfv build dist
 
 

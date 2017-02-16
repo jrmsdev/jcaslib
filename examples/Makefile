@@ -8,6 +8,10 @@ clean:
 	@$(MAKE) -C path clean
 
 
+.PHONY: distclean
+distclean: clean clean-depend
+
+
 .PHONY: depend
 depend:
 	@$(MAKE) -C path depend

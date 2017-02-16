@@ -22,6 +22,10 @@ clean:
 	@rm -vrf $(BUILDD)/bin
 
 
+.PHONY: distclean
+distclean: clean clean-depend
+
+
 .PHONY: depend
 depend:
 	$(CC) -I ../include -E -MM *.c >.depend
