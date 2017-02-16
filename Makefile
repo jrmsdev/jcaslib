@@ -11,6 +11,15 @@ clean:
 	@$(MAKE) -C lib clean
 	@$(MAKE) -C bin clean
 
+.PHONY: depend
+depend:
+	@$(MAKE) -C lib depend
+	@$(MAKE) -C bin depend
+
+.PHONY: examples
+examples:
+	@$(MAKE) -C examples all
+
 .PHONY: install
 install: build .do-install
 
@@ -31,7 +40,3 @@ $(PREFIX)/lib/libjc.a: build/lib/libjc.a
 deinstall:
 	@rm -vf $(PREFIX)/bin/jclib $(PREFIX)/lib/libjc.a
 	@rm -rvf $(PREFIX)/include/jclib
-
-.PHONY: examples
-examples:
-	@$(MAKE) -C examples all

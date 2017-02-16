@@ -14,6 +14,10 @@ build: $(BINS)
 clean:
 	@rm -vf *.bin *.o
 
+.PHONY: clean-lib
+clean-lib: clean
+	@$(MAKE) -C ../../lib clean
+
 .PHONY: depend
 depend:
 	@$(CC) -I ../../include -E -MM *.c >.depend

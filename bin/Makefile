@@ -19,7 +19,7 @@ clean:
 
 .PHONY: depend
 depend:
-	@$(CC) -I ../include -E -MM *.c >.depend
+	$(CC) -I ../include -E -MM *.c >.depend
 
 .PHONY: clean-depend
 clean-depend:
