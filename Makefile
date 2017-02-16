@@ -79,6 +79,11 @@ distclean:
 	@rm -rfv build dist
 
 
+.PHONY: configure
+configure:
+	@echo "not implemented... yet!"
+
+
 .PHONY: check
 check:
 	@echo "no checks... yet!"
