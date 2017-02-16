@@ -5,3 +5,6 @@ PREFIX ?= /opt/pkg
 
 INSTALL_EXE = install -v -m 0755 -b
 INSTALL_F = install -v -m 0644 -b
+
+.SUFFIXES:
+.SUFFIXES: .c .o
