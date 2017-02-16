@@ -1,3 +1,4 @@
+SH = /bin/sh
 JCLIB_DEBUG ?=
 CFLAGS += -Wall -pedantic -std=c11 $(JCLIB_DEBUG)
 
