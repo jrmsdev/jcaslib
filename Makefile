@@ -18,15 +18,6 @@ clean:
 	@$(MAKE) -C examples clean
 
 
-.PHONY: distclean
-distclean:
-	@$(MAKE) clean
-	@$(MAKE) -C lib clean-depend
-	@$(MAKE) -C bin clean-depend
-	@$(MAKE) -C examples clean-depend
-	@rm -rfv build
-
-
 .PHONY: depend
 depend:
 	@$(MAKE) -C lib depend
@@ -66,3 +57,28 @@ $(DESTDIR)$(PREFIX)/lib/libjc.a: build/lib/libjc.a
 uninstall:
 	@rm -vf $(DESTDIR)$(PREFIX)/bin/jclib $(DESTDIR)$(PREFIX)/lib/libjc.a
 	@rm -rvf $(DESTDIR)$(PREFIX)/include/jclib
+
+
+DIST_VERSION != grep -F ' JCL_VERSION ' include/jclib/version.h | \
+			cut -d ' ' -f 3 | sed 's/"//g'
+
+
+.PHONY: dist
+dist:
+	@$(MAKE) install DESTDIR=dist/work INSTALL_BACKUP=''
+	@cd dist/work && tar -cJf ../jclib-v$(DIST_VERSION).txz ./
+	touch dist/jclib-v$(DIST_VERSION).txz
+
+
+.PHONY: distclean
+distclean:
+	@$(MAKE) clean
+	@$(MAKE) -C lib clean-depend
+	@$(MAKE) -C bin clean-depend
+	@$(MAKE) -C examples clean-depend
+	@rm -rfv build dist
+
+
+.PHONY: check
+check:
+	@echo "no checks... yet!"

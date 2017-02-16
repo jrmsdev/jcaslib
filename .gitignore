@@ -1,6 +1,7 @@
-*.o
 *.a
+*.o
 .depend
-build/*
-tmp/*
 .do-install
+build/*
+dist/*
+tmp/*
