@@ -75,5 +75,6 @@ char * str_join (size_t count, const char *sep, char *str, ...)
     //~ free(r);
     //~ return (newr);
 
+    printf("str_join: %s\n\n", r);
     return (r);
 }
