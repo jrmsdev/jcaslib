@@ -38,6 +38,10 @@ check_dbm()
 
 
 # MAIN
+test -s lib.c || {
+    echo "ERR: ${0} not running from source lib dir" >&2
+    exit 1
+}
 check_dbm
 
 exit 0
