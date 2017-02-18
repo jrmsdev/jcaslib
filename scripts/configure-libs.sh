@@ -1,5 +1,9 @@
 #!/bin/sh
 
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+INCD=`dirname $0`/../include/jclib
+
 checklib()
 {
     local lname=$1
@@ -30,7 +34,7 @@ uselib()
     local lname="$1"
     shift
     local srcs=$@
-    local libf=uselib.${lname}.h
+    local libf=${INCD}/uselib.${lname}.h
     rm -f ${libf}
     touch ${libf}
     for l in ${srcs}; do

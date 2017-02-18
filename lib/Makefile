@@ -45,7 +45,7 @@ clean:
 .PHONY: distclean
 distclean:
 	@$(MAKE) clean clean-depend
-	@rm -vrf .build_info.h uselib.*.h
+	@rm -vrf .build_info.h $(INCD)/uselib.*.h
 
 
 .PHONY: configure

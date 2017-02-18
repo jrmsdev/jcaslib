@@ -5,7 +5,7 @@
  * uselib.dbm.h file is created using 'make configure'
  * by default ndbm.h is preferred, we try gdbm.h otherwise
  */
-#include "uselib.dbm.h"
+#include <jclib/uselib.dbm.h>
 
 extern DBM * db_openfile (const char *filename);
 
