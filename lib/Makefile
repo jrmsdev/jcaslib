@@ -2,7 +2,7 @@ include ../vars.mk
 
 BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
-CFLAGS += -fPIC -c -I ../include
+CFLAGS += -fPIC -c -I../include -I.
 SCRIPTSD ?= ../scripts
 
 
@@ -29,7 +29,7 @@ $(BUILDD)/libjc.a: $(OBJS)
 
 .PHONY: depend
 depend: configure
-	$(CC) -I ../include -E -MM *.c >.depend
+	$(CC) -I../include -I. -E -MM *.c >.depend
 
 
 .PHONY: clean-depend
@@ -45,7 +45,7 @@ clean:
 .PHONY: distclean
 distclean:
 	@$(MAKE) clean clean-depend
-	@rm -vrf .build_info.h
+	@rm -vrf .build_info.h uselib.*.h
 
 
 .PHONY: configure

@@ -3,33 +3,47 @@
 checklib()
 {
     local lname=$1
-    local srcf=.checklib-${lname}.c
-    local objf=.checklib-${lname}.o
-    echo "#include <${lname}.h>" >${srcf}
-    echo "int main(void){return 0;}" >>${srcf}
-    ${CC} ${CFLAGS} -o ${objf} ${srcf} 2>/dev/null
-    ok=$?
-    rm -f ${srcf} ${objf}
-    if test "${ok}" -eq 0; then
-        echo "checklib ${lname} OK"
-        return 0
-    else
-        echo "checklib ${lname} FAIL"
-        return 1
-    fi
+    shift
+    local srcs=$@
+    local libf=.checklib-${lname}.c
+    rm -f ${libf}
+    touch ${libf}
+    for l in ${srcs}; do
+        echo "#include <${l}>" >>${libf}
+        echo "int main(void){return 0;}" >>${libf}
+        ${CC} ${CFLAGS} -o /dev/null ${libf} 2>/dev/null
+        ret=$?
+        rm -f ${libf}
+        if test "${ret}" -eq 0; then
+            echo "checklib ${l} OK"
+        else
+            echo "checklib ${l} FAIL"
+            return 1
+        fi
+    done
+    return 0
 }
 
 
-uselib_gdbm()
+uselib()
 {
-    echo "should use gdbm..."
+    local lname="$1"
+    shift
+    local srcs=$@
+    local libf=uselib.${lname}.h
+    rm -f ${libf}
+    touch ${libf}
+    for l in ${srcs}; do
+        echo "#include <${l}>" >>${libf}
+    done
 }
 
 
 check_dbm()
 {
-    checklib ndbm || {
-        (checklib gdbm && uselib_gdbm) || {
+    uselib dbm ndbm.h
+    checklib dbm ndbm.h || {
+        (checklib dbm gdbm.h && uselib dbm gdbm.h) || {
             echo "ERR: could not found ndbm nor gdbm libraries..."
             exit 1
         }
