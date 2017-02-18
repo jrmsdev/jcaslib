@@ -2,7 +2,8 @@ include ../vars.mk
 
 BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
-CFLAGS += -fPIC -c -I../include -I.
+CFLAGS_INCLUDE = -I../include
+CFLAGS += $(CFLAGS_INCLUDE) -fPIC -c
 SCRIPTSD ?= ../scripts
 
 
@@ -29,7 +30,7 @@ $(BUILDD)/libjc.a: $(OBJS)
 
 .PHONY: depend
 depend: configure
-	$(CC) -I../include -I. -E -MM *.c >.depend
+	$(CC) $(CFLAGS_INCLUDE) -E -MM *.c >.depend
 
 
 .PHONY: clean-depend
