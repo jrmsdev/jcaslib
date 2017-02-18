@@ -66,7 +66,7 @@ DIST_VERSION != grep -F ' JCL_VERSION ' include/jclib/version.h | \
 .PHONY: dist
 dist:
 	@$(MAKE) install DESTDIR=dist/work INSTALL_BACKUP=''
-	@cd dist/work && tar -cJf ../jclib-v$(DIST_VERSION).txz ./
+	@cd dist/work && tar -cJf ../jclib-v$(DIST_VERSION).txz ./*
 	touch dist/jclib-v$(DIST_VERSION).txz
 
 
