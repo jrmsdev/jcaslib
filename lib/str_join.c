@@ -1,11 +1,7 @@
-#include <stdio.h>
-#include <string.h>
-#include <jclib/lib.h>
 #include <jclib/str.h>
+#include <jclib/lib.h>
 
-#define DEBUG 0
-
-char * str_join (size_t count, const char *sep, char *str, ...)
+char * str_join (size_t count, const char *sep, const char *str, ...)
 {
     va_list ap;
     size_t allocated = STR_ALLOC;
@@ -21,7 +17,7 @@ char * str_join (size_t count, const char *sep, char *str, ...)
 
     va_start (ap, str);
 
-    for (char * s = str; idx < count; s = va_arg (ap, char *), idx++)
+    for (const char * s = str; idx < count; s = va_arg (ap, char *), idx++)
     {
         size_t slen = strlen (s);
         DEBUG && printf("idx:%zu - rlen:%zu - slen:%zu\n", idx, rlen, slen);
@@ -75,6 +71,6 @@ char * str_join (size_t count, const char *sep, char *str, ...)
     //~ free(r);
     //~ return (newr);
 
-    printf("str_join: %s\n\n", r);
+    DEBUG && printf("str_join: %s\n\n", r);
     return (r);
 }
