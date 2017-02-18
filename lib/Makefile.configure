@@ -1,0 +1,11 @@
+CFG_CFLAGS_DEFINE =
+
+.ifdef USE_GDBM
+CFG_CFLAGS_DEFINE += -DUSE_GDBM
+.endif
+
+.PHONY: configure
+configure: .build_info.h
+	@rm -f .opts.mk ; touch .opts.mk
+	@echo 'CFLAGS_DEFINE += $(CFG_CFLAGS_DEFINE)' >>.opts.mk
+	@cat .opts.mk

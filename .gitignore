@@ -2,6 +2,7 @@
 *.o
 .depend
 .do-install
+.opts.mk
 build/*
 dist/*
 tmp/*

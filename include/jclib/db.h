@@ -1,11 +1,11 @@
 #ifndef JCLIB_DB_H
 #define JCLIB_DB_H
 
-/*
- * uselib.dbm.h file is created using 'make configure'
- * by default ndbm.h is preferred, we try gdbm.h otherwise
- */
-#include <jclib/uselib.dbm.h>
+#ifdef USE_GDBM
+#  include <gdbm.h>
+#else
+#  include <ndbm.h>
+#endif
 
 extern DBM * db_openfile (const char *filename);
 

@@ -1,25 +1,25 @@
 include ../vars.mk
 
+.if exists(.opts.mk)
+include .opts.mk
+.endif
+
+
 BUILDD ?= ../build/lib
 INCD ?= ../include/jclib
 CFLAGS_INCLUDE = -I../include
-CFLAGS += $(CFLAGS_INCLUDE) -fPIC -c
+CFLAGS += $(CFLAGS_INCLUDE) $(CFLAGS_DEFINE) -fPIC -c
 SCRIPTSD ?= ../scripts
-
-
-.PHONY: build
-build: .pre-build .build_info.h $(BUILDD)/libjc.a
-
-
-.PHONY: .pre-build
-.pre-build:
-	@mkdir -vp $(BUILDD)
-
 
 OBJS != ls *.c | sed 's/\.c/\.o/'
 
 
+.PHONY: build
+build: .build_info.h $(BUILDD)/libjc.a
+
+
 $(BUILDD)/libjc.a: $(OBJS)
+	@mkdir -vp $(BUILDD)
 	ar -rc $(BUILDD)/libjc.a $(OBJS)
 
 
@@ -29,7 +29,7 @@ $(BUILDD)/libjc.a: $(OBJS)
 
 
 .PHONY: depend
-depend: configure
+depend: .build_info.h
 	$(CC) $(CFLAGS_INCLUDE) -E -MM *.c >.depend
 
 
@@ -44,11 +44,14 @@ clean:
 
 
 .PHONY: distclean
-distclean:
-	@$(MAKE) clean clean-depend
-	@rm -vrf .build_info.h $(INCD)/uselib.*.h
+distclean: clean clean-depend
+	@rm -vf .build_info.h .opts.mk
 
 
-.PHONY: configure
-configure: .build_info.h
-	@CC="$(CC)" CFLAGS="$(CFLAGS)" $(SCRIPTSD)/configure-libs.sh
+## .PHONY: configure
+## configure: .build_info.h
+## 	@CC="$(CC)" CFLAGS="$(CFLAGS)" $(SCRIPTSD)/configure-libs.sh
+## 	@echo $(OPTS_TEST)
+
+
+include Makefile.configure
