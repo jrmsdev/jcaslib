@@ -48,10 +48,4 @@ distclean: clean clean-depend
 	@rm -vf .build_info.h .opts.mk
 
 
-## .PHONY: configure
-## configure: .build_info.h
-## 	@CC="$(CC)" CFLAGS="$(CFLAGS)" $(SCRIPTSD)/configure-libs.sh
-## 	@echo $(OPTS_TEST)
-
-
 include Makefile.configure
