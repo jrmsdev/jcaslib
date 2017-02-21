@@ -48,4 +48,16 @@ distclean: clean clean-depend
 	@rm -vf .build_info.h .opts.mk
 
 
-include Makefile.configure
+# -- configure
+
+CFG_CFLAGS_DEFINE =
+
+.ifdef USE_GDBM
+CFG_CFLAGS_DEFINE += -DUSE_GDBM
+.endif
+
+.PHONY: configure
+configure: .build_info.h
+	@rm -f .opts.mk ; touch .opts.mk
+	@echo 'CFLAGS_DEFINE += $(CFG_CFLAGS_DEFINE)' >>.opts.mk
+	touch .opts.mk
