@@ -1,15 +1,17 @@
 #ifndef JCLIB_STR_H
 #define JCLIB_STR_H
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
+#include <stdlib.h>
 
-#define DEBUG 0
 #define STR_ALLOC 50
 
-extern char * str_init ();
-extern char * str_init_len (size_t len);
-extern char * str_join (size_t count, const char *sep, const char *str, ...);
+typedef struct {
+    char *data;
+    size_t len;
+    size_t allocated;
+} str_type;
+
+extern str_type * str_alloc ();
+extern void str_free (str_type *s);
 
 #endif /* JCLIB_STR_H */
