@@ -1,2 +1,2 @@
-include ../../vars.mk
-include ../bin.mk
+include ../../mk/vars.mk
+include ../../mk/bin.mk

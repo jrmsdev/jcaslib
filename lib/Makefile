@@ -1,4 +1,4 @@
-include ../vars.mk
+include ../mk/vars.mk
 
 .if exists(.opts.mk)
 include .opts.mk

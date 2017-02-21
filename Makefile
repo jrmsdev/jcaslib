@@ -1,4 +1,4 @@
-include vars.mk
+include mk/vars.mk
 
 .PHONY: all
 all: build

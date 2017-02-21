@@ -1,2 +1,2 @@
-include ../../vars.mk
-include ../examples.mk
+include ../../mk/vars.mk
+include ../../mk/examples.mk
