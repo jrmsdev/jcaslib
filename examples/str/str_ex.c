@@ -18,5 +18,15 @@ int main (void)
     }
 
     str_free (s);
+
+    s = str_alloc();
+    str_set (s, "lilili");
+    printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
+
+    str_join (s, "/", "lo", "lo", "lo");
+    printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
+
+    str_free (s);
+
     return 0;
 }
