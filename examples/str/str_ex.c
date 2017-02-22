@@ -8,16 +8,13 @@ int main (void)
     str_set (s, "lalala");
     printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
 
+    str_cat (s, "lelele");
+    printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
+
     for (size_t i = 0; i < s->allocated; i++)
     {
-        if (s->data[i] == '\0')
-        {
-            printf ("%zu: NULL\n", i);
-        }
-        else
-        {
+        if (s->data[i] != '\0')
             printf ("%zu: %c\n", i, s->data[i]);
-        }
     }
 
     str_free (s);
