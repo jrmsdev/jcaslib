@@ -15,6 +15,8 @@ extern str_type * str_alloc ();
 extern void str_free (str_type *s);
 extern void str_nset (str_type *s, const char *adds, size_t addlen);
 extern void str_set (str_type *s, const char *adds);
-extern char * str_get (str_type *s);
+
+/* str_get macro */
+#define str_get(s) s->data
 
 #endif /* JCLIB_STR_H */
