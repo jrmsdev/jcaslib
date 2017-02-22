@@ -3,6 +3,8 @@
 
 void str_nset (str_type *s, const char *adds, size_t addlen)
 {
+    while (s->allocated < (s->len + addlen - 1))
+        str_realloc (s);
     memcpy (s->data, adds, addlen);
     s->len = addlen;
 }
