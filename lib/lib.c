@@ -18,4 +18,3 @@ void * xrealloc (void *ptr, size_t size)
         err(1, "could not realloc");
     return (newp);
 }
-
