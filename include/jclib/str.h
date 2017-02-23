@@ -2,6 +2,7 @@
 #define JCLIB_STR_H
 
 #include <stdlib.h>
+#include <stdarg.h>
 
 #define STR_ALLOC 50
 
@@ -21,6 +22,7 @@ extern void str_set (str_type *s, const char *adds);
 extern void str_ncat (str_type *s, const char *adds, size_t addlen);
 extern void str_cat (str_type *s, const char *adds);
 
+extern void str_vjoin (str_type *s, const char *sep, const char *str, va_list ap);
 extern void str_join (str_type *s, const char *sep, const char *str, ...);
 
 /* str_get macro */
