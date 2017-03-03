@@ -25,4 +25,14 @@ clean:
 	@rm -vf $(TESTS) *.test.fail
 
 .PHONY: distclean
-distclean: clean
+distclean: clean clean-depend
+
+
+.PHONY: depend
+depend:
+	$(CC) -I $(INCD) -E -MM *.c | sed 's/\.o:/\.test:/' >.depend
+
+
+.PHONY: clean-depend
+clean-depend:
+	@rm -vf .depend
