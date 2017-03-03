@@ -4,7 +4,7 @@ test -z "${MK_ACTION}" && {
     echo "empty make action" >&2
     exit 1
 }
-for bindir in `ls */Makefile | sed 's#/Makefile$##'`; do
-    make -C ${bindir} ${MK_ACTION}
+for d in `ls */Makefile | sed 's#/Makefile$##'`; do
+    make -C ${d} ${MK_ACTION}
 done
 exit 0
