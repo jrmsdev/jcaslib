@@ -89,4 +89,4 @@ configure:
 
 .PHONY: check
 check:
-	@$(MAKE) -C tests all
+	@$(MAKE) -C tests check

@@ -6,23 +6,23 @@ SCRIPTSD = ../scripts
 TEST_SUITE ?= $(TESTS)
 
 .PHONY: all
-all: run
+all: $(TEST_SUITE)
 
-.PHONY: compile
-compile: $(TEST_SUITE)
-
-.PHONY: run
-run: compile
+.PHONY: check
+check: all
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 .SUFFIXES:
 .SUFFIXES: .c .run
-.c.run:
-	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET) $(.PREFIX).c
+.c.run: test.o
+	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET) $(.PREFIX).c test.o
+
+test.o: test.h test.c
+	$(CC) $(CFLAGS) -I$(INCD) -fPIC -c -o test.o test.c
 
 .PHONY: clean
 clean:
-	@rm -vf $(TESTS) *_t.fail
+	@rm -vf $(TESTS) test.o *_t.fail
 
 .PHONY: distclean
 distclean: clean clean-depend
@@ -30,7 +30,7 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend:
-	$(CC) -I $(INCD) -E -MM *_t.c | sed 's/\.o:/\.run:/' >.depend
+	$(CC) -I$(INCD) -E -MM *_t.c | sed 's/\.o:/\.run:/' >.depend
 
 
 .PHONY: clean-depend
