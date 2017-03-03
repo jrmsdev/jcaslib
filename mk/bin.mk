@@ -1,16 +1,17 @@
 BUILDD = ../../build
 INCD = ../../include
 BIN_NAME != basename $(PWD)
+BIN_PATH = $(BUILDD)/bin/$(BIN_NAME)
+LIB_PATH = $(BUILDD)/lib/libjc.a
 
 
 .PHONY: build
-build: $(BUILDD)/bin/$(BIN_NAME)
+build: $(BIN_PATH)
 
 
-$(BUILDD)/bin/$(BIN_NAME): $(BIN_NAME).c $(BUILDD)/lib/libjc.a
+$(BIN_PATH): $(BIN_NAME).c $(LIB_PATH)
 	@mkdir -vp $(BUILDD)/bin
-	$(CC) $(CFLAGS) -I $(INCD) -o $(BUILDD)/bin/$(BIN_NAME) \
-			$(BIN_NAME).c $(BUILDD)/lib/libjc.a
+	$(CC) $(CFLAGS) -I $(INCD) -o $(BIN_PATH) $(BIN_NAME).c $(LIB_PATH)
 
 
 $(BUILDD)/lib/libjc.a:
@@ -28,7 +29,8 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend:
-	$(CC) -I $(INCD) -E -MM *.c >.depend
+	$(CC) -I $(INCD) -E -MM $(BIN_NAME).c |\
+			sed 's#^$(BIN_NAME)\.o\:#$(BIN_PATH):#' >.depend
 
 
 .PHONY: clean-depend
