@@ -1,15 +1,16 @@
 #include <jclib/str.h>
 #include <string.h>
 
-void str_nset (str_type *s, const char *adds, size_t addlen)
+void
+str_nset (str_type *dst, const char *adds, size_t addlen)
 {
-    while (s->allocated < (addlen + 1))
-        str_realloc (s);
-    memcpy (s->data, adds, addlen);
-    s->len = addlen;
+    while (dst->allocated < (addlen + 1))
+        str_realloc (dst);
+    memcpy (dst->data, adds, addlen);
+    dst->len = addlen;
 }
 
-void str_set (str_type *s, const char *adds)
+void str_set (str_type *dst, const char *adds)
 {
-    str_nset (s, adds, strlen (adds));
+    str_nset (dst, adds, strlen (adds));
 }

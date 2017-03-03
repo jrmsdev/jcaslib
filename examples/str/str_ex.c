@@ -1,7 +1,8 @@
 #include <jclib/str.h>
 #include <stdio.h>
 
-int main (void)
+int
+main (void)
 {
     str_type *s = str_alloc ();
 

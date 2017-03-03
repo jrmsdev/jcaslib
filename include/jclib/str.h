@@ -16,14 +16,14 @@ extern str_type * str_alloc ();
 extern void str_realloc (str_type *s);
 extern void str_free (str_type *s);
 
-extern void str_nset (str_type *s, const char *adds, size_t addlen);
-extern void str_set (str_type *s, const char *adds);
+extern void str_nset (str_type *dst, const char *adds, size_t addlen);
+extern void str_set (str_type *dst, const char *adds);
 
-extern void str_ncat (str_type *s, const char *adds, size_t addlen);
-extern void str_cat (str_type *s, const char *adds);
+extern void str_ncat (str_type *dst, const char *adds, size_t addlen);
+extern void str_cat (str_type *dst, const char *adds);
 
-extern void str_vjoin (str_type *s, const char *sep, int count, const char *str, va_list ap);
-extern void str_join (str_type *s, const char *sep, int count, const char *str, ...);
+extern void str_vjoin (str_type *dst, const char *sep, int count, const char *str, va_list ap);
+extern void str_join (str_type *dst, const char *sep, int count, const char *str, ...);
 
 /* str_get macro */
 #define str_get(s) s->data
