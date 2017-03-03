@@ -23,7 +23,7 @@ int main (void)
     str_set (s, "lilili");
     printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
 
-    str_join (s, "/", "lo", "lo", "lo");
+    str_join (s, "/", 5, "la", "le", "li", "lo", "lu");
     printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
 
     str_free (s);
