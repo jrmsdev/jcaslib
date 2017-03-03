@@ -1,5 +1,3 @@
-*.a
-*.o
 *.swp
 *_t.run
 *_t.fail

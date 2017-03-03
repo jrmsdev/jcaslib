@@ -20,7 +20,6 @@ addline JCL_BUILD_BY "`id -un`@`uname -n`"
 addline JCL_BUILD_EPOCH "`date '+%s'`"
 addline JCL_BUILD_OS "`uname -snrm`"
 addline JCL_CC_VERSION "`${CC} --version | head -n 1`"
-addline JCL_MODULES "`ls ${INCD}/*.h | grep -Ev '^uselib\.' | sort | \
-            sed "s#${INCD}/##" | sed 's/\.h//' | xargs echo`"
+addline JCL_MODULES "`ls ../*/Makefile | sed 's#/Makefile##' | sed 's#^\.\./##' | sort | xargs echo`"
 
 exit 0

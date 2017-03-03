@@ -1,63 +1,51 @@
-include ../mk/vars.mk
+BUILDD = ../build/lib
+SCRIPTSD = ../scripts
+LIB_PATH = $(BUILDD)/libjc.a
 
-.if exists(.opts.mk)
-include .opts.mk
-.endif
+MOD_SRCS != ls */*.c
+MOD_OBJS =
+.for src in $(MOD_SRCS)
+MOD_OBJS += $(BUILDD)/$(src:S/.c/.o/)
+.endfor
 
 
-BUILDD ?= ../build/lib
-INCD ?= ../include/jclib
-CFLAGS_INCLUDE = -I../include
-CFLAGS += $(CFLAGS_INCLUDE) $(CFLAGS_DEFINE) -fPIC -c
-SCRIPTSD ?= ../scripts
-
-OBJS != ls *.c | sed 's/\.c/\.o/'
+.PHONY: all
+all: build
 
 
 .PHONY: build
-build: .build_info.h $(BUILDD)/libjc.a
+build: $(LIB_PATH)
 
 
-$(BUILDD)/libjc.a: $(OBJS)
+$(LIB_PATH): $(MOD_OBJS)
 	@mkdir -vp $(BUILDD)
-	ar -rc $(BUILDD)/libjc.a $(OBJS)
+	ar -rc $(LIB_PATH) $(MOD_OBJS)
 
 
-.build_info.h: $(SCRIPTSD)/build_info.sh
-	@CC=$(CC) INCD=$(INCD) $(SCRIPTSD)/build_info.sh
-	touch .build_info.h
-
-
-.PHONY: depend
-depend: .build_info.h
-	$(CC) $(CFLAGS_INCLUDE) -E -MM *.c >.depend
-
-
-.PHONY: clean-depend
-clean-depend:
-	@rm -vf .depend
+$(MOD_OBJS):
+	@$(MAKE) -C $(.TARGET:H:T) build
 
 
 .PHONY: clean
 clean:
-	@rm -vrf $(BUILDD) $(OBJS) .build_info.h
+	@$(SCRIPTSD)/mk-fordirs.sh clean
 
 
 .PHONY: distclean
-distclean: clean clean-depend
-	@rm -vf .opts.mk
+distclean:
+	@$(SCRIPTSD)/mk-fordirs.sh distclean
 
 
-# -- configure
+.PHONY: depend
+depend:
+	@$(SCRIPTSD)/mk-fordirs.sh depend
 
-CFG_CFLAGS_DEFINE =
 
-.ifdef USE_GDBM
-CFG_CFLAGS_DEFINE += -DUSE_GDBM
-.endif
+.PHONY: clean-depend
+clean-depend:
+	@$(SCRIPTSD)/mk-fordirs.sh clean-depend
+
 
 .PHONY: configure
-configure: .build_info.h
-	@rm -f .opts.mk ; touch .opts.mk
-	@echo 'CFLAGS_DEFINE += $(CFG_CFLAGS_DEFINE)' >>.opts.mk
-	touch .opts.mk
+configure:
+	@$(SCRIPTSD)/mk-fordirs.sh configure
