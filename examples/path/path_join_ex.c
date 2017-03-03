@@ -1,26 +1,25 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
-#include <err.h>
 #include <jclib/path.h>
+#include <stdio.h>
 
-int main(int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
-    path_type p;
-    memset(p, '\0', PATH_MAX_LEN);
+    str_type *p = str_alloc ();
 
-    path_join(p, 4, "/etc", "1", "2", "3");
-    printf("path: '%s'\n", p);
+    path_join (p, 4, "/etc", "1", "2", "3");
+    printf ("path: '%s'\n", str_get (p));
 
     if (argc > 1)
     {
-        memset(p, '\0', PATH_MAX_LEN);
+        str_free (p);
+        p = str_alloc();
         for (int idx = 1; idx < argc; idx++)
         {
-            path_join(p, 2, p, argv[idx]);
-       }
-       printf("path: '%s'\n", p);
+            path_join (p, 1, argv[idx]);
+        }
+        printf ("path: '%s'\n", str_get (p));
     }
 
-    return 0;
+    str_free (p);
+    return (0);
 }
