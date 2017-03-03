@@ -10,7 +10,7 @@ build: $(BUILDD)/bin/$(BIN_NAME)
 $(BUILDD)/bin/$(BIN_NAME): $(BIN_NAME).c $(BUILDD)/lib/libjc.a
 	@mkdir -vp $(BUILDD)/bin
 	$(CC) $(CFLAGS) -I $(INCD) -o $(BUILDD)/bin/$(BIN_NAME) \
-			jclib.c $(BUILDD)/lib/libjc.a
+			$(BIN_NAME).c $(BUILDD)/lib/libjc.a
 
 
 $(BUILDD)/lib/libjc.a:
