@@ -1,6 +1,6 @@
 include ../mk/vars.mk
 
-TESTS != ls *.c | sed 's/\.c/\.test/'
+TESTS != ls *_t.c | sed 's/_t\.c/_t\.run/'
 INCD = ../include
 SCRIPTSD = ../scripts
 TEST_SUITE ?= $(TESTS)
@@ -16,13 +16,13 @@ run: compile
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 .SUFFIXES:
-.SUFFIXES: .c .test
-.c.test:
+.SUFFIXES: .c .run
+.c.run:
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET) $(.PREFIX).c
 
 .PHONY: clean
 clean:
-	@rm -vf $(TESTS) *.test.fail
+	@rm -vf $(TESTS) *_t.fail
 
 .PHONY: distclean
 distclean: clean clean-depend
@@ -30,7 +30,7 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend:
-	$(CC) -I $(INCD) -E -MM *.c | sed 's/\.o:/\.test:/' >.depend
+	$(CC) -I $(INCD) -E -MM *_t.c | sed 's/\.o:/\.run:/' >.depend
 
 
 .PHONY: clean-depend
