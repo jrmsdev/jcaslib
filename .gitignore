@@ -1,6 +1,7 @@
 *.a
 *.o
 *.swp
+*.test
 .depend
 .do-install
 .opts.mk

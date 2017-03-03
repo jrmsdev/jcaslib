@@ -16,6 +16,7 @@ clean:
 	@$(MAKE) -C lib clean
 	@$(MAKE) -C bin clean
 	@$(MAKE) -C examples clean
+	@$(MAKE) -C tests clean
 
 
 .PHONY: depend
@@ -76,6 +77,7 @@ distclean:
 	@$(MAKE) -C lib distclean
 	@$(MAKE) -C bin distclean
 	@$(MAKE) -C examples distclean
+	@$(MAKE) -C tests distclean
 	@rm -rfv build dist
 
 
@@ -87,4 +89,4 @@ configure:
 
 .PHONY: check
 check:
-	@echo "no checks... yet!"
+	@$(MAKE) -C tests all
