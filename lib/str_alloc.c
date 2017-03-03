@@ -2,7 +2,9 @@
 #include <jclib/lib.h>
 #include <string.h>
 
-str_type * str_alloc ()
+
+str_type *
+str_alloc ()
 {
     str_type *s = (str_type *) xmalloc (sizeof (str_type));
     s->allocated = STR_ALLOC * sizeof (char);
@@ -11,7 +13,9 @@ str_type * str_alloc ()
     return s;
 }
 
-void str_realloc (str_type *s)
+
+void
+str_realloc (str_type *s)
 {
     char *d = (char *) xrealloc (s->data, s->allocated + STR_ALLOC);
     s->allocated += STR_ALLOC;

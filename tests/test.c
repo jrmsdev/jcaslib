@@ -1,6 +1,4 @@
 #include "test.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 void
 t_check (int status, const char *errmsg)

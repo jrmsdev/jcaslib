@@ -1,6 +1,5 @@
 #include "../lib/lib.c"
 #include "test.h"
-#include <stdlib.h>
 #include <string.h>
 
 
@@ -8,6 +7,7 @@ void
 xrealloc_t (void)
 {
     char *p = (char *) xmalloc (50);
+    t_check (EQ (p[49], '\0'), "xrealloc: initial p[49] != \\0");
     p = (char *) xrealloc (p, 60);
     memset (p + 50, 'T', 10);
     t_check (EQ (p[49], '\0'), "xrealloc: p[49] != \\0");

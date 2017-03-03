@@ -25,7 +25,7 @@ do
         t_ok=`expr $t_ok + 1`
         rm -f ./${tn}.fail
     else
-        echo " FAIL (${stat})"
+        echo " FAIL"
         echo "STATUS: ${stat}" >>./${tn}.fail
         t_fail=`expr $t_fail + 1`
     fi
