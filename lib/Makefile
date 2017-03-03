@@ -40,12 +40,12 @@ clean-depend:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(BUILDD) $(OBJS)
+	@rm -vrf $(BUILDD) $(OBJS) .build_info.h
 
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf .build_info.h .opts.mk
+	@rm -vf .opts.mk
 
 
 # -- configure
