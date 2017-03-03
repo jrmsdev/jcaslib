@@ -1,9 +1,14 @@
 #!/bin/sh
 
-if test -z "${TEST_SUITE}"
-then
-    TEST_SUITE="*_t.run"
-fi
+test -z "${TEST_SUITE}" && {
+    echo "ERR: no test suite" >&2
+    exit 1
+}
+
+test -s test.c || {
+    echo "ERR: not running from tests dir" >&2
+    exit 1
+}
 
 echo "jclib test start: `date -R`"
 echo
@@ -14,27 +19,27 @@ t_fail=0
 
 for t in ${TEST_SUITE}
 do
-    tn=`basename $t .run`
+    tn=`echo "$t" | sed 's#\.run##'`
     echo -n "${tn}..."
-    ./${t} >./${tn}.fail 2>./${tn}.fail
+    ../build/tests/${t} >../build/tests/${tn}.fail 2>../build/tests/${tn}.fail
     stat=$?
     t_total=`expr $t_total + 1`
     if test $stat -eq 0
     then
         echo " OK"
         t_ok=`expr $t_ok + 1`
-        rm -f ./${tn}.fail
+        rm -f ../build/tests/${tn}.fail
     else
         echo " FAIL"
-        echo "STATUS: ${stat}" >>./${tn}.fail
+        echo "STATUS: ${stat}" >>../build/tests/${tn}.fail
         t_fail=`expr $t_fail + 1`
     fi
 done
 
 for t in ${TEST_SUITE}
 do
-    tn=`basename $t .run`
-    outf=${tn}.fail
+    tn=`echo "$t" | sed 's#\.run##'`
+    outf=../build/tests/${tn}.fail
     test -s $outf && {
         echo
         echo "FAIL: ${tn}"

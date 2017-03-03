@@ -1,5 +1,5 @@
-#include "../lib/lib.c"
-#include "test.h"
+#include "lib.c"
+#include "../../tests/test.h"
 #include <string.h>
 
 

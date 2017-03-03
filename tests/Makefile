@@ -1,28 +1,50 @@
 include ../mk/vars.mk
 
-TESTS != ls *_t.c | sed 's/_t\.c/_t\.run/'
+
 INCD = ../include
 SCRIPTSD = ../scripts
-TEST_SUITE ?= $(TESTS)
+TESTSD = ../build/tests
+LIB_TESTS != ls ../lib/*/*_t.c | sed 's/_t\.c/_t\.run/'
+LIB_TEST_SUITE = $(LIB_TESTS:S/..\/lib\///)
+TEST_SUITE ?= $(LIB_TEST_SUITE)
+
+TEST_LIB_BINS =
+.for t in $(LIB_TEST_SUITE)
+TEST_LIB_BINS += $(TESTSD)/$(t)
+.endfor
+
+TEST_BINS =
+.for t in $(TEST_SUITE)
+TEST_BINS += $(TESTSD)/$(t)
+.endfor
+
 
 .PHONY: all
-all: $(TEST_SUITE)
+all: $(TEST_BINS)
+
 
 .PHONY: check
 check: all
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
+
 .SUFFIXES:
 .SUFFIXES: .c .run
-.c.run: test.o
-	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET) $(.PREFIX).c test.o
+$(TEST_LIB_BINS): $(TESTSD)/test.o
+	@mkdir -vp `dirname $(.TARGET)`
+	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
+		 $(.PREFIX:S/..\/build\/tests/..\/lib/).c $(TESTSD)/test.o
 
-test.o: test.h test.c
-	$(CC) $(CFLAGS) -I$(INCD) -fPIC -c -o test.o test.c
+
+$(TESTSD)/test.o: test.h test.c
+	@mkdir -vp $(TESTSD)
+	$(CC) $(CFLAGS) -I$(INCD) -fPIC -c -o $(TESTSD)/test.o test.c
+
 
 .PHONY: clean
 clean:
-	@rm -vf $(TESTS) test.o *_t.fail
+	@rm -vrf $(TESTSD)
+
 
 .PHONY: distclean
 distclean: clean clean-depend
@@ -30,7 +52,7 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend:
-	$(CC) -I$(INCD) -E -MM *_t.c | sed 's/\.o:/\.run:/' >.depend
+	CC=$(CC) INCD=$(INCD) $(SCRIPTSD)/tests-depend.sh >.depend
 
 
 .PHONY: clean-depend

@@ -1,6 +1,4 @@
 *.swp
-*_t.run
-*_t.fail
 .depend
 .do-install
 .opts.mk
