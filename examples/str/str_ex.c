@@ -7,10 +7,10 @@ main (void)
     str_type *s = str_alloc ();
 
     str_set (s, "lalala");
-    printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
+    printf ("s: %s - %zu - %zu\n", str_get (s), str_len (s), s->allocated);
 
     str_cat (s, "lelele");
-    printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
+    printf ("s: %s - %zu - %zu\n", str_get (s), str_len (s), s->allocated);
 
     for (size_t i = 0; i < s->allocated; i++)
     {
@@ -22,10 +22,10 @@ main (void)
 
     s = str_alloc();
     str_set (s, "lilili");
-    printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
+    printf ("s: %s - %zu - %zu\n", str_get (s), str_len (s), s->allocated);
 
     str_join (s, "/", 5, "la", "le", "li", "lo", "lu");
-    printf ("s: %s - %zu - %zu\n", str_get (s), s->len, s->allocated);
+    printf ("s: %s - %zu - %zu\n", str_get (s), str_len (s), s->allocated);
 
     str_free (s);
 

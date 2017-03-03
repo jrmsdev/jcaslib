@@ -25,7 +25,8 @@ extern void str_cat (str_type *dst, const char *adds);
 extern void str_vjoin (str_type *dst, const char *sep, int count, const char *str, va_list ap);
 extern void str_join (str_type *dst, const char *sep, int count, const char *str, ...);
 
-/* str_get macro */
+/* macros */
 #define str_get(s) s->data
+#define str_len(s) s->len
 
 #endif /* JCLIB_STR_H */
