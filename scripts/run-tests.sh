@@ -10,7 +10,7 @@ test -s test.c || {
     exit 1
 }
 
-echo "jclib test start: `date -R`"
+echo "jclib tests start: `date -R`"
 echo
 
 t_total=0
@@ -48,9 +48,7 @@ do
 done
 
 echo
-echo -n "Tests:${t_total}"
-echo -n " OK:${t_ok}"
-echo " FAIL:${t_fail}"
-echo "jclib test end: `date -R`"
+echo "Tests:${t_total} OK:${t_ok} FAIL:${t_fail}"
+echo "jclib tests end: `date -R`"
 
 exit 0
