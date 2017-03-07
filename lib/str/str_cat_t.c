@@ -3,6 +3,7 @@
 #include "str_free.c"
 #include "str_cat.c"
 #include "../../tests/test.h"
+#include <strings.h>
 
 
 void
@@ -32,6 +33,7 @@ str_cat_t (void)
     str_cat (s, "TEST");
     t_log ("str len: %zu", str_len (s));
     t_check (EQ (str_len (s), 8), "str len != 8");
+    t_check (strcmp (str_get (s), "TESTTEST"), "str != TESTTEST");
 
     str_free (s);
     t_end ("str_cat");
