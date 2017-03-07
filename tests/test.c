@@ -43,6 +43,7 @@ t_log (const char *fmt, ...)
     va_start (ap, fmt);
     printf ("%s: ", current_t);
     vprintf (fmt, ap);
+    printf ("\n");
     va_end (ap);
 }
 
