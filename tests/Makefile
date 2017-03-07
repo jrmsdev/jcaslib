@@ -28,12 +28,11 @@ check: all
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 
-.SUFFIXES:
-.SUFFIXES: .c .run
 $(TEST_LIB_BINS): $(TESTSD)/test.o
+	@echo "lalala: target:$(.TARGET) prefix:$(.PREFIX)"
 	@mkdir -vp `dirname $(.TARGET)`
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
-		 $(.PREFIX:S/..\/build\/tests/..\/lib/).c $(TESTSD)/test.o
+		 $(.TARGET:S/..\/build\/tests/..\/lib/:S/.run/.c/) $(TESTSD)/test.o
 
 
 $(TESTSD)/test.o: test.h test.c
