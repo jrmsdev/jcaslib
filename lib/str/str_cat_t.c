@@ -29,8 +29,9 @@ str_cat_t (void)
     t_log ("str len0: %zu", str_len (s));
 
     str_cat (s, "TEST");
+    str_cat (s, "TEST");
     t_log ("str len: %zu", str_len (s));
-    t_check (EQ (str_len (s), 4), "str len != 4");
+    t_check (EQ (str_len (s), 8), "str len != 8");
 
     str_free (s);
     t_end ("str_cat");
