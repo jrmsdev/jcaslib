@@ -29,7 +29,6 @@ check: all
 
 
 $(TEST_LIB_BINS): $(TESTSD)/test.o
-	@echo "lalala: target:$(.TARGET) prefix:$(.PREFIX)"
 	@mkdir -vp `dirname $(.TARGET)`
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
 		 $(.TARGET:S/..\/build\/tests/..\/lib/:S/.run/.c/) $(TESTSD)/test.o
