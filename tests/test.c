@@ -12,7 +12,8 @@
 static const char *current_t = NULL;
 
 
-void t_start (const char *name)
+void
+t_start (const char *name)
 {
     if (current_t != NULL)
     {
@@ -23,7 +24,8 @@ void t_start (const char *name)
 }
 
 
-void t_end (const char *name)
+void
+t_end (const char *name)
 {
     if (strcmp (name, current_t) != 0)
     {
@@ -34,7 +36,8 @@ void t_end (const char *name)
 }
 
 
-void t_log (const char *fmt, ...)
+void
+t_log (const char *fmt, ...)
 {
     va_list ap;
     va_start (ap, fmt);
