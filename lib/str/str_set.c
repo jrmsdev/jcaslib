@@ -4,7 +4,7 @@
 void
 str_nset (str_type *dst, const char *adds, size_t addlen)
 {
-    while (dst->allocated < (addlen + 1))
+    while (str_size (dst) < (addlen + 1))
         str_realloc (dst);
     memcpy (dst->data, adds, addlen);
     dst->len = addlen;

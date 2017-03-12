@@ -14,8 +14,8 @@ str_alloc_t (void)
     t_check (EQ (sizeof (*s), 24), "sizeof != 24");
 
     t_log ("STR_ALLOC -> %d", STR_ALLOC);
-    t_log ("allocated -> %zu", s->allocated);
-    t_check (EQ (s->allocated, STR_ALLOC), "allocated != STR_ALLOC");
+    t_log ("size -> %zu", str_size (s));
+    t_check (EQ (str_size (s), STR_ALLOC), "size != STR_ALLOC");
 
     t_log ("str_len -> %zu", str_len (s));
     t_check (EQ (str_len (s), 0), "str_len != 0");
@@ -35,13 +35,13 @@ str_realloc_t (void)
     t_check (EQ (sizeof (*s), 24), "sizeof != 24");
 
     t_log ("STR_ALLOC -> %d", STR_ALLOC);
-    t_log ("allocated -> %zu", s->allocated);
-    t_check (EQ (s->allocated, STR_ALLOC), "allocated != STR_ALLOC");
+    t_log ("size -> %zu", str_size (s));
+    t_check (EQ (str_size (s), STR_ALLOC), "size != STR_ALLOC");
 
     str_realloc (s);
-    t_log ("reallocated -> %zu", s->allocated);
-    t_check (EQ (s->allocated, (STR_ALLOC * 2)),
-                    "reallocated != (STR_ALLOC * 2)");
+    t_log ("resized -> %zu", str_size (s));
+    t_check (EQ (str_size (s), (STR_ALLOC * 2)),
+                    "resized != (STR_ALLOC * 2)");
 
     str_free (s);
     t_end ("str_realloc");

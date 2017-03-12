@@ -28,5 +28,6 @@ extern void str_join (str_type *dst, const char *sep, int count, const char *str
 /* macros */
 #define str_get(s) s->data
 #define str_len(s) s->len
+#define str_size(s) s->allocated
 
 #endif /* JCLIB_STR_H */
