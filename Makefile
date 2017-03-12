@@ -1,6 +1,10 @@
 include mk/vars.mk
 
 
+DIST_VERSION != grep -F ' JCL_VERSION ' include/jclib/version.h | \
+			cut -d ' ' -f 3 | sed 's/"//g'
+
+
 .PHONY: all
 all: build
 
@@ -37,6 +41,7 @@ install: build installdirs .do-install
 
 .PHONY: installdirs
 installdirs:
+	@mkdir -vp $(DESTDIR)$(PREFIX)/share/licenses/jclib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/include/jclib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/lib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/bin
@@ -44,6 +49,7 @@ installdirs:
 
 .do-install: $(DESTDIR)$(PREFIX)/bin/jclib $(DESTDIR)$(PREFIX)/lib/libjc.a
 	@$(INSTALL_F) include/jclib/*.h $(DESTDIR)$(PREFIX)/include/jclib
+	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jclib
 	@touch .do-install
 
 
@@ -59,10 +65,7 @@ $(DESTDIR)$(PREFIX)/lib/libjc.a: build/lib/libjc.a
 uninstall:
 	@rm -vf $(DESTDIR)$(PREFIX)/bin/jclib $(DESTDIR)$(PREFIX)/lib/libjc.a
 	@rm -rvf $(DESTDIR)$(PREFIX)/include/jclib
-
-
-DIST_VERSION != grep -F ' JCL_VERSION ' include/jclib/version.h | \
-			cut -d ' ' -f 3 | sed 's/"//g'
+	@rm -rvf $(DESTDIR)$(PREFIX)/share/licenses/jclib
 
 
 .PHONY: dist
