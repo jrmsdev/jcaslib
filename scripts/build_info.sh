@@ -6,6 +6,10 @@ addline() {
     local _NAME="$1"
     shift
     local _VAL="$@"
+    if test -n "$REPRODUCIBLE_BUILD"
+    then
+        _VAL="REPRODUCIBLE_BUILD"
+    fi
     echo "#define ${_NAME} \"${_VAL}\"" >>.build_info.h
 }
 
