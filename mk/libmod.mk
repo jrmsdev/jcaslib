@@ -28,7 +28,7 @@ pre-build:
 
 
 $(MOD_OBJS):
-	@mkdir -vp $(BUILDD)
+	@mkdir -p $(BUILDD)
 	$(CC) $(CFLAGS) -o $(.TARGET) $(.TARGET:T:S/.o/.c/)
 
 

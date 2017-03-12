@@ -29,13 +29,13 @@ check: all
 
 
 $(TEST_LIB_BINS): $(TESTSD)/test.o
-	@mkdir -vp `dirname $(.TARGET)`
+	@mkdir -p `dirname $(.TARGET)`
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
 		 $(.TARGET:S/..\/build\/tests/..\/lib/:S/.run/.c/) $(TESTSD)/test.o
 
 
 $(TESTSD)/test.o: test.h test.c
-	@mkdir -vp $(TESTSD)
+	@mkdir -p $(TESTSD)
 	$(CC) $(CFLAGS) -I$(INCD) -fPIC -c -o $(TESTSD)/test.o test.c
 
 

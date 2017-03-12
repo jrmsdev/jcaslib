@@ -18,8 +18,9 @@ build: $(LIB_PATH)
 
 
 $(LIB_PATH): $(MOD_OBJS)
-	@mkdir -vp $(BUILDD)
-	ar -rc $(LIB_PATH) $(MOD_OBJS)
+	@mkdir -p $(BUILDD)
+	@ar -vDrc $(LIB_PATH) $(MOD_OBJS)
+	ranlib $(LIB_PATH)
 
 
 $(MOD_OBJS):

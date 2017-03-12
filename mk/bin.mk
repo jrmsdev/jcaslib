@@ -10,7 +10,7 @@ build: $(BIN_PATH)
 
 
 $(BIN_PATH): $(BIN_NAME).c $(LIB_PATH)
-	@mkdir -vp $(BUILDD)/bin
+	@mkdir -p $(BUILDD)/bin
 	$(CC) $(CFLAGS) -I $(INCD) -o $(BIN_PATH) $(BIN_NAME).c $(LIB_PATH)
 
 
