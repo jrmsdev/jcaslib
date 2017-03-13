@@ -21,7 +21,7 @@ build: $(BINS)
 
 .SUFFIXES: .o .c
 .c.o:
-	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -fPIC -c -o $(.TARGET) $(.ALLSRC)
+	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -fPIC -c -o $(.TARGET) $(.PREFIX).c
 
 
 .PHONY: clean
