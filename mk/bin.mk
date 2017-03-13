@@ -2,19 +2,19 @@ BUILDD = ../../build
 INCD = ../../include
 BIN_NAME != basename $(PWD)
 BIN_PATH = $(BUILDD)/bin/$(BIN_NAME)
-LIB_PATH = $(BUILDD)/lib/libjc.a
+SHARED_LIB_PATH = $(BUILDD)/lib/libjc.so
 
 
 .PHONY: build
 build: $(BIN_PATH)
 
 
-$(BIN_PATH): $(BIN_NAME).c $(LIB_PATH)
+$(BIN_PATH): $(BIN_NAME).c $(SHARED_LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
-	$(CC) $(CFLAGS) -I $(INCD) -o $(BIN_PATH) $(BIN_NAME).c $(LIB_PATH)
+	$(CC) $(CFLAGS) -I $(INCD) -L$(BUILDD)/lib -o $(BIN_PATH) $(BIN_NAME).c -ljc
 
 
-$(BUILDD)/lib/libjc.a:
+$(SHARED_LIB_PATH):
 	@make -C ../../lib build
 
 

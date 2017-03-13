@@ -1,6 +1,8 @@
 include mk/vars.mk
 
 
+LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.a
+SHARED_LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.so
 DIST_VERSION != grep -F ' JCL_VERSION ' include/jclib/version.h | \
 			cut -d ' ' -f 3 | sed 's/"//g'
 
@@ -47,7 +49,7 @@ installdirs:
 	@mkdir -vp $(DESTDIR)$(PREFIX)/bin
 
 
-.do-install: $(DESTDIR)$(PREFIX)/bin/jclib $(DESTDIR)$(PREFIX)/lib/libjc.a
+.do-install: $(DESTDIR)$(PREFIX)/bin/jclib $(LIB_PATH) $(SHARED_LIB_PATH)
 	@$(INSTALL_F) include/jclib/*.h $(DESTDIR)$(PREFIX)/include/jclib
 	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jclib
 	@touch .do-install
@@ -57,8 +59,12 @@ $(DESTDIR)$(PREFIX)/bin/jclib: build/bin/jclib
 	@$(INSTALL_EXE) build/bin/jclib $(DESTDIR)$(PREFIX)/bin/jclib
 
 
-$(DESTDIR)$(PREFIX)/lib/libjc.a: build/lib/libjc.a
-	@$(INSTALL_F) build/lib/libjc.a $(DESTDIR)$(PREFIX)/lib/libjc.a
+$(LIB_PATH): build/lib/libjc.a
+	@$(INSTALL_F) build/lib/libjc.a $(LIB_PATH)
+
+
+$(SHARED_LIB_PATH): build/lib/libjc.so
+	@$(INSTALL_F) build/lib/libjc.so $(SHARED_LIB_PATH)
 
 
 .PHONY: uninstall
