@@ -2,7 +2,7 @@
 #define JCLIB_DB_H
 
 #ifdef USE_GDBM
-#  include <gdbm.h>
+#  include <gdbm-ndbm.h>
 #else
 #  include <ndbm.h>
 #endif
