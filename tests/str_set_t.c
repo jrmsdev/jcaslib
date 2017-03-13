@@ -1,9 +1,8 @@
-#include "../lib/lib.c"
-#include "str_alloc.c"
-#include "str_free.c"
-#include "str_set.c"
-#include "../../tests/test.h"
-#include <strings.h>
+#include "../lib/lib/lib.c"
+#include "../lib/str/str_alloc.c"
+#include "../lib/str/str_free.c"
+#include "../lib/str/str_set.c"
+#include "test.h"
 
 
 void

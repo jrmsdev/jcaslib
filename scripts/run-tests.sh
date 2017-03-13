@@ -10,6 +10,8 @@ test -s test.c || {
     exit 1
 }
 
+TESTSD=../build/tests
+
 echo "jclib tests start: `date -R`"
 echo
 
@@ -21,17 +23,17 @@ for t in ${TEST_SUITE}
 do
     tn=`echo "$t" | sed 's#\.run##'`
     echo -n "${tn}..."
-    ../build/tests/${t} >../build/tests/${tn}.fail 2>../build/tests/${tn}.fail
+    ${TESTSD}/${t} >${TESTSD}/${tn}.fail 2>${TESTSD}/${tn}.fail
     stat=$?
     t_total=`expr $t_total + 1`
     if test $stat -eq 0
     then
         echo " OK"
         t_ok=`expr $t_ok + 1`
-        rm -f ../build/tests/${tn}.fail
+        rm -f ${TESTSD}/${tn}.fail
     else
         echo " FAIL"
-        echo "STATUS: ${stat}" >>../build/tests/${tn}.fail
+        echo "STATUS: ${stat}" >>${TESTSD}/${tn}.fail
         t_fail=`expr $t_fail + 1`
     fi
 done
@@ -39,7 +41,7 @@ done
 for t in ${TEST_SUITE}
 do
     tn=`echo "$t" | sed 's#\.run##'`
-    outf=../build/tests/${tn}.fail
+    outf=${TESTSD}/${tn}.fail
     test -s $outf && {
         echo
         echo "FAIL: ${tn}"

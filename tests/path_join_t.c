@@ -1,10 +1,10 @@
-#include "../lib/lib.c"
-#include "../str/str_alloc.c"
-#include "../str/str_free.c"
-#include "../str/str_cat.c"
-#include "../str/str_join.c"
-#include "path_join.c"
-#include "../../tests/test.h"
+#include "../lib/lib/lib.c"
+#include "../lib/str/str_alloc.c"
+#include "../lib/str/str_free.c"
+#include "../lib/str/str_cat.c"
+#include "../lib/str/str_join.c"
+#include "../lib/path/path_join.c"
+#include "test.h"
 
 
 void

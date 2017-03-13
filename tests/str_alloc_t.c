@@ -1,7 +1,7 @@
-#include "../lib/lib.c"
-#include "str_alloc.c"
-#include "str_free.c"
-#include "../../tests/test.h"
+#include "../lib/lib/lib.c"
+#include "../lib/str/str_alloc.c"
+#include "../lib/str/str_free.c"
+#include "test.h"
 
 
 void

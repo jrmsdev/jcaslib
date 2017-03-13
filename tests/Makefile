@@ -4,14 +4,8 @@ include ../mk/vars.mk
 INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
-LIB_TESTS != ls ../lib/*/*_t.c | sed 's/_t\.c/_t\.run/'
-LIB_TEST_SUITE = $(LIB_TESTS:S/..\/lib\///)
-TEST_SUITE ?= $(LIB_TEST_SUITE)
-
-TEST_LIB_BINS =
-.for t in $(LIB_TEST_SUITE)
-TEST_LIB_BINS += $(TESTSD)/$(t)
-.endfor
+TEST_FILES != ls *_t.c | sed 's/_t\.c/_t\.run/'
+TEST_SUITE ?= $(TEST_FILES)
 
 TEST_BINS =
 .for t in $(TEST_SUITE)
@@ -28,10 +22,10 @@ check: all
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 
-$(TEST_LIB_BINS): $(TESTSD)/test.o
-	@mkdir -p `dirname $(.TARGET)`
+$(TEST_BINS): $(TESTSD)/test.o
+	@mkdir -p $(TESTSD)
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
-		 $(.TARGET:S/..\/build\/tests/..\/lib/:S/.run/.c/) $(TESTSD)/test.o
+		 $(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTSD)/test.o
 
 
 $(TESTSD)/test.o: test.h test.c
@@ -50,7 +44,10 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend:
-	CC=$(CC) INCD=$(INCD) $(SCRIPTSD)/tests-depend.sh >.depend
+	$(CC) -I$(INCD) -E -MM test.c |\
+		sed 's#^#$(TESTSD)/#' >.depend
+	$(CC) -I$(INCD) -E -MM *_t.c |\
+		sed 's#\(.*\)\.o:#$(TESTSD)/\1.run:#' >>.depend
 
 
 .PHONY: clean-depend
