@@ -69,7 +69,7 @@ $(SHARED_LIB_PATH): build/lib/libjc.so
 
 .PHONY: uninstall
 uninstall:
-	@rm -vf $(DESTDIR)$(PREFIX)/bin/jclib $(DESTDIR)$(PREFIX)/lib/libjc.a
+	@rm -vf $(DESTDIR)$(PREFIX)/bin/jclib $(LIB_PATH) $(SHARED_LIB_PATH)
 	@rm -rvf $(DESTDIR)$(PREFIX)/include/jclib
 	@rm -rvf $(DESTDIR)$(PREFIX)/share/licenses/jclib
 
