@@ -95,6 +95,7 @@ distclean:
 configure:
 	@$(MAKE) -C lib configure
 	@$(MAKE) -C bin configure
+	@$(MAKE) -C examples configure
 	@echo "you might want to run '$(MAKE) depend' now..."
 
 

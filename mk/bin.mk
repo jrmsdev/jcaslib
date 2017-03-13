@@ -32,6 +32,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean clean-depend
+	@rm -vf .opts.mk
 
 
 .PHONY: depend
