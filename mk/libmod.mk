@@ -5,6 +5,7 @@ include .opts.mk
 
 INCD = ../../include/jclib
 CFLAGS_INCLUDE = -I../../include
+CFLAGS_DEFINE +=
 CFLAGS += $(CFLAGS_INCLUDE) $(CFLAGS_DEFINE) -fPIC -c
 
 MOD_NAME != basename $(PWD)
@@ -55,7 +56,7 @@ clean-mod:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf .opts.mk
+	@rm -vf $(PWD)/.opts.mk
 
 
 CFG_CFLAGS_DEFINE =

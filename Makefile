@@ -30,6 +30,7 @@ clean:
 depend:
 	@$(MAKE) -C lib depend
 	@$(MAKE) -C bin depend
+	@$(MAKE) -C examples depend
 
 
 .PHONY: examples

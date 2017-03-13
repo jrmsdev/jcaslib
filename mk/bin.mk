@@ -17,7 +17,7 @@ build: $(BIN_PATH)
 
 $(BIN_PATH): $(BIN_NAME).c $(SHARED_LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
-	$(CC) $(CFLAGS) -I $(INCD) -L$(BUILDD)/lib -o $(BIN_PATH) $(BIN_NAME).c\
+	$(CC) $(CFLAGS) -I$(INCD) -L$(BUILDD)/lib -o $(BIN_PATH) $(BIN_NAME).c\
 		$(LD_CFLAGS)
 
 
@@ -32,7 +32,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf .opts.mk
+	@rm -vf $(PWD)/.opts.mk
 
 
 .PHONY: depend
@@ -46,12 +46,6 @@ clean-depend:
 	@rm -vf .depend
 
 
-.ifdef USE_GDBM
-CFG_LD_CFLAGS += -lgdbm_compat
-.endif
-
-
+# configure target could be overwritten per binary if needed
 .PHONY: configure
 configure:
-	@echo 'LD_CFLAGS += $(CFG_LD_CFLAGS)' >.opts.mk
-	touch .opts.mk

@@ -48,14 +48,6 @@ clean-depend:
 	@rm -vf .depend
 
 
-.ifdef USE_GDBM
-CFG_CFLAGS_DEFINE += -DUSE_GDBM
-CFG_LD_CFLAGS += -lgdbm_compat
-.endif
-
-
+# configure target could be overwritten per example if needed
 .PHONY: configure
 configure:
-	@echo 'LD_CFLAGS += $(CFG_LD_CFLAGS)' >.opts.mk
-	@echo 'CFLAGS_DEFINE += $(CFG_CFLAGS_DEFINE)' >>.opts.mk
-	touch $(PWD)/.opts.mk
