@@ -34,7 +34,7 @@ $(MOD_OBJS):
 
 
 .PHONY: depend
-depend: configure
+depend: pre-build
 	$(CC) $(CFLAGS_INCLUDE) -E -MM *.c |\
 			sed 's#^\(.*\)\.o:#$(BUILDD)/\1.o:#' >.depend
 
