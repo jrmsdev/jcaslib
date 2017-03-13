@@ -31,6 +31,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean clean-depend
+	@rm -vf $(PWD)/.opts.mk
 
 
 .PHONY: clean-lib
