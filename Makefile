@@ -94,6 +94,7 @@ distclean:
 .PHONY: configure
 configure:
 	@$(MAKE) -C lib configure
+	@$(MAKE) -C bin configure
 	@echo "you might want to run '$(MAKE) depend' now..."
 
 
