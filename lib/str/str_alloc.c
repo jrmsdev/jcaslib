@@ -1,6 +1,6 @@
 #include <jclib/str.h>
 #include <jclib/lib.h>
-#include <string.h>
+#include <strings.h>
 
 
 str_type *

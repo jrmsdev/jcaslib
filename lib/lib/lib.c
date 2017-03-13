@@ -1,6 +1,6 @@
 #include <jclib/lib.h>
 #include <err.h>
-#include <string.h>
+#include <strings.h>
 
 void *
 xmalloc (size_t size)
