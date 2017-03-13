@@ -29,24 +29,24 @@ $(MOD_OBJS):
 
 .PHONY: clean
 clean:
-	@$(SCRIPTSD)/mk-fordirs.sh clean
+	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh clean
 
 
 .PHONY: distclean
 distclean:
-	@$(SCRIPTSD)/mk-fordirs.sh distclean
+	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh distclean
 
 
 .PHONY: depend
 depend:
-	@$(SCRIPTSD)/mk-fordirs.sh depend
+	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh depend
 
 
 .PHONY: clean-depend
 clean-depend:
-	@$(SCRIPTSD)/mk-fordirs.sh clean-depend
+	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh clean-depend
 
 
 .PHONY: configure
 configure:
-	@$(SCRIPTSD)/mk-fordirs.sh configure
+	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh configure

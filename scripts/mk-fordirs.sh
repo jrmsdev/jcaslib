@@ -4,7 +4,11 @@ test -z "${MK_ACTION}" && {
     echo "empty make action" >&2
     exit 1
 }
+test -z "${MAKE}" && {
+    echo "make cmd not set" >&2
+    exit 2
+}
 for d in `ls */Makefile | sed 's#/Makefile$##'`; do
-    make -C ${d} ${MK_ACTION}
+    ${MAKE} -C ${d} ${MK_ACTION}
 done
 exit 0
