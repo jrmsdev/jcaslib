@@ -14,14 +14,17 @@ build: $(BINS)
 
 
 .SUFFIXES: .bin .c
-.c.bin: $(.PREFIX).o
-	@$(MAKE) -C ../../lib build
+.c.bin: $(.PREFIX).o $(LIB_PATH)
 	$(CC) $(CFLAGS) -o $(.TARGET) $(.PREFIX).o $(LIB_PATH) $(LD_CFLAGS)
 
 
 .SUFFIXES: .o .c
 .c.o:
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -fPIC -c -o $(.TARGET) $(.PREFIX).c
+
+
+$(LIB_PATH):
+	@$(MAKE) -C ../../lib build
 
 
 .PHONY: clean
