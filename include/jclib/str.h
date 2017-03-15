@@ -25,9 +25,27 @@ extern void str_cat (str_type *dst, const char *adds);
 extern void str_vjoin (str_type *dst, const char *sep, int count, const char *str, va_list ap);
 extern void str_join (str_type *dst, const char *sep, int count, const char *str, ...);
 
-/* macros */
+/* str macros */
 #define str_get(s) s->data
 #define str_len(s) s->len
 #define str_size(s) s->allocated
+
+/* str_array */
+
+#define STR_ARRAY_ALLOC 5
+
+typedef struct {
+	str_type **data;
+	size_t len;
+	size_t allocated;
+} str_array_type;
+
+extern str_array_type * str_array_alloc ();
+extern void str_array_realloc (str_array_type *arr);
+extern void str_array_free (str_array_type *arr);
+
+/* str_array macros */
+#define str_array_len(arr) arr->len
+#define str_array_size(arr) arr->allocated
 
 #endif /* JCLIB_STR_H */
