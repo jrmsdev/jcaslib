@@ -22,13 +22,11 @@ $(LIB_PATH): $(MOD_OBJS)
 	@mkdir -p $(BUILDD)
 	@ar -Drc $(LIB_PATH) $(MOD_OBJS)
 	ranlib $(LIB_PATH)
-	@chmod 0444 $(LIB_PATH)
 
 
 $(SHARED_LIB_PATH): $(MOD_OBJS)
 	@mkdir -p $(BUILDD)
 	$(CC) -shared -o $(SHARED_LIB_PATH) $(MOD_OBJS)
-	@chmod 0444 $(SHARED_LIB_PATH)
 
 
 $(MOD_OBJS):
