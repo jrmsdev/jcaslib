@@ -30,6 +30,11 @@ main (void)
 	printf ("array 5 len: %zu\n", str_array_len (arr));
 	printf ("array 5 last: %zu\n", str_array_last (arr));
 
+    for (size_t i = 0; i <= str_array_last (arr); i++)
+    {
+        printf ("arr[%zu] -> %s\n", i, str_array_get (arr, i));
+    }
+
 	str_array_free (arr);
 	return (0);
 }

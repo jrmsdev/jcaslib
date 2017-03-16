@@ -58,5 +58,6 @@ extern void str_array_free (str_array_type *arr);
 
 extern void str_array_insert (str_array_type *arr, size_t idx, const char *str);
 extern void str_array_append (str_array_type *arr, const char *str);
+extern char * str_array_get (str_array_type *arr, size_t idx);
 
 #endif /* JCLIB_STR_H */
