@@ -13,7 +13,7 @@ addline() {
     echo "#define ${_NAME} \"${_VAL}\"" >>.build_info.h
 }
 
-test -s lib.c || {
+test -s version.c || {
     echo "ERR: ${0} not running from source lib dir" >&2
     exit 1
 }
