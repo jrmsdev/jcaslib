@@ -46,6 +46,11 @@ distclean:
 .PHONY: depend
 depend:
 	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh depend
+	@echo '$(MOD_OBJS): \' >.depend
+	@echo '    $(MOD_SRCS)' >>.depend
+	@echo '$(LIB_PATH) $(SHARED_LIB_PATH): \' >>.depend
+	@echo '    $(MOD_OBJS)' >>.depend
+	touch $(PWD)/.depend
 
 
 .PHONY: clean-depend
