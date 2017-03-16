@@ -39,7 +39,7 @@ clean:
 
 
 .PHONY: distclean
-distclean:
+distclean: clean-depend
 	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh distclean
 
 
@@ -56,6 +56,7 @@ depend:
 .PHONY: clean-depend
 clean-depend:
 	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh clean-depend
+	@rm -vf $(PWD)/.depend
 
 
 .PHONY: configure
