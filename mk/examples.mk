@@ -4,6 +4,7 @@ include .opts.mk
 
 
 BINS != ls *.c | sed 's/\.c/\.bin/'
+OBJS = $(BINS:S/.bin/.o/)
 CFLAGS += -I../../include
 LD_CFLAGS +=
 CFLAGS_DEFINE +=
@@ -11,7 +12,7 @@ LIB_PATH = ../../build/lib/libjc.a
 
 
 .PHONY: build
-build: build-lib $(BINS)
+build: build-lib $(OBJS) $(BINS)
 
 
 .PHONY: build-lib
@@ -20,12 +21,12 @@ build-lib:
 
 
 .SUFFIXES: .bin .c
-.c.bin: $(.PREFIX).o $(LIB_PATH)
+$(BINS): $(.PREFIX).o $(LIB_PATH)
 	$(CC) $(CFLAGS) -o $(.TARGET) $(.PREFIX).o $(LIB_PATH) $(LD_CFLAGS)
 
 
 .SUFFIXES: .o .c
-.c.o:
+$(OBJS):
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -fPIC -c -o $(.TARGET) $(.PREFIX).c
 
 
