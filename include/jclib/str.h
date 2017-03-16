@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+/*
+ * str
+ */
+
 #define STR_ALLOC 50
 
 typedef struct {
@@ -30,7 +34,9 @@ extern void str_join (str_type *dst, const char *sep, int count, const char *str
 #define str_len(s) s->len
 #define str_size(s) s->allocated
 
-/* str_array */
+/*
+ * str_array
+ */
 
 #define STR_ARRAY_ALLOC 5
 
@@ -51,5 +57,6 @@ extern void str_array_free (str_array_type *arr);
 #define str_array_size(arr) arr->allocated
 
 extern void str_array_insert (str_array_type *arr, size_t idx, const char *str);
+extern void str_array_append (str_array_type *arr, const char *str);
 
 #endif /* JCLIB_STR_H */
