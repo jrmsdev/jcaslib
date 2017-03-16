@@ -37,6 +37,7 @@ extern void str_join (str_type *dst, const char *sep, int count, const char *str
 typedef struct {
 	str_type **data;
 	size_t len;
+	size_t last;
 	size_t allocated;
 } str_array_type;
 
@@ -46,6 +47,9 @@ extern void str_array_free (str_array_type *arr);
 
 /* str_array macros */
 #define str_array_len(arr) arr->len
+#define str_array_last(arr) arr->last
 #define str_array_size(arr) arr->allocated
+
+extern void str_array_insert (str_array_type *arr, size_t idx, const char *str);
 
 #endif /* JCLIB_STR_H */

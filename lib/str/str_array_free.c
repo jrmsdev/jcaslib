@@ -10,6 +10,7 @@ str_array_free (str_array_type *arr)
 	}
 	arr->allocated = 0;
 	arr->len = 0;
+	arr->last = 0;
 	free (arr->data);
 	arr->data = NULL;
 	free (arr);
