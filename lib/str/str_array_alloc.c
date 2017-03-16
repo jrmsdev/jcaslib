@@ -8,7 +8,7 @@ str_array_alloc ()
 	arr->data = (str_type **) xmalloc (STR_ARRAY_ALLOC * sizeof (str_type));
 	for (size_t i = 0; i < STR_ARRAY_ALLOC; i++)
 	{
-		arr->data[i] = str_alloc ();
+		arr->data[i] = NULL;
 	}
 	arr->allocated = STR_ARRAY_ALLOC;
 	arr->len = 0;
