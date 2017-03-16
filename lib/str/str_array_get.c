@@ -1,4 +1,5 @@
 #include <jclib/str.h>
+#include <err.h>
 
 char *
 str_array_get (str_array_type *arr, size_t idx)
