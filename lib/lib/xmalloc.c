@@ -11,12 +11,3 @@ xmalloc (size_t size)
     bzero (p, size);
     return (p);
 }
-
-void *
-xrealloc (void *ptr, size_t size)
-{
-    void *newp = realloc (ptr, size);
-    if (newp == NULL)
-        err(1, "could not realloc");
-    return (newp);
-}
