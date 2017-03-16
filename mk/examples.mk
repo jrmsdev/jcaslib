@@ -10,7 +10,13 @@ CFLAGS_DEFINE +=
 LIB_PATH = ../../build/lib/libjc.a
 
 
-build: $(BINS)
+.PHONY: build
+build: build-lib $(BINS)
+
+
+.PHONY: build-lib
+build-lib:
+	@$(MAKE) -C ../../lib build
 
 
 .SUFFIXES: .bin .c
@@ -21,10 +27,6 @@ build: $(BINS)
 .SUFFIXES: .o .c
 .c.o:
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -fPIC -c -o $(.TARGET) $(.PREFIX).c
-
-
-$(LIB_PATH):
-	@$(MAKE) -C ../../lib build
 
 
 .PHONY: clean
