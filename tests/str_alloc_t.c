@@ -1,4 +1,5 @@
-#include "../lib/lib/lib.c"
+#include "../lib/lib/xmalloc.c"
+#include "../lib/lib/xrealloc.c"
 #include "../lib/str/str_alloc.c"
 #include "../lib/str/str_realloc.c"
 #include "../lib/str/str_free.c"
