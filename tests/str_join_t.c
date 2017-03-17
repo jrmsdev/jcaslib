@@ -4,8 +4,11 @@
 #include "../lib/str/str_realloc.c"
 #include "../lib/str/str_free.c"
 #include "../lib/str/str_cat.c"
+#include "../lib/str/str_ncat.c"
 #include "../lib/str/str_set.c"
+#include "../lib/str/str_nset.c"
 #include "../lib/str/str_join.c"
+#include "../lib/str/str_vjoin.c"
 #include "test.h"
 
 

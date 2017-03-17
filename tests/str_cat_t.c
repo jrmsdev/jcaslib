@@ -4,6 +4,7 @@
 #include "../lib/str/str_realloc.c"
 #include "../lib/str/str_free.c"
 #include "../lib/str/str_cat.c"
+#include "../lib/str/str_ncat.c"
 #include "test.h"
 
 
