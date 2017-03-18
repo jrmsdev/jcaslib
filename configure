@@ -10,10 +10,10 @@ usage()
 jclib configure
 $0 [options]
 Options:
-    --help, -h      - show help message and exit
-    --prefix=path   - install prefix ($PREFIX)
-    --destdir=path  - install base dir ($DESTDIR)
-    --use-gdbm      - use gdbm ndbm lib ($USE_GDBM)
+    --help, -h     - show help message and exit
+    --prefix=path  - install prefix ($PREFIX)
+    --destdir=path - install base dir ($DESTDIR)
+    --use-gdbm     - use gdbm ndbm lib ($USE_GDBM)
 EOH
 	exit 1
 }
