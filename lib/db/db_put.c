@@ -15,6 +15,10 @@ db_put (DB *db, const char *key, const char *val)
 		db_close (db);
 		err (1, "db put failed");
 	}
+	else if (stat == 1)
+	{
+		warn ("db key already exists: %s", key);
+	}
 
 	dbt_free (_key);
 	dbt_free (_val);
