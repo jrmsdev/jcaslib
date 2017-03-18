@@ -3,6 +3,7 @@ SCRIPTSD = ../scripts
 LIB_PATH = $(BUILDD)/libjc.a
 SHARED_LIB_PATH = $(BUILDD)/libjc.so
 
+MOD_HEADERS != ls ../include/jclib/*.h
 MOD_SRCS != ls */*.c
 MOD_OBJS =
 .for src in $(MOD_SRCS)
@@ -29,7 +30,7 @@ $(SHARED_LIB_PATH): $(MOD_OBJS)
 	$(CC) -shared -o $(SHARED_LIB_PATH) $(MOD_OBJS)
 
 
-$(MOD_OBJS):
+$(MOD_OBJS): $(MOD_SRCS) $(MOD_HEADERS)
 	@$(MAKE) -C $(.TARGET:H:T) build
 
 
