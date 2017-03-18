@@ -26,4 +26,8 @@ addline JCL_BUILD_OS "`uname -snrm`"
 addline JCL_CC_VERSION "`${CC} --version | head -n 1`"
 addline JCL_MODULES "`ls ../*/Makefile | sed 's#/Makefile##' | sed 's#^\.\./##' | sort | xargs echo`"
 
+test -s configure.opts && {
+    addline JCL_CONFIGURE "`cat configure.opts`"
+}
+
 exit 0
