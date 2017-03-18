@@ -89,7 +89,7 @@ distclean:
 	@$(MAKE) -C bin distclean
 	@$(MAKE) -C examples distclean
 	@$(MAKE) -C tests distclean
-	@rm -rfv build dist
+	@rm -rfv build dist config.mk
 
 
 .PHONY: configure

@@ -56,7 +56,7 @@ clean-mod:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf $(PWD)/.opts.mk
+	@rm -vf configure.opts config.h
 
 
 CFG_CFLAGS_DEFINE =
