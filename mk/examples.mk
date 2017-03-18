@@ -1,7 +1,11 @@
+.PATH: ..
+.if exists(config.mk)
+include config.mk
+.endif
+
 BINS != ls *.c | sed 's/\.c/\.bin/'
 OBJS = $(BINS:S/.bin/.o/)
-CFLAGS += -I../../include
-LD_CFLAGS +=
+CFLAGS += -I../../include $(CFLAGS_DEFINE)
 LIB_PATH = ../../build/lib/libjc.a
 
 

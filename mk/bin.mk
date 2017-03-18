@@ -1,3 +1,8 @@
+.PATH: ..
+.if exists(config.mk)
+include config.mk
+.endif
+
 LD_CFLAGS += -ljc
 BUILDD = ../../build
 INCD = ../../include

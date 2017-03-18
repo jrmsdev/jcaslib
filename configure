@@ -49,9 +49,12 @@ test -n "$DESTDIR" && echo "DESTDIR=$DESTDIR" >>config.mk
 # -- configure scripts/build_info.sh
 test "x$0 $@" != "x$0 " && echo "$0 $@" >lib/lib/configure.opts
 
-# -- configure lib/db
+# -- configure gdbm
 test "x$USE_GDBM" = "xtrue" && {
     echo "CFLAGS_DEFINE = -DUSE_GDBM" >lib/db/config.mk
+    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >bin/config.mk
+    echo "CFLAGS_DEFINE = -DUSE_GDBM" >examples/config.mk
+    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >>examples/config.mk
 }
 
 exit 0
