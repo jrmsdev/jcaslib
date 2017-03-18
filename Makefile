@@ -1,3 +1,6 @@
+.if exists(config.mk)
+include config.mk
+.endif
 include mk/vars.mk
 
 

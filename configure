@@ -44,7 +44,7 @@ done
 
 # -- configure install
 echo "PREFIX=$PREFIX" >config.mk
-echo "DESTDIR=$DESTDIR" >>config.mk
+test -n "$DESTDIR" && echo "DESTDIR=$DESTDIR" >>config.mk
 
 # -- configure scripts/build_info.sh
 echo "$0 $@" >lib/lib/configure.opts
