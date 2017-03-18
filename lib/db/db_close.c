@@ -2,9 +2,7 @@
 #include <err.h>
 
 void
-db_close (DB *db)
+db_close (DBM *db)
 {
-	int stat = db->close (db);
-	if (stat != 0)
-		err (stat, "could not close db file");
+	dbm_close (db);
 }

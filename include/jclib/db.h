@@ -1,18 +1,15 @@
 #ifndef JCLIB_DB_H
 #define JCLIB_DB_H
 
-#include <db.h>
+#include <ndbm.h>
 
-#define DB_INSERT_FLAGS R_NOOVERWRITE
-#define DB_UPDATE_FLAGS R_SETCURSOR
+extern DBM * db_open (const char *fname);
+extern void db_close (DBM *db);
+extern void db_insert (DBM *db, const char *key, const char *val);
+extern void db_replace (DBM *db, const char *key, const char *val);
 
-DB * db_open (const char *fname);
-void db_close (DB *db);
-int _db_put (DB *db, const char *key, const char *val, u_int flags);
-void db_insert (DB *db, const char *key, const char *val);
-void db_update (DB *db, const char *key, const char *val);
-
-DBT * dbt_alloc (const char *str);
-void dbt_free (DBT *t);
+int _db_store (DBM *db, const char *key, const char *val, u_int flags);
+datum * _datum_alloc (const char *str);
+void _datum_free (datum *d);
 
 #endif /* JCLIB_DB_H */

@@ -7,13 +7,14 @@
 int
 main (void)
 {
-	DB *db = db_open ("/tmp/jclib-btree.db");
+	DBM *db = db_open ("/tmp/jclib-btree");
 	db_insert (db, "dbkey", "dbval");
 
 	/* should raise a warn message about key already exists */
 	db_insert (db, "dbkey", "dbval");
 
-	db_update (db, "dbkey", "dbval2");
+	db_replace (db, "dbkey", "dbval2");
+	db_replace (db, "dbkey2", "dbval");
 
 	db_close (db);
 	return (0);

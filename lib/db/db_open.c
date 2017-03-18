@@ -2,11 +2,11 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-int oflags = O_CREAT | O_SYNC | O_RDWR;
-int omode = 0640;
+#define oflags O_CREAT | O_SYNC | O_RDWR
+#define omode 0640
 
-DB *
+DBM *
 db_open (const char *fname)
 {
-	return (dbopen (fname, oflags, omode, DB_BTREE, NULL));
+	return (dbm_open (fname, oflags, omode));
 }
