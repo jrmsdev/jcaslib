@@ -2,7 +2,7 @@
 #include <err.h>
 
 int
-_db_store (DBM *db, const char *key, const char *val, u_int flags)
+_db_store (DBM *db, const char *key, const char *val, int flags)
 {
 	datum *_key = _datum_alloc (key);
 	datum *_val = _datum_alloc (val);

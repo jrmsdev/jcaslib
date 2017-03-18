@@ -12,7 +12,7 @@ extern void db_close (DBM *db);
 extern void db_insert (DBM *db, const char *key, const char *val);
 extern void db_replace (DBM *db, const char *key, const char *val);
 
-int _db_store (DBM *db, const char *key, const char *val, u_int flags);
+int _db_store (DBM *db, const char *key, const char *val, int flags);
 datum * _datum_alloc (const char *str);
 void _datum_free (datum *d);
 
