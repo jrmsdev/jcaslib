@@ -1,0 +1,55 @@
+#!/bin/sh
+
+PREFIX="/opt/pkg"
+DESTDIR=""
+USE_GDBM="false"
+
+usage()
+{
+	cat <<EOH
+jclib configure
+$0 [options]
+Options:
+    --help, -h      - show help message and exit
+    --prefix=path   - install prefix ($PREFIX)
+    --destdir=path  - install base dir ($DESTDIR)
+    --use-gdbm      - use gdbm ndbm lib ($USE_GDBM)
+EOH
+	exit 1
+}
+
+getarg()
+{
+	echo $1 | cut -d '=' -f2-
+}
+
+# -- parse args
+for arg in $@
+do
+	case $arg in
+		--prefix=*)
+			PREFIX=$(getarg $arg)
+		;;
+		--destdir=*)
+			DESTDIR=$(getarg $arg)
+		;;
+		--use-gdbm)
+			USE_GDBM="true"
+		;;
+		--help|-h)
+			usage
+		;;
+	esac
+done
+
+# -- configure install
+echo "PREFIX=$PREFIX" >config.mk
+echo "DESTDIR=$DESTDIR" >>config.mk
+
+# -- configure scripts/build_info.sh
+echo "$0 $@" >lib/lib/configure.opts
+
+# -- configure lib/db
+test $USE_GDBM == "true" && echo "USE_GDBM=1" >lib/db/config.h
+
+exit 0
