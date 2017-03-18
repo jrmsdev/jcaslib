@@ -58,8 +58,3 @@ depend:
 clean-depend:
 	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh clean-depend
 	@rm -vf $(PWD)/.depend
-
-
-.PHONY: configure
-configure:
-	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh configure

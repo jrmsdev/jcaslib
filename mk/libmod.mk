@@ -1,7 +1,6 @@
 INCD = ../../include/jclib
 CFLAGS_INCLUDE = -I../../include
-CFLAGS_DEFINE +=
-CFLAGS += $(CFLAGS_INCLUDE) $(CFLAGS_DEFINE) -fPIC -c
+CFLAGS += $(CFLAGS_INCLUDE) -fPIC -c
 
 MOD_NAME != basename $(PWD)
 
@@ -52,10 +51,3 @@ clean-mod:
 .PHONY: distclean
 distclean: clean clean-depend
 	@rm -vf configure.opts config.h
-
-
-CFG_CFLAGS_DEFINE =
-
-# configure target could be overwritten per module if needed
-.PHONY: configure
-configure:

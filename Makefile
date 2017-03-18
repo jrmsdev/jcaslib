@@ -95,14 +95,6 @@ distclean:
 	@rm -rfv build dist config.mk
 
 
-.PHONY: configure
-configure:
-	@$(MAKE) -C lib configure
-	@$(MAKE) -C bin configure
-	@$(MAKE) -C examples configure
-	@echo "you might want to run '$(MAKE) depend' now..."
-
-
 .PHONY: check
 check:
 	@$(MAKE) -C tests check

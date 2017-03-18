@@ -16,7 +16,3 @@ pre-build: .build_info.h
 .PHONY: clean-mod
 clean-mod:
 	@rm -vf $(PWD)/.build_info.h
-
-
-.PHONY: configure
-configure: .build_info.h

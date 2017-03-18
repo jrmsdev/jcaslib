@@ -38,8 +38,3 @@ depend:
 .PHONY: clean-depend
 clean-depend:
 	@rm -vf .depend
-
-
-# configure target could be overwritten per binary if needed
-.PHONY: configure
-configure:

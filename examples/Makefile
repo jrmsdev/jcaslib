@@ -27,8 +27,3 @@ depend:
 .PHONY: clean-depend
 clean-depend:
 	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh clean-depend
-
-
-.PHONY: configure
-configure:
-	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh configure

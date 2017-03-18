@@ -2,7 +2,6 @@ BINS != ls *.c | sed 's/\.c/\.bin/'
 OBJS = $(BINS:S/.bin/.o/)
 CFLAGS += -I../../include
 LD_CFLAGS +=
-CFLAGS_DEFINE +=
 LIB_PATH = ../../build/lib/libjc.a
 
 
@@ -22,7 +21,7 @@ $(BINS): $(.PREFIX).o $(LIB_PATH)
 
 .SUFFIXES: .o .c
 $(OBJS):
-	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -fPIC -c -o $(.TARGET) $(.PREFIX).c
+	$(CC) $(CFLAGS) -fPIC -c -o $(.TARGET) $(.PREFIX).c
 
 
 .PHONY: clean
@@ -47,8 +46,3 @@ depend:
 .PHONY: clean-depend
 clean-depend:
 	@rm -vf .depend
-
-
-# configure target could be overwritten per example if needed
-.PHONY: configure
-configure:
