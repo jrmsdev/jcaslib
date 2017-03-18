@@ -1,7 +1,11 @@
 #ifndef JCLIB_DB_H
 #define JCLIB_DB_H
 
+#ifdef USE_GDBM
+#include <gdbm-ndbm.h>
+#else
 #include <ndbm.h>
+#endif
 
 extern DBM * db_open (const char *fname);
 extern void db_close (DBM *db);

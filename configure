@@ -50,6 +50,8 @@ test -n "$DESTDIR" && echo "DESTDIR=$DESTDIR" >>config.mk
 test "x$0 $@" != "x$0 " && echo "$0 $@" >lib/lib/configure.opts
 
 # -- configure lib/db
-test "x$USE_GDBM" = "xtrue" && echo "USE_GDBM=1" >lib/db/config.h
+test "x$USE_GDBM" = "xtrue" && {
+    echo "CFLAGS_DEFINE = -DUSE_GDBM" >lib/db/config.mk
+}
 
 exit 0
