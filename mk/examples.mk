@@ -1,8 +1,3 @@
-.if exists(.opts.mk)
-include .opts.mk
-.endif
-
-
 BINS != ls *.c | sed 's/\.c/\.bin/'
 OBJS = $(BINS:S/.bin/.o/)
 CFLAGS += -I../../include
@@ -37,7 +32,6 @@ clean:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf $(PWD)/.opts.mk
 
 
 .PHONY: clean-lib

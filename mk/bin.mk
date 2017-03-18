@@ -1,8 +1,3 @@
-.if exists(.opts.mk)
-include .opts.mk
-.endif
-
-
 LD_CFLAGS += -ljc
 BUILDD = ../../build
 INCD = ../../include
@@ -32,7 +27,6 @@ clean:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf $(PWD)/.opts.mk
 
 
 .PHONY: depend

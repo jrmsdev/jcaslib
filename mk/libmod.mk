@@ -1,8 +1,3 @@
-.if exists(.opts.mk)
-include .opts.mk
-.endif
-
-
 INCD = ../../include/jclib
 CFLAGS_INCLUDE = -I../../include
 CFLAGS_DEFINE +=
