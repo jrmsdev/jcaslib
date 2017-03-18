@@ -14,7 +14,6 @@ main (void)
 	db_insert (db, "dbkey", "dbval");
 
 	db_update (db, "dbkey", "dbval2");
-	db_insert_or_update (db, "dbkey", "dbval3");
 
 	db_close (db);
 	return (0);
