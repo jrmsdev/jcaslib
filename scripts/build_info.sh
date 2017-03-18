@@ -27,10 +27,7 @@ addline JCL_CC_VERSION "`${CC} --version | head -n 1`"
 addline JCL_MODULES "`ls ../*/Makefile | sed 's#/Makefile##' | sed 's#^\.\./##' | sort | xargs echo`"
 
 test -s configure.opts && {
-    configure_opts="`cat configure.opts`"
-    test "$configure_opts" != "./configure " && {
-        addline JCL_CONFIGURE "$configure_opts"
-    }
+    addline JCL_CONFIGURE "`cat configure.opts`"
 }
 
 exit 0

@@ -47,9 +47,9 @@ echo "PREFIX=$PREFIX" >config.mk
 test -n "$DESTDIR" && echo "DESTDIR=$DESTDIR" >>config.mk
 
 # -- configure scripts/build_info.sh
-echo "$0 $@" >lib/lib/configure.opts
+test "x$0 $@" != "x$0 " && echo "$0 $@" >lib/lib/configure.opts
 
 # -- configure lib/db
-test $USE_GDBM == "true" && echo "USE_GDBM=1" >lib/db/config.h
+test "x$USE_GDBM" = "xtrue" && echo "USE_GDBM=1" >lib/db/config.h
 
 exit 0
