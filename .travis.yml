@@ -1,0 +1,24 @@
+sudo: required
+
+branches:
+    only:
+        - master
+
+language: c
+
+compiler:
+    - gcc
+    - clang
+
+before_install: true
+
+install:
+    - sudo ./scripts/ci/install-deps.sh
+
+before_script:
+    - $CC --version
+
+script:
+    - ./scripts/ci/build.sh
+    - ./build/lib/libjc.so
+    - ./scripts/ci/check.sh
