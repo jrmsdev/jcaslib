@@ -4,12 +4,9 @@ build:
     stage: build
     before_script:
         - apt-get update && apt-get install -y bmake libgdbm-dev
+        - cc --version
     script:
         - ./configure --use-gdbm
         - bmake
-
-test:
-    stage: test
-    script:
+        - LD_LIBRARY_PATH=build/lib build/bin/jclib
         - bmake check
-        - bmake dist
