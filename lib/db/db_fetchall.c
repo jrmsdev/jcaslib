@@ -3,6 +3,7 @@
 #include <jclib/lib.h>
 
 static str_array_type * lskeys (DBM *db, const char *kbase);
+static dbdata * dbdata_alloc (size_t len);
 static dbdata * getdata (DBM *db, str_array_type *klist);
 
 dbdata *
@@ -32,6 +33,17 @@ lskeys (DBM *db, const char *kbase)
 	        str_array_append (l, (const char *) k.dptr);
     }
     return (l);
+}
+
+dbdata *
+dbdata_alloc (size_t len)
+{
+	dbdata *dat = (dbdata *) xmalloc (sizeof (dbdata));
+	dat->db = (dbrec **) xmalloc (len * sizeof (dbrec *));
+	dat->len = len;
+	for (size_t i = 0; i < len; i++)
+		dat->db[i] = (dbrec *) xmalloc (sizeof (dbrec));
+	return (dat);
 }
 
 dbdata *
