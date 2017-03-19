@@ -6,15 +6,20 @@ branches:
     only:
         - master
 
+dist: trusty
+
 compiler: gcc
 
 addons:
     apt:
         packages:
             - libgdbm-dev
-            - pmake
+            - bmake
+
+before_script:
+    - ./configure --use-gdbm
+    - bmake
+    - ./build/lib/libjc.so
 
 script:
-    - ./configure --use-gdbm
-    - pmake
-    - ./build/lib/libjc.so
+    - bmake check
