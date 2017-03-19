@@ -51,6 +51,7 @@ test "x$0 $@" != "x$0 " && echo "$0 $@" >lib/lib/configure.opts
 
 # -- configure gdbm
 test "x$USE_GDBM" = "xtrue" && {
+    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >lib/config.mk
     echo "CFLAGS_DEFINE = -DUSE_GDBM" >lib/db/config.mk
     echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >bin/config.mk
     echo "CFLAGS_DEFINE = -DUSE_GDBM" >examples/config.mk

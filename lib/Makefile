@@ -1,3 +1,7 @@
+.if exists(config.mk)
+include config.mk
+.endif
+
 BUILDD = ../build/lib
 SCRIPTSD = ../scripts
 LIB_PATH = $(BUILDD)/libjc.a
@@ -27,7 +31,7 @@ $(LIB_PATH): $(MOD_OBJS)
 
 $(SHARED_LIB_PATH): $(MOD_OBJS)
 	@mkdir -p $(BUILDD)
-	$(CC) -I../include -fPIE -pie -o $(SHARED_LIB_PATH) $(MOD_OBJS)
+	$(CC) -I../include -fPIE -pie -o $(SHARED_LIB_PATH) $(MOD_OBJS) $(LD_CFLAGS)
 
 
 $(MOD_OBJS): $(MOD_SRCS) $(MOD_HEADERS)
