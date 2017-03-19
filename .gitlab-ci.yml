@@ -1,0 +1,15 @@
+image: gcc
+
+build:
+    stage: build
+    before_script:
+        - apt-get update && apt-get install -y bmake libgdbm-dev
+    script:
+        - ./configure --use-gdbm
+        - bmake
+
+test:
+    stage: test
+    script:
+        - bmake check
+        - bmake dist
