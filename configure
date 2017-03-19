@@ -6,7 +6,7 @@ USE_GDBM="false"
 
 usage()
 {
-	cat <<EOH
+    cat <<EOH
 jclib configure
 $0 [options]
 Options:
@@ -15,31 +15,31 @@ Options:
     --destdir=path - install base dir ($DESTDIR)
     --use-gdbm     - use gdbm ndbm lib ($USE_GDBM)
 EOH
-	exit 1
+    exit 1
 }
 
 getarg()
 {
-	echo $1 | cut -d '=' -f2-
+    echo $1 | cut -d '=' -f2-
 }
 
 # -- parse args
 for arg in $@
 do
-	case $arg in
-		--prefix=*)
-			PREFIX=$(getarg $arg)
-		;;
-		--destdir=*)
-			DESTDIR=$(getarg $arg)
-		;;
-		--use-gdbm)
-			USE_GDBM="true"
-		;;
-		--help|-h)
-			usage
-		;;
-	esac
+    case $arg in
+        --prefix=*)
+            PREFIX=$(getarg $arg)
+        ;;
+        --destdir=*)
+            DESTDIR=$(getarg $arg)
+        ;;
+        --use-gdbm)
+            USE_GDBM="true"
+        ;;
+        --help|-h)
+            usage
+        ;;
+    esac
 done
 
 # -- configure install
