@@ -4,6 +4,8 @@ build:
     stage: build
     only:
         - master
+    variables:
+        DEBIAN_FRONTEND: noninteractive
     before_script:
         - apt-get update && apt-get install -y bmake libgdbm-dev
         - cc --version
