@@ -10,15 +10,22 @@ compiler:
     - gcc
     - clang
 
+env:
+    global:
+        - DEBIAN_FRONTEND="noninteractive"
+
 before_install: true
 
 install:
-    - sudo ./scripts/ci/install-deps.sh
+    - sudo apt-get -qq update && sudo apt-get -qq -y install pmake libgdbm-dev
 
 before_script:
     - $CC --version
 
 script:
-    - ./scripts/ci/build.sh
+    - ./configure --use-gdbm
+    - pmake
     - ./build/lib/libjc.so
-    - ./scripts/ci/check.sh
+    - pmake examples
+    - pmake dist
+    - pmake check

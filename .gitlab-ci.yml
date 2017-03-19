@@ -6,11 +6,17 @@ build:
     only:
         - master
 
+    variables:
+        DEBIAN_FRONTEND: noninteractive
+
     before_script:
-        - ./scripts/ci/install-deps.sh
+        - apt-get -qq update && apt-get -qq -y install bmake libgdbm-dev
         - cc --version
 
     script:
-        - ./scripts/ci/build.sh
+        - ./configure --use-gdbm
+        - bmake
         - ./build/lib/libjc.so
-        - ./scripts/ci/check.sh
+        - bmake examples
+        - bmake dist
+        - bmake check
