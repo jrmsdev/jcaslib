@@ -12,10 +12,9 @@ addons:
     apt:
         packages:
             - libgdbm-dev
-            - bmake
             - pmake
 
 script:
     - ./configure --use-gdbm
-    - pmake || bmake
+    - pmake
     - ./build/lib/libjc.so
