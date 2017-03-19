@@ -2,6 +2,8 @@ image: gcc
 
 build:
     stage: build
+    only:
+        - master
     before_script:
         - apt-get update && apt-get install -y bmake libgdbm-dev
         - cc --version
@@ -9,4 +11,6 @@ build:
         - ./configure --use-gdbm
         - bmake
         - ./build/lib/libjc.so
+        - bmake examples
+        - bmake dist
         - bmake check
