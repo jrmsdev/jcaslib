@@ -1,31 +1,21 @@
-sudo: required
+language: c
+
+sudo: false
 
 branches:
     only:
         - master
 
-language: c
+compiler: gcc
 
-compiler:
-    - gcc
-    - clang
-
-env:
-    global:
-        - DEBIAN_FRONTEND="noninteractive"
-
-before_install: true
-
-install:
-    - sudo apt-get -qq update && sudo apt-get -qq -y install pmake libgdbm-dev
-
-before_script:
-    - $CC --version
+addons:
+    apt:
+        packages:
+            - libgdbm-dev
+            - bmake
+            - pmake
 
 script:
     - ./configure --use-gdbm
-    - pmake
+    - pmake || bmake
     - ./build/lib/libjc.so
-    - pmake examples
-    - pmake dist
-    - pmake check
