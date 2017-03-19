@@ -35,6 +35,7 @@ clean:
 
 .PHONY: distclean
 distclean: clean clean-depend
+	@rm -vf ../config.mk
 
 
 .PHONY: clean-lib

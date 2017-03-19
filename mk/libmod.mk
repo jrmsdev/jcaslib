@@ -54,4 +54,4 @@ clean-mod:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf configure.opts config.h
+	@rm -vf configure.opts config.mk
