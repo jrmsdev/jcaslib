@@ -8,7 +8,7 @@
 int
 main (void)
 {
-	DBM *db = db_open ("/tmp/jclib-btree");
+	DBM *db = db_open ("/tmp/jclib-db_ex");
 	db_insert (db, "dbkey", "dbval");
 
 	/* force a warn message about key already exists */
@@ -17,11 +17,10 @@ main (void)
 	db_replace (db, "dbkey", "dbval2");
 	db_replace (db, "dbkey2", "dbval");
 
-    str_type *val = db_fetch (db, "dbkey");
+    char *val = db_fetch (db, "dbkey");
     if (val != NULL)
     {
-        printf ("dbkey: %s\n", str_get (val));
-        str_free (val);
+        printf ("dbkey: %s\n", val);
     }
 
     val = db_fetch (db, "dbkey3");
@@ -31,9 +30,13 @@ main (void)
     }
     else
     {
-        printf ("dbkey3: %s\n", str_get (val));
-        str_free (val);
+        printf ("dbkey3: %s\n", val);
     }
+
+    dbdata *dat = db_fetchall (db, NULL);
+    for (size_t i = 0; i < dat->len; i++)
+		printf ("key: %s - val: %s\n", dat->db[i]->key, dat->db[i]->val);
+    dbdata_free (dat);
 
 	db_close (db);
 	return (0);
