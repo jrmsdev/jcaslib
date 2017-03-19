@@ -18,6 +18,10 @@ addons:
             - libgdbm-dev
             - bmake
 
+matrix:
+    include:
+        - os: osx
+
 before_script:
     - ./configure --use-gdbm
     - bmake depend
