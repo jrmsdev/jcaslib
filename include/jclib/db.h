@@ -25,6 +25,7 @@ extern void db_insert (DBM *db, const char *key, const char *val);
 extern void db_replace (DBM *db, const char *key, const char *val);
 extern char * db_fetch (DBM *db, const char *key);
 extern dbdata * db_fetchall (DBM *db, const char *kbase);
+extern void db_delete (DBM *db, const char *key);
 
 extern void dbdata_free (dbdata *dat);
 #define dbdata_key(dat, idx) dat->db[idx]->key

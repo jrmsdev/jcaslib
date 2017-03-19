@@ -11,7 +11,7 @@ main (void)
 	DBM *db = db_open ("/tmp/jclib-db_ex");
 	db_insert (db, "dbkey", "dbval");
 
-	/* force a warn message about key already exists */
+	/* force warn message about key already exists */
 	db_insert (db, "dbkey", "dbval");
 
 	db_replace (db, "dbkey", "dbval2");
@@ -32,6 +32,12 @@ main (void)
     {
         printf ("dbkey3: %s\n", val);
     }
+
+    db_insert (db, "dbkey4", "dbval4");
+    db_delete (db, "dbkey4");
+
+	/* force warn message about key not found */
+    db_delete (db, "dbkey5");
 
     dbdata *dat = db_fetchall (db, NULL);
     for (size_t i = 0; i < dbdata_len (dat); i++)
