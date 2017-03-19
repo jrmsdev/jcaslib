@@ -49,17 +49,12 @@ installdirs:
 	@mkdir -vp $(DESTDIR)$(PREFIX)/share/licenses/jclib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/include/jclib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/lib
-	@mkdir -vp $(DESTDIR)$(PREFIX)/bin
 
 
-.do-install: $(DESTDIR)$(PREFIX)/bin/jclib $(LIB_PATH) $(SHARED_LIB_PATH)
+.do-install: $(LIB_PATH) $(SHARED_LIB_PATH)
 	@$(INSTALL_F) include/jclib/*.h $(DESTDIR)$(PREFIX)/include/jclib
 	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jclib
 	@touch .do-install
-
-
-$(DESTDIR)$(PREFIX)/bin/jclib: build/bin/jclib
-	@$(INSTALL_EXE) build/bin/jclib $(DESTDIR)$(PREFIX)/bin/jclib
 
 
 $(LIB_PATH): build/lib/libjc.a
@@ -67,12 +62,12 @@ $(LIB_PATH): build/lib/libjc.a
 
 
 $(SHARED_LIB_PATH): build/lib/libjc.so
-	@$(INSTALL_F) build/lib/libjc.so $(SHARED_LIB_PATH)
+	@$(INSTALL_EXE) build/lib/libjc.so $(SHARED_LIB_PATH)
 
 
 .PHONY: uninstall
 uninstall:
-	@rm -vf $(DESTDIR)$(PREFIX)/bin/jclib $(LIB_PATH) $(SHARED_LIB_PATH)
+	@rm -vf $(LIB_PATH) $(SHARED_LIB_PATH)
 	@rm -rvf $(DESTDIR)$(PREFIX)/include/jclib
 	@rm -rvf $(DESTDIR)$(PREFIX)/share/licenses/jclib
 
