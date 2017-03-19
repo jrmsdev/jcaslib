@@ -19,7 +19,9 @@ addons:
 before_script:
     - ./configure --use-gdbm
     - bmake
-    - ./build/lib/libjc.so
+    - bmake examples
+    - bmake dist
 
 script:
+    - ./build/lib/libjc.so
     - bmake check
