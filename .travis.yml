@@ -8,7 +8,9 @@ branches:
 
 dist: trusty
 
-compiler: gcc
+compiler:
+    - gcc
+    - clang
 
 addons:
     apt:
