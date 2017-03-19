@@ -15,7 +15,8 @@ build:
 
     script:
         - ./configure --use-gdbm
-        - bmake
+        - bmake depend
+        - bmake -j2
         - ./build/lib/libjc.so
         - bmake examples
         - bmake dist

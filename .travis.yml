@@ -20,7 +20,8 @@ addons:
 
 before_script:
     - ./configure --use-gdbm
-    - bmake
+    - bmake depend
+    - bmake -j2
     - bmake examples
     - bmake dist
 
