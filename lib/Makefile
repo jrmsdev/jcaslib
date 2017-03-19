@@ -31,7 +31,7 @@ $(LIB_PATH): $(MOD_OBJS)
 
 $(SHARED_LIB_PATH): $(MOD_OBJS)
 	@mkdir -p $(BUILDD)
-	$(CC) -I../include -fPIE -pie -o $(SHARED_LIB_PATH) $(MOD_OBJS) $(LD_CFLAGS)
+	$(CC) -pie -fPIC -fPIE -o $(SHARED_LIB_PATH) $(MOD_OBJS) $(LD_CFLAGS)
 
 
 $(MOD_OBJS): $(MOD_SRCS) $(MOD_HEADERS)
