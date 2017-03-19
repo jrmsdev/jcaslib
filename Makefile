@@ -6,8 +6,7 @@ include mk/vars.mk
 
 LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.a
 SHARED_LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.so
-DIST_VERSION != grep -F ' JCL_VERSION ' include/jclib/version.h | \
-			cut -d ' ' -f 3 | sed 's/"//g'
+DIST_VERSION != scripts/dist-version.sh
 
 
 .PHONY: all
