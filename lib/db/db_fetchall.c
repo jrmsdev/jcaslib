@@ -1,7 +1,6 @@
 #include <jclib/db.h>
 #include <jclib/str.h>
 #include <jclib/lib.h>
-#include <string.h>
 
 static str_array_type * lskeys (DBM *db, const char *kbase);
 static dbdata * getdata (DBM *db, str_array_type *klist);

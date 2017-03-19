@@ -7,6 +7,8 @@
 #include <ndbm.h>
 #endif
 
+#include <string.h>
+
 typedef struct {
     char *key;
     char *val;

@@ -1,5 +1,4 @@
 #include <jclib/db.h>
-#include <string.h>
 #include <err.h>
 
 int
