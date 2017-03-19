@@ -2,17 +2,15 @@ image: gcc
 
 build:
     stage: build
+
     only:
         - master
-    variables:
-        DEBIAN_FRONTEND: noninteractive
+
     before_script:
-        - apt-get update && apt-get install -y bmake libgdbm-dev
+        - ./scripts/ci/install-deps.sh
         - cc --version
+
     script:
-        - ./configure --use-gdbm
-        - bmake
+        - ./scripts/ci/build.sh
         - ./build/lib/libjc.so
-        - bmake examples
-        - bmake dist
-        - bmake check
+        - ./scripts/ci/check.sh
