@@ -37,5 +37,6 @@ extern void dbdata_free (dbdata *dat);
 #define dbdata_len(dat) dat->len
 
 int _db_store (DBM *db, const char *key, const char *val, int flags);
+void _db_init (DBM *db);
 
 #endif /* JCLIB_DB_H */

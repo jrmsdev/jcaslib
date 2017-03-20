@@ -41,7 +41,7 @@ main (void)
 
     dbdata *dat = db_fetchall (db, NULL);
     for (size_t i = 0; i < dbdata_len (dat); i++)
-        printf ("key: %s - val: %s\n", dbdata_key (dat, i), dbdata_val (dat, i));
+        printf ("%s=%s\n", dbdata_key (dat, i), dbdata_val (dat, i));
     dbdata_free (dat);
 
     db_close (db);
