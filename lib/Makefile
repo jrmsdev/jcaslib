@@ -25,7 +25,7 @@ build: $(LIB_PATH) $(SHARED_LIB_PATH)
 
 $(LIB_PATH): $(MOD_OBJS)
 	@mkdir -p $(BUILDD)
-	@ar -Drc $(LIB_PATH) $(MOD_OBJS)
+	@ar -rc $(LIB_PATH) $(MOD_OBJS)
 	ranlib $(LIB_PATH)
 
 
