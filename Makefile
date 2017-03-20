@@ -7,7 +7,7 @@ include mk/vars.mk
 
 LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.a
 SHARED_LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.so
-DIST_VERSION != scripts/dist-version.sh
+DIST_VERSION != ./scripts/dist-version.sh
 
 
 .PHONY: all
@@ -93,3 +93,7 @@ distclean:
 .PHONY: check
 check:
 	@$(MAKE) -C tests check
+
+.PHONY: expand
+expand:
+	@./scripts/expand-tabs.sh
