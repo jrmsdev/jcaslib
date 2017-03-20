@@ -3,5 +3,5 @@
 int log_print(char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    return __logfp(stdout, fmt, ap);
+    return _logfp(stdout, NULL, fmt, ap);
 }

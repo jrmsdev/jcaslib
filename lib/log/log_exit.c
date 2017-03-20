@@ -4,6 +4,6 @@
 void log_exit(int stat, char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    __logfp(stderr, fmt, ap);
+    _logfp(stderr, "E", fmt, ap);
     exit(stat);
 }

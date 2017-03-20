@@ -3,5 +3,5 @@
 int log_err(char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    return __logfp(stderr, fmt, ap);
+    return _logfp(stderr, "E", fmt, ap);
 }

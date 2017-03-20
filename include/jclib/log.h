@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-int __logfp(FILE *fp, char *fmt, va_list ap);
+int _logfp(FILE *fp, const char *tag, char *fmt, va_list ap);
 extern int log_print(char * fmt, ...);
 extern int log_dbg(char * fmt, ...);
 extern int log_err(char * fmt, ...);
