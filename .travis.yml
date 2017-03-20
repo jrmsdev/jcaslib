@@ -1,7 +1,5 @@
 language: c
 
-sudo: false
-
 branches:
     only:
         - master
@@ -9,8 +7,7 @@ branches:
 matrix:
     include:
         - os: linux
-          env:
-              - MAKE="bmake"
+          sudo: false
           dist: trusty
           addons:
               apt:
@@ -19,17 +16,18 @@ matrix:
                       - bmake
           compiler: gcc
         - os: osx
-          env:
-              - MAKE="make"
           compiler: clang
+          install:
+              - brew update --quiet
+              - brew install bmake
 
 before_script:
     - ./configure --use-gdbm
-    - $MAKE depend
-    - $MAKE -j2
-    - $MAKE examples
-    - $MAKE dist
+    - bmake depend
+    - bmake -j2
+    - bmake examples
+    - bmake dist
 
 script:
     - ./build/lib/libjc.so
-    - $MAKE check
+    - bmake check
