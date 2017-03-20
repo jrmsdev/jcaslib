@@ -18,5 +18,5 @@ script:
     - bmake check
 
 build:gcc:
-    stage: test
+    stage: build
     image: gcc
