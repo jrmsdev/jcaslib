@@ -5,7 +5,7 @@ variables:
     DEBIAN_FRONTEND: noninteractive
 
 before_script:
-    - apt-get -qq update && apt-get -qq -y install bmake libgdbm-dev gcc
+    - apt-get -qq update && apt-get -qq -y install bmake libgdbm-dev $DEBPKGS
     - $CC --version
 
 .script: &build_script
@@ -33,4 +33,5 @@ debian_stable:
     image: debian:stable
     variables:
         CC: gcc
+        DEBPKGS: gcc xz-utils
     script: *build_script
