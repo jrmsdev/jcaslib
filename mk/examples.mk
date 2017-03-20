@@ -5,7 +5,8 @@ include config.mk
 
 BINS != ls *.c | sed 's/\.c/\.bin/'
 OBJS = $(BINS:S/.bin/.o/)
-CFLAGS += -I../../include $(CFLAGS_DEFINE)
+INCD = ../../include
+CFLAGS += -I$(INCD) $(CFLAGS_DEFINE)
 LIB_PATH = ../../build/lib/libjc.a
 
 
@@ -45,7 +46,7 @@ clean-lib: clean
 
 .PHONY: depend
 depend:
-	$(CC) $(CFLAGS) -E -MM *.c >.depend
+	$(CC) -I$(INCD) $(CFLAGS_DEFINE) -E -MM *.c >.depend
 
 
 .PHONY: clean-depend
