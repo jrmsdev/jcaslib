@@ -1,5 +1,5 @@
-only:
-    - master
+stages:
+   - build
 
 variables:
     DEBIAN_FRONTEND: noninteractive
@@ -8,7 +8,7 @@ before_script:
     - apt-get -qq update && apt-get -qq -y install bmake libgdbm-dev
     - cc --version
 
-script:
+.script: &build_script
     - ./configure --use-gdbm
     - bmake depend
     - bmake -j2
@@ -17,6 +17,16 @@ script:
     - bmake dist
     - bmake check
 
-build:gcc:
+build_gcc:
     stage: build
+    only:
+        - master
     image: gcc
+    script: *build_script
+
+build_stable:
+    stage: build
+    only:
+        - master
+    image: debian:stable
+    script: *build_script
