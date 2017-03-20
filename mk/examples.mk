@@ -45,7 +45,7 @@ clean-lib: clean
 
 .PHONY: depend
 depend:
-	$(CC) -I ../../include -E -MM *.c >.depend
+	$(CC) $(CFLAGS) -E -MM *.c >.depend
 
 
 .PHONY: clean-depend
