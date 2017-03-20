@@ -15,19 +15,18 @@ matrix:
                       - libgdbm-dev
                       - bmake
           compiler: gcc
+          before_script:
+              - ./configure --use-gdbm
         - os: osx
           compiler: clang
           install:
               - brew update --quiet
               - brew install bmake
 
-before_script:
-    - ./configure --use-gdbm
+script:
     - bmake depend
     - bmake -j2
     - bmake examples
     - bmake dist
-
-script:
     - ./build/lib/libjc.so
     - bmake check
