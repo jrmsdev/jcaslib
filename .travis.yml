@@ -21,6 +21,8 @@ addons:
 matrix:
     include:
         - os: osx
+          addons:
+          compiler: gcc
 
 before_script:
     - ./configure --use-gdbm
