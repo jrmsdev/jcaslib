@@ -22,7 +22,7 @@ t_fail=0
 for t in ${TEST_SUITE}
 do
     tn=`echo "$t" | sed 's#\.run##'`
-    echo -n "${tn}..."
+    printf "%s..." ${tn}
     ${TESTSD}/${t} >${TESTSD}/${tn}.fail 2>${TESTSD}/${tn}.fail
     stat=$?
     t_total=`expr $t_total + 1`
