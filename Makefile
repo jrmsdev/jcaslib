@@ -1,5 +1,6 @@
-.if exists(config.mk)
-include config.mk
+.PATH: ./mk
+.if exists(configure.mk)
+include configure.mk
 .endif
 include mk/vars.mk
 
@@ -86,7 +87,7 @@ distclean:
 	@$(MAKE) -C bin distclean
 	@$(MAKE) -C examples distclean
 	@$(MAKE) -C tests distclean
-	@rm -rfv build dist config.mk bin/config.mk lib/config.mk
+	@rm -rfv build dist mk/configure.mk include/jclib/configure.h
 
 
 .PHONY: check

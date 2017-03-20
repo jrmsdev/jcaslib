@@ -1,9 +1,9 @@
 *.swp
 .depend
 .do-install
-.opts.mk
 build/*
 dist/*
 tmp/*
 vgcore.*
-config.mk
+include/jclib/configure.h
+mk/configure.mk

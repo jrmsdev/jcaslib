@@ -37,20 +37,34 @@ do
     esac
 done
 
-# -- configure install
-echo "PREFIX=$PREFIX" >config.mk
-test -n "$DESTDIR" && echo "DESTDIR=$DESTDIR" >>config.mk
+configure_mk=mk/configure.mk
+configure_h=include/jclib/configure.h
 
-# -- configure scripts/build_info.sh
-test "x$0 $@" != "x$0 " && echo "$0 $@" >lib/lib/configure.opts
+# -- CFLAGS to load configure.h
+echo "CFLAGS_DEFINE = -DLOAD_CONFIGURE_H" >$configure_mk
+
+# -- configure install
+echo "PREFIX = $PREFIX" >>$configure_mk
+test -n "$DESTDIR" && {
+    echo "DESTDIR = $DESTDIR" >>$configure_mk
+}
+
+# -- configure.h head
+echo "#ifndef JCLIB_CONFIGURE_H" >$configure_h
+echo "#define JCLIB_CONFIGURE_H" >>$configure_h
+
+# -- configure options
+test $# -gt 0 && {
+    echo "#define CONFIGURE_OPTS \"$0 $@\"" >>$configure_h
+}
 
 # -- configure gdbm
 test "x$USE_GDBM" = "xtrue" && {
-    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >lib/config.mk
-    echo "CFLAGS_DEFINE = -DUSE_GDBM" >lib/db/config.mk
-    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >bin/config.mk
-    echo "CFLAGS_DEFINE = -DUSE_GDBM" >examples/config.mk
-    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >>examples/config.mk
+    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >>$configure_mk
+    echo "#define USE_GDBM" >>$configure_h
 }
+
+# -- configure.h tail
+echo "#endif /* JCLIB_CONFIGURE_H */" >>$configure_h
 
 exit 0

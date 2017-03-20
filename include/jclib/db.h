@@ -1,6 +1,10 @@
 #ifndef JCLIB_DB_H
 #define JCLIB_DB_H
 
+#ifdef LOAD_CONFIGURE_H
+#include <jclib/configure.h>
+#endif
+
 #ifdef USE_GDBM
 #include <gdbm-ndbm.h>
 #else

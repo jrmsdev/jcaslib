@@ -14,10 +14,10 @@ void print_build_info() {
         log_print("Modules:");
         log_print("  %s", JCL_MODULES);
     }
-    if (strncmp (JCL_CONFIGURE, "NOVAL", 5) != 0)
+    if (strncmp (CONFIGURE_OPTS, "NOVAL", 5) != 0)
     {
         log_print("");
         log_print("Configure options:");
-        log_print("  %s", JCL_CONFIGURE);
+        log_print("  %s", CONFIGURE_OPTS);
     }
 }

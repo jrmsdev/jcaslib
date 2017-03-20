@@ -1,6 +1,6 @@
-.PATH: ..
-.if exists(config.mk)
-include config.mk
+.PATH: ../../mk
+.if exists(configure.mk)
+include configure.mk
 .endif
 
 BINS != ls *.c | sed 's/\.c/\.bin/'
@@ -36,7 +36,6 @@ clean:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf ../config.mk
 
 
 .PHONY: clean-lib

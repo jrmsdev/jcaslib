@@ -1,5 +1,6 @@
-.if exists(config.mk)
-include config.mk
+.PATH: ../../mk
+.if exists(configure.mk)
+include configure.mk
 .endif
 
 INCD = ../../include/jclib
@@ -54,4 +55,3 @@ clean-mod:
 
 .PHONY: distclean
 distclean: clean clean-depend
-	@rm -vf configure.opts config.mk

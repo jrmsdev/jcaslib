@@ -13,7 +13,7 @@ addline() {
     echo "#define ${_NAME} \"${_VAL}\"" >>.build_info.h
 }
 
-test -s version.c || {
+test -s build_info.c || {
     echo "ERR: ${0} not running from source lib dir" >&2
     exit 1
 }
@@ -24,9 +24,5 @@ addline JCL_BUILD_BY "`id -un`@`uname -n`"
 addline JCL_BUILD_OS "`uname -snrm`"
 addline JCL_CC_VERSION "`${CC} --version | head -n 1`"
 addline JCL_MODULES "`ls ../*/Makefile | sed 's#/Makefile##' | sed 's#^\.\./##' | sort | xargs echo`"
-
-test -s configure.opts && {
-    addline JCL_CONFIGURE "`cat configure.opts`"
-}
 
 exit 0

@@ -18,8 +18,13 @@
 #ifndef JCL_MODULES
 #define JCL_MODULES "NOVAL"
 #endif
-#ifndef JCL_CONFIGURE
-#define JCL_CONFIGURE "NOVAL"
+
+#ifdef LOAD_CONFIGURE_H
+#include <jclib/configure.h>
+#endif
+
+#ifndef CONFIGURE_OPTS
+#define CONFIGURE_OPTS "NOVAL"
 #endif
 
 extern void print_build_info();

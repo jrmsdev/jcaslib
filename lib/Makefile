@@ -1,5 +1,6 @@
-.if exists(config.mk)
-include config.mk
+.PATH: ../mk
+.if exists(configure.mk)
+include configure.mk
 .endif
 
 BUILDD = ../build/lib
