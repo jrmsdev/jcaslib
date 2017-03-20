@@ -18,20 +18,15 @@ EOH
     exit 1
 }
 
-getarg()
-{
-    echo $1 | cut -d '=' -f2-
-}
-
 # -- parse args
 for arg in $@
 do
     case $arg in
         --prefix=*)
-            PREFIX=$(getarg $arg)
+            PREFIX=${arg#--*=}
         ;;
         --destdir=*)
-            DESTDIR=$(getarg $arg)
+            DESTDIR=${arg#--*=}
         ;;
         --use-gdbm)
             USE_GDBM="true"
