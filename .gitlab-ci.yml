@@ -3,9 +3,11 @@ stages:
 
 variables:
     DEBIAN_FRONTEND: noninteractive
+    DEBPKGS: bmake libgdbm-dev xz-utils
+    APTARGS: --no-install-recommends
 
 before_script:
-    - apt-get -qq update && apt-get -qq -y install bmake libgdbm-dev $DEBPKGS
+    - apt-get -qq update && apt-get -qq -y $APTARGS install $DEBPKGS $CC
     - $CC --version
 
 .script: &build_script
@@ -26,12 +28,11 @@ build_gcc:
         CC: gcc
     script: *build_script
 
-debian_stable:
+build_clang:
     stage: build
     only:
         - master
     image: debian:stable
     variables:
-        CC: gcc
-        DEBPKGS: gcc xz-utils
+        CC: clang
     script: *build_script
