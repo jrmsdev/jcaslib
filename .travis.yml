@@ -6,31 +6,32 @@ branches:
     only:
         - master
 
-dist: trusty
-
 compiler:
     - gcc
     - clang
 
-addons:
-    apt:
-        packages:
-            - libgdbm-dev
-            - bmake
-
 matrix:
     include:
-        - os: osx
+        - os: linux
+          dist: trusty
           addons:
-          compiler: gcc
+              apt:
+                  packages:
+                      - libgdbm-dev
+                      - bmake
+          env:
+              - MAKE="bmake"
+        - os: osx
+          env:
+              - MAKE="make"
 
 before_script:
     - ./configure --use-gdbm
-    - bmake depend
-    - bmake -j2
-    - bmake examples
-    - bmake dist
+    - $MAKE depend
+    - $MAKE -j2
+    - $MAKE examples
+    - $MAKE dist
 
 script:
     - ./build/lib/libjc.so
-    - bmake check
+    - $MAKE check
