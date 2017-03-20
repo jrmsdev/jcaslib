@@ -41,5 +41,6 @@ extern void dbdata_free (dbdata *dat);
 
 int _db_store (DBM *db, const char *key, const char *val, int flags);
 void _db_init (DBM *db);
+void _db_updated ();
 
 #endif /* JCLIB_DB_H */

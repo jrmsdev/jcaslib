@@ -1,11 +1,5 @@
 #include <jclib/db.h>
 #include <jclib/log.h>
-#include <stdlib.h>
-#include <time.h>
-
-#define DB_UPDATE_KEY DB_KEY_PREFIX"update"
-
-static void _db_updated ();
 
 int
 _db_store (DBM *db, const char *key, const char *val, int flags)
@@ -32,25 +26,4 @@ _db_store (DBM *db, const char *key, const char *val, int flags)
     }
 
     return (stat);
-}
-
-void
-_db_updated (DBM *db)
-{
-    time_t update_t = time (NULL);
-    if (update_t == -1)
-        log_exit (1, "could not get current epoch");
-
-    char *update_s;
-    asprintf (&update_s, "%ld", update_t);
-
-    datum k;
-    datum v;
-    k.dptr = (void *) DB_UPDATE_KEY;
-    k.dsize = strlen (DB_UPDATE_KEY) + 1;
-    v.dptr = (void *) update_s;
-    v.dsize = strlen (update_s) + 1;
-
-    dbm_store (db, k, v, DBM_REPLACE);
-    free (update_s);
 }
