@@ -41,10 +41,10 @@ extern void str_join (str_type *dst, const char *sep, int count, const char *str
 #define STR_ARRAY_ALLOC 5
 
 typedef struct {
-	str_type **data;
-	size_t len;
-	size_t last;
-	size_t allocated;
+    str_type **data;
+    size_t len;
+    size_t last;
+    size_t allocated;
 } str_array_type;
 
 extern str_array_type * str_array_alloc ();

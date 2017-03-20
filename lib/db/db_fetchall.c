@@ -21,16 +21,16 @@ lskeys (DBM *db, const char *kbase)
     str_array_type *l = str_array_alloc ();
     char addkey = 0;
     size_t klen = 0;
-	if (kbase != NULL)
-		klen = strlen (kbase);
+    if (kbase != NULL)
+        klen = strlen (kbase);
     for (datum k = dbm_firstkey (db); k.dptr != NULL; k = dbm_nextkey (db))
     {
-		if (kbase == NULL)
-			addkey = 1;
-		else if (strncmp (k.dptr, kbase, klen) >= 0)
-			addkey = 1;
-		if (addkey)
-	        str_array_append (l, (const char *) k.dptr);
+        if (kbase == NULL)
+            addkey = 1;
+        else if (strncmp (k.dptr, kbase, klen) >= 0)
+            addkey = 1;
+        if (addkey)
+            str_array_append (l, (const char *) k.dptr);
     }
     return (l);
 }
@@ -38,28 +38,28 @@ lskeys (DBM *db, const char *kbase)
 dbdata *
 dbdata_alloc (size_t len)
 {
-	dbdata *dat = (dbdata *) xmalloc (sizeof (dbdata));
-	dat->db = (dbrec **) xmalloc (len * sizeof (dbrec *));
-	dat->len = len;
-	for (size_t i = 0; i < len; i++)
-		dat->db[i] = (dbrec *) xmalloc (sizeof (dbrec));
-	return (dat);
+    dbdata *dat = (dbdata *) xmalloc (sizeof (dbdata));
+    dat->db = (dbrec **) xmalloc (len * sizeof (dbrec *));
+    dat->len = len;
+    for (size_t i = 0; i < len; i++)
+        dat->db[i] = (dbrec *) xmalloc (sizeof (dbrec));
+    return (dat);
 }
 
 dbdata *
 getdata (DBM *db, str_array_type *klist)
 {
-	dbdata *dat = dbdata_alloc (klist->len);
-	for (size_t idx = 0; idx < klist->len; idx++)
-	{
-		dat->db[idx]->key =
-				(char *) xmalloc ((klist->data[idx]->len + 1) * sizeof (char));
-		memcpy (dat->db[idx]->key,
-				str_array_get (klist, idx), klist->data[idx]->len);
-		char *v = db_fetch (db, dat->db[idx]->key);
-		size_t vlen = strlen (v);
-		dat->db[idx]->val = (char *) xmalloc ((vlen + 1) * sizeof (char));
-		memcpy (dat->db[idx]->val, v, vlen);
-	}
+    dbdata *dat = dbdata_alloc (klist->len);
+    for (size_t idx = 0; idx < klist->len; idx++)
+    {
+        dat->db[idx]->key =
+                (char *) xmalloc ((klist->data[idx]->len + 1) * sizeof (char));
+        memcpy (dat->db[idx]->key,
+                str_array_get (klist, idx), klist->data[idx]->len);
+        char *v = db_fetch (db, dat->db[idx]->key);
+        size_t vlen = strlen (v);
+        dat->db[idx]->val = (char *) xmalloc ((vlen + 1) * sizeof (char));
+        memcpy (dat->db[idx]->val, v, vlen);
+    }
     return (dat);
 }

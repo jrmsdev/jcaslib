@@ -19,8 +19,8 @@ typedef struct {
 } dbrec;
 
 typedef struct {
-	dbrec **db;
-	size_t len;
+    dbrec **db;
+    size_t len;
 } dbdata;
 
 extern DBM * db_open (const char *fname);

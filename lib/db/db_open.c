@@ -8,5 +8,5 @@
 DBM *
 db_open (const char *fname)
 {
-	return (dbm_open (fname, oflags, omode));
+    return (dbm_open (fname, oflags, omode));
 }
