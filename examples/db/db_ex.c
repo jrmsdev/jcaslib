@@ -3,7 +3,7 @@
 **/
 
 #include <jclib/db.h>
-#include <stdio.h>
+#include <jclib/log.h>
 
 int
 main (void)
@@ -20,17 +20,17 @@ main (void)
     char *val = db_fetch (db, "dbkey");
     if (val != NULL)
     {
-        printf ("dbkey: %s\n", val);
+        log_print ("dbkey: %s", val);
     }
 
     val = db_fetch (db, "dbkey3");
     if (val == NULL)
     {
-        printf ("dbkey3: not found\n");
+        log_print ("dbkey3: not found");
     }
     else
     {
-        printf ("dbkey3: %s\n", val);
+        log_print ("dbkey3: %s", val);
     }
 
     db_insert (db, "dbkey4", "dbval4");
@@ -41,7 +41,7 @@ main (void)
 
     dbdata *dat = db_fetchall (db, NULL);
     for (size_t i = 0; i < dbdata_len (dat); i++)
-        printf ("%s=%s\n", dbdata_key (dat, i), dbdata_val (dat, i));
+        log_print ("%s=%s", dbdata_key (dat, i), dbdata_val (dat, i));
     dbdata_free (dat);
 
     db_close (db);
