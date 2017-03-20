@@ -1,6 +1,8 @@
 #ifndef JCLIB_BUILD_INFO_H
 #define JCLIB_BUILD_INFO_H
 
+#include ".build_info.h"
+
 #ifndef JCL_BUILD_TIME
 #define JCL_BUILD_TIME "NOVAL"
 #endif

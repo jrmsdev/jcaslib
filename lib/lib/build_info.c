@@ -1,5 +1,4 @@
-#include ".build_info.h"
-#include <jclib/build_info.h>
+#include "build_info.h"
 #include <jclib/log.h>
 #include <string.h>
 
