@@ -54,6 +54,7 @@ installdirs:
 
 .do-install: $(LIB_PATH) $(SHARED_LIB_PATH)
 	@$(INSTALL_F) include/jclib/*.h $(DESTDIR)$(PREFIX)/include/jclib
+	@rm -f $(DESTDIR)$(PREFIX)/include/jclib/configure.h
 	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jclib
 	@touch .do-install
 
