@@ -1,23 +1,22 @@
-image: gcc
+only:
+    - master
+
+variables:
+    DEBIAN_FRONTEND: noninteractive
+
+before_script:
+    - apt-get -qq update && apt-get -qq -y install bmake libgdbm-dev
+    - cc --version
+
+script:
+    - ./configure --use-gdbm
+    - bmake depend
+    - bmake -j2
+    - ./build/lib/libjc.so
+    - bmake examples
+    - bmake dist
+    - bmake check
 
 build:
-    stage: build
-
-    only:
-        - master
-
-    variables:
-        DEBIAN_FRONTEND: noninteractive
-
-    before_script:
-        - apt-get -qq update && apt-get -qq -y install bmake libgdbm-dev
-        - cc --version
-
-    script:
-        - ./configure --use-gdbm
-        - bmake depend
-        - bmake -j2
-        - ./build/lib/libjc.so
-        - bmake examples
-        - bmake dist
-        - bmake check
+    stage: test
+    image: gcc
