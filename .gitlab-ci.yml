@@ -17,6 +17,6 @@ script:
     - bmake dist
     - bmake check
 
-build:
+build:gcc:
     stage: test
     image: gcc
