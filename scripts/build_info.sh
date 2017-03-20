@@ -19,7 +19,7 @@ test -s version.c || {
 }
 
 rm -f .build_info.h
-addline JCL_BUILD_TIME "`date -R`"
+addline JCL_BUILD_TIME "`date`"
 addline JCL_BUILD_BY "`id -un`@`uname -n`"
 addline JCL_BUILD_EPOCH "`date '+%s'`"
 addline JCL_BUILD_OS "`uname -snrm`"
