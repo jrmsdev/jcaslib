@@ -17,7 +17,7 @@ _db_init (DBM *db)
             log_exit (1, "could not get current epoch");
         char *init_s;
         asprintf (&init_s, "%ld", init_t);
-        db_insert (db, DB_INIT_KEY, init_s);
+        _db_store (db, DB_INIT_KEY, init_s, DBM_REPLACE);
         free (init_s);
     }
 
@@ -27,6 +27,6 @@ _db_init (DBM *db)
     {
         char version[9];
         snprintf (version, 9, "%d", DB_VERSION);
-        db_insert (db, DB_VERSION_KEY, version);
+        _db_store (db, DB_VERSION_KEY, version, DBM_REPLACE);
     }
 }

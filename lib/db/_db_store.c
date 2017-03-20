@@ -43,6 +43,14 @@ _db_updated (DBM *db)
 
     char *update_s;
     asprintf (&update_s, "%ld", update_t);
-    db_insert (db, DB_UPDATE_KEY, update_s);
+
+    datum k;
+    datum v;
+    k.dptr = (void *) DB_UPDATE_KEY;
+    k.dsize = strlen (DB_UPDATE_KEY) + 1;
+    v.dptr = (void *) update_s;
+    v.dsize = strlen (update_s) + 1;
+
+    dbm_store (db, k, v, DBM_REPLACE);
     free (update_s);
 }
