@@ -13,6 +13,9 @@
 
 #include <string.h>
 
+#define DB_VERSION 20170320
+#define DB_KEY_PREFIX ":db:"
+
 typedef struct {
     char *key;
     char *val;
