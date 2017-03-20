@@ -14,11 +14,11 @@ matrix:
                   packages:
                       - libgdbm-dev
                       - bmake
-          compiler: gcc
+          compiler: clang
           before_script:
               - ./configure --use-gdbm
         - os: osx
-          compiler: clang
+          compiler: gcc
           install:
               - brew update --quiet
               - brew install bmake
