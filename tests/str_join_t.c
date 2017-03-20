@@ -1,3 +1,5 @@
+#include "../lib/log/log.c"
+#include "../lib/log/log_exit.c"
 #include "../lib/lib/xmalloc.c"
 #include "../lib/lib/xrealloc.c"
 #include "../lib/str/str_alloc.c"
