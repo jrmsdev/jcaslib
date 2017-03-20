@@ -6,24 +6,22 @@ branches:
     only:
         - master
 
-compiler:
-    - gcc
-    - clang
-
 matrix:
     include:
         - os: linux
+          env:
+              - MAKE="bmake"
           dist: trusty
           addons:
               apt:
                   packages:
                       - libgdbm-dev
                       - bmake
-          env:
-              - MAKE="bmake"
+          compiler: gcc
         - os: osx
           env:
               - MAKE="make"
+          compiler: clang
 
 before_script:
     - ./configure --use-gdbm
