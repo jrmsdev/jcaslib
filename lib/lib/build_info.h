@@ -9,9 +9,6 @@
 #ifndef JCL_BUILD_BY
 #define JCL_BUILD_BY "NOVAL"
 #endif
-#ifndef JCL_BUILD_EPOCH
-#define JCL_BUILD_EPOCH "NOVAL"
-#endif
 #ifndef JCL_BUILD_OS
 #define JCL_BUILD_OS "NOVAL"
 #endif
