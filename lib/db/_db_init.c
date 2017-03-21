@@ -15,10 +15,9 @@ _db_init (DBM *db)
         time_t init_t = time (NULL);
         if (init_t == -1)
             log_exit (1, "could not get current epoch");
-        char *init_s;
-        asprintf (&init_s, "%ld", init_t);
+        char init_s[11];
+        snprintf (init_s, 11, "%ld", init_t);
         _db_store (db, DB_INIT_KEY, init_s, DBM_REPLACE);
-        free (init_s);
     }
 
     val = NULL;
