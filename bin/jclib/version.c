@@ -1,4 +1,4 @@
-#include "version.h"
+#include <jclib/version.h>
 #include <jclib/log.h>
 
 void print_version() {

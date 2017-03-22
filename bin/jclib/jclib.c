@@ -1,5 +1,5 @@
 #include "build_info.h"
-#include "version.h"
+#include <jclib/version.h>
 #include <jclib/log.h>
 
 int main(void)

@@ -50,12 +50,14 @@ installdirs:
 	@mkdir -vp $(DESTDIR)$(PREFIX)/share/licenses/jclib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/include/jclib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/lib
+	@mkdir -vp $(DESTDIR)$(PREFIX)/bin
 
 
 .do-install: $(LIB_PATH) $(SHARED_LIB_PATH)
 	@$(INSTALL_F) include/jclib/*.h $(DESTDIR)$(PREFIX)/include/jclib
 	@rm -f $(DESTDIR)$(PREFIX)/include/jclib/configure.h
 	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jclib
+	@$(MAKE) -C bin install
 	@touch .do-install
 
 
@@ -64,7 +66,7 @@ $(LIB_PATH): build/lib/libjc.a
 
 
 $(SHARED_LIB_PATH): build/lib/libjc.so
-	@$(INSTALL_EXE) build/lib/libjc.so $(SHARED_LIB_PATH)
+	@$(INSTALL_F) build/lib/libjc.so $(SHARED_LIB_PATH)
 
 
 .PHONY: uninstall
@@ -72,11 +74,12 @@ uninstall:
 	@rm -vf $(LIB_PATH) $(SHARED_LIB_PATH)
 	@rm -rvf $(DESTDIR)$(PREFIX)/include/jclib
 	@rm -rvf $(DESTDIR)$(PREFIX)/share/licenses/jclib
+	@$(MAKE) -C bin uninstall
 
 
 .PHONY: dist
 dist:
-	@$(MAKE) install DESTDIR=dist/work INSTALL_BACKUP=''
+	@$(MAKE) install DESTDIR=$(PWD)/dist/work INSTALL_BACKUP=''
 	@cd dist/work && tar -cJf ../jclib-v$(DIST_VERSION).txz ./*
 	touch dist/jclib-v$(DIST_VERSION).txz
 

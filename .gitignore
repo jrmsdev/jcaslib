@@ -5,5 +5,6 @@ build/*
 dist/*
 tmp/*
 vgcore.*
+bin/jclib/.build_info.h
 include/jclib/configure.h
 mk/configure.mk

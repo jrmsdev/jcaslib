@@ -1,1 +1,1 @@
-lib/lib/version.h
+include/jclib/version.h

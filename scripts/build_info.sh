@@ -23,6 +23,7 @@ addline JCL_BUILD_TIME "`date`"
 addline JCL_BUILD_BY "`id -un`@`uname -n`"
 addline JCL_BUILD_OS "`uname -snrm`"
 addline JCL_CC_VERSION "`${CC} --version | head -n 1`"
-addline JCL_MODULES "`ls ../*/Makefile | sed 's#/Makefile##' | sed 's#^\.\./##' | sort | xargs echo`"
+addline JCL_MODULES "`ls ../../lib/*/Makefile | sed 's#/Makefile##' |
+        sed 's#^\.\./\.\./lib/##' | sort | xargs echo`"
 
 exit 0
