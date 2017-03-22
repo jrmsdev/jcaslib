@@ -19,11 +19,11 @@ test -s build_info.c || {
 }
 
 rm -f .build_info.h
-addline JCL_BUILD_TIME "`date`"
-addline JCL_BUILD_BY "`id -un`@`uname -n`"
-addline JCL_BUILD_OS "`uname -snrm`"
-addline JCL_CC_VERSION "`${CC} --version | head -n 1`"
-addline JCL_MODULES "`ls ../../lib/*/Makefile | sed 's#/Makefile##' |
+addline JCASLIB_BUILD_TIME "`date`"
+addline JCASLIB_BUILD_BY "`id -un`@`uname -n`"
+addline JCASLIB_BUILD_OS "`uname -snrm`"
+addline JCASLIB_CC_VERSION "`${CC} --version | head -n 1`"
+addline JCASLIB_MODULES "`ls ../../lib/*/Makefile | sed 's#/Makefile##' |
         sed 's#^\.\./\.\./lib/##' | sort | xargs echo`"
 
 exit 0

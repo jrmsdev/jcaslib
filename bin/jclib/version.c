@@ -2,10 +2,10 @@
 #include <jclib/log.h>
 
 void print_version() {
-    if (JCL_VERSION_PATCH > 0)
-        log_print("%s v%d.%d.%d", JCL_APP_NAME, JCL_VERSION_MAJOR,
-                                  JCL_VERSION_MINOR, JCL_VERSION_PATCH);
+    if (JCASLIB_VERSION_PATCH > 0)
+        log_print("%s v%d.%d.%d", JCASLIB_APP_NAME, JCASLIB_VERSION_MAJOR,
+                                  JCASLIB_VERSION_MINOR, JCASLIB_VERSION_PATCH);
     else
-        log_print("%s v%d.%d", JCL_APP_NAME,
-                               JCL_VERSION_MAJOR, JCL_VERSION_MINOR);
+        log_print("%s v%d.%d", JCASLIB_APP_NAME,
+                               JCASLIB_VERSION_MAJOR, JCASLIB_VERSION_MINOR);
 }
