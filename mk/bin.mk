@@ -23,8 +23,8 @@ pre-build:
 
 $(BIN_PATH): $(BIN_SRCS) $(SHARED_LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
-	$(CC) $(CFLAGS) -I$(INCD) -L$(BUILDD)/lib -o $(BIN_PATH)\
-		$(BIN_SRCS) $(LD_CFLAGS)
+	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
+		-o $(BIN_PATH) $(BIN_SRCS) $(LD_CFLAGS)
 
 
 $(SHARED_LIB_PATH):
@@ -58,7 +58,7 @@ clean-depend:
 
 .PHONY: install
 install:
-	$(INSTALL_EXE) $(BIN_PATH) $(DESTDIR)$(PREFIX)/bin/$(BIN_NAME)
+	@$(INSTALL_EXE) $(BIN_PATH) $(DESTDIR)$(PREFIX)/bin/$(BIN_NAME)
 
 
 .PHONY: uninstall
