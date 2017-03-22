@@ -46,7 +46,7 @@ distclean: clean clean-depend
 
 
 .PHONY: depend
-depend:
+depend: pre-build
 	$(CC) -I $(INCD) -E -MM $(BIN_NAME).c |\
 			sed 's#^$(BIN_NAME)\.o\:#$(BIN_PATH):#' >.depend
 
