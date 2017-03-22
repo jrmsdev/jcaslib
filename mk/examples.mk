@@ -7,7 +7,7 @@ BINS != ls *.c | sed 's/\.c/\.bin/'
 OBJS = $(BINS:S/.bin/.o/)
 INCD = ../../include
 CFLAGS += -I$(INCD) $(CFLAGS_DEFINE)
-LIB_PATH = ../../build/lib/libjc.a
+LIB_PATH = ../../build/lib/libjcas.a
 
 
 .PHONY: build

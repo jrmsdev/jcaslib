@@ -5,8 +5,8 @@ include configure.mk
 include mk/vars.mk
 
 
-LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.a
-SHARED_LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjc.so
+LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjcas.a
+SHARED_LIB_PATH = $(DESTDIR)$(PREFIX)/lib/libjcas.so
 DIST_VERSION != ./scripts/dist-version.sh
 
 
@@ -61,12 +61,12 @@ installdirs:
 	@touch .do-install
 
 
-$(LIB_PATH): build/lib/libjc.a
-	@$(INSTALL_F) build/lib/libjc.a $(LIB_PATH)
+$(LIB_PATH): build/lib/libjcas.a
+	@$(INSTALL_F) build/lib/libjcas.a $(LIB_PATH)
 
 
-$(SHARED_LIB_PATH): build/lib/libjc.so
-	@$(INSTALL_F) build/lib/libjc.so $(SHARED_LIB_PATH)
+$(SHARED_LIB_PATH): build/lib/libjcas.so
+	@$(INSTALL_F) build/lib/libjcas.so $(SHARED_LIB_PATH)
 
 
 .PHONY: uninstall

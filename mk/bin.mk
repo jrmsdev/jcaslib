@@ -3,13 +3,13 @@
 include configure.mk
 .endif
 
-LD_CFLAGS += -ljc
+LD_CFLAGS += -ljcas
 BUILDD = ../../build
 INCD = ../../include
 BIN_NAME != basename $(PWD)
 BIN_PATH = $(BUILDD)/bin/$(BIN_NAME)
 BIN_SRCS != ls *.c
-SHARED_LIB_PATH = $(BUILDD)/lib/libjc.so
+SHARED_LIB_PATH = $(BUILDD)/lib/libjcas.so
 
 
 .PHONY: build

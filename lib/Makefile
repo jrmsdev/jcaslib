@@ -5,8 +5,8 @@ include configure.mk
 
 BUILDD = ../build/lib
 SCRIPTSD = ../scripts
-LIB_PATH = $(BUILDD)/libjc.a
-SHARED_LIB_PATH = $(BUILDD)/libjc.so
+LIB_PATH = $(BUILDD)/libjcas.a
+SHARED_LIB_PATH = $(BUILDD)/libjcas.so
 
 MOD_HEADERS != ls ../include/jcaslib/*.h
 MOD_SRCS != ls */*.c
