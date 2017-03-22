@@ -1,4 +1,4 @@
-#include <jclib/str.h>
+#include <jcaslib/str.h>
 
 void
 str_array_insert (str_array_type *arr, size_t idx, const char *str)

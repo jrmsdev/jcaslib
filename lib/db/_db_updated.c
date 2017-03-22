@@ -1,5 +1,5 @@
-#include <jclib/db.h>
-#include <jclib/log.h>
+#include <jcaslib/db.h>
+#include <jcaslib/log.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>

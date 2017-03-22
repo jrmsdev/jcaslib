@@ -3,7 +3,7 @@
 include configure.mk
 .endif
 
-INCD = ../../include/jclib
+INCD = ../../include/jcaslib
 CFLAGS_INCLUDE = -I../../include
 CFLAGS += $(CFLAGS_INCLUDE) $(CFLAGS_DEFINE) -fPIC -c
 

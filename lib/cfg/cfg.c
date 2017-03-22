@@ -1,4 +1,4 @@
-#include <jclib/cfg.h>
+#include <jcaslib/cfg.h>
 
 void cfg()
 {

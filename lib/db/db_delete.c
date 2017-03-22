@@ -1,5 +1,5 @@
-#include <jclib/db.h>
-#include <jclib/log.h>
+#include <jcaslib/db.h>
+#include <jcaslib/log.h>
 
 void
 db_delete (DBM *db, const char *key)

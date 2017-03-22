@@ -1,4 +1,4 @@
-#include <jclib/str.h>
+#include <jcaslib/str.h>
 #include <stdio.h>
 
 int

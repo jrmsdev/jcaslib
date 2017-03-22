@@ -2,7 +2,7 @@
 #define JCASLIB_DB_H
 
 #ifdef LOAD_CONFIGURE_H
-#include <jclib/configure.h>
+#include <jcaslib/configure.h>
 #endif
 
 #ifdef USE_GDBM

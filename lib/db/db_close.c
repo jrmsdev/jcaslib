@@ -1,4 +1,4 @@
-#include <jclib/db.h>
+#include <jcaslib/db.h>
 
 void
 db_close (DBM *db)

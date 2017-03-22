@@ -1,4 +1,4 @@
-#include <jclib/str.h>
+#include <jcaslib/str.h>
 
 void
 str_array_free (str_array_type *arr)

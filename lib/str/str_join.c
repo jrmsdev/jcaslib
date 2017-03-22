@@ -1,4 +1,4 @@
-#include <jclib/str.h>
+#include <jcaslib/str.h>
 
 void
 str_join (str_type *dst, const char *sep, int count, const char *str, ...)

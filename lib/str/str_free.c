@@ -1,4 +1,4 @@
-#include <jclib/str.h>
+#include <jcaslib/str.h>
 
 void str_free (str_type *s)
 {

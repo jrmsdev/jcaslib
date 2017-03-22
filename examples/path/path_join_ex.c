@@ -1,4 +1,4 @@
-#include <jclib/path.h>
+#include <jcaslib/path.h>
 #include <stdio.h>
 
 int

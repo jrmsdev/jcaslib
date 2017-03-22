@@ -1,4 +1,4 @@
-#include <jclib/path.h>
+#include <jcaslib/path.h>
 
 void
 path_join (str_type *dst, size_t count, char *str, ...)

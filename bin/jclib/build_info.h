@@ -20,7 +20,7 @@
 #endif
 
 #ifdef LOAD_CONFIGURE_H
-#include <jclib/configure.h>
+#include <jcaslib/configure.h>
 #endif
 
 #ifndef CONFIGURE_OPTS

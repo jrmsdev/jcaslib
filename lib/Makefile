@@ -8,7 +8,7 @@ SCRIPTSD = ../scripts
 LIB_PATH = $(BUILDD)/libjc.a
 SHARED_LIB_PATH = $(BUILDD)/libjc.so
 
-MOD_HEADERS != ls ../include/jclib/*.h
+MOD_HEADERS != ls ../include/jcaslib/*.h
 MOD_SRCS != ls */*.c
 MOD_OBJS =
 .for src in $(MOD_SRCS)

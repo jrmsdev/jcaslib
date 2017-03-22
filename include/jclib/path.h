@@ -1,7 +1,7 @@
 #ifndef JCASLIB_PATH_H
 #define JCASLIB_PATH_H
 
-#include <jclib/str.h>
+#include <jcaslib/str.h>
 
 #define PATH_SEP "/"
 

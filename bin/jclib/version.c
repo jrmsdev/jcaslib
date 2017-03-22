@@ -1,5 +1,5 @@
-#include <jclib/version.h>
-#include <jclib/log.h>
+#include <jcaslib/version.h>
+#include <jcaslib/log.h>
 
 void print_version() {
     if (JCASLIB_VERSION_PATCH > 0)

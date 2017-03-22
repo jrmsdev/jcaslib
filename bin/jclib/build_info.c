@@ -1,5 +1,5 @@
 #include "build_info.h"
-#include <jclib/log.h>
+#include <jcaslib/log.h>
 #include <string.h>
 
 void print_build_info() {

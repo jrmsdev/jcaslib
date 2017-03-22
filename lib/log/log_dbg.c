@@ -1,4 +1,4 @@
-#include <jclib/log.h>
+#include <jcaslib/log.h>
 
 int log_dbg(char *fmt, ...) {
     va_list ap;

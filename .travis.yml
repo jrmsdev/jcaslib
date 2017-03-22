@@ -52,5 +52,5 @@ script:
     - bmake -j2
     - bmake examples
     - bmake dist
-    - ./build/bin/jclib
+    - ./build/bin/jcaslib
     - bmake check

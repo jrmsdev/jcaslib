@@ -12,7 +12,7 @@ test -s test.c || {
 
 TESTSD=../build/tests
 
-echo "jclib tests start: `date`"
+echo "jcaslib tests start: `date`"
 echo
 
 t_total=0
@@ -51,6 +51,6 @@ done
 
 echo
 echo "Tests:${t_total} OK:${t_ok} FAIL:${t_fail}"
-echo "jclib tests end: `date`"
+echo "jcaslib tests end: `date`"
 
 exit 0

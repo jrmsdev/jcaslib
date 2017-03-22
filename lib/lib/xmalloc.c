@@ -1,5 +1,5 @@
-#include <jclib/lib.h>
-#include <jclib/log.h>
+#include <jcaslib/lib.h>
+#include <jcaslib/log.h>
 #include <strings.h>
 
 void *

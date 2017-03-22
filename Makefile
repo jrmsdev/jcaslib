@@ -47,16 +47,16 @@ install: build installdirs .do-install
 
 .PHONY: installdirs
 installdirs:
-	@mkdir -vp $(DESTDIR)$(PREFIX)/share/licenses/jclib
-	@mkdir -vp $(DESTDIR)$(PREFIX)/include/jclib
+	@mkdir -vp $(DESTDIR)$(PREFIX)/share/licenses/jcaslib
+	@mkdir -vp $(DESTDIR)$(PREFIX)/include/jcaslib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/lib
 	@mkdir -vp $(DESTDIR)$(PREFIX)/bin
 
 
 .do-install: $(LIB_PATH) $(SHARED_LIB_PATH)
-	@$(INSTALL_F) include/jclib/*.h $(DESTDIR)$(PREFIX)/include/jclib
-	@rm -f $(DESTDIR)$(PREFIX)/include/jclib/configure.h
-	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jclib
+	@$(INSTALL_F) include/jcaslib/*.h $(DESTDIR)$(PREFIX)/include/jcaslib
+	@rm -f $(DESTDIR)$(PREFIX)/include/jcaslib/configure.h
+	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jcaslib
 	@$(MAKE) -C bin install
 	@touch .do-install
 
@@ -72,16 +72,16 @@ $(SHARED_LIB_PATH): build/lib/libjc.so
 .PHONY: uninstall
 uninstall:
 	@rm -vf $(LIB_PATH) $(SHARED_LIB_PATH)
-	@rm -rvf $(DESTDIR)$(PREFIX)/include/jclib
-	@rm -rvf $(DESTDIR)$(PREFIX)/share/licenses/jclib
+	@rm -rvf $(DESTDIR)$(PREFIX)/include/jcaslib
+	@rm -rvf $(DESTDIR)$(PREFIX)/share/licenses/jcaslib
 	@$(MAKE) -C bin uninstall
 
 
 .PHONY: dist
 dist:
 	@$(MAKE) install DESTDIR=$(PWD)/dist/work INSTALL_BACKUP=''
-	@cd dist/work && tar -cJf ../jclib-v$(DIST_VERSION).txz ./*
-	touch dist/jclib-v$(DIST_VERSION).txz
+	@cd dist/work && tar -cJf ../jcaslib-v$(DIST_VERSION).txz ./*
+	touch dist/jcaslib-v$(DIST_VERSION).txz
 
 
 .PHONY: distclean
@@ -91,7 +91,7 @@ distclean:
 	@$(MAKE) -C bin distclean
 	@$(MAKE) -C examples distclean
 	@$(MAKE) -C tests distclean
-	@rm -rfv build dist mk/configure.mk include/jclib/configure.h
+	@rm -rfv build dist mk/configure.mk include/jcaslib/configure.h
 
 
 .PHONY: check

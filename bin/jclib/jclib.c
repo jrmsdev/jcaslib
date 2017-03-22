@@ -1,6 +1,6 @@
 #include "build_info.h"
-#include <jclib/version.h>
-#include <jclib/log.h>
+#include <jcaslib/version.h>
+#include <jcaslib/log.h>
 
 int main(void)
 {

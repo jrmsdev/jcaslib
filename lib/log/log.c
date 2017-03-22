@@ -1,4 +1,4 @@
-#include <jclib/log.h>
+#include <jcaslib/log.h>
 #include <libgen.h>
 
 static char *_progname = NULL;

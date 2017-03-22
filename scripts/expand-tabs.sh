@@ -1,5 +1,5 @@
 #!/bin/sh
-flist=/tmp/jclib-expand-tabs.flist
+flist=/tmp/jcaslib-expand-tabs.flist
 
 find * -type f -name '*.c' | sort >$flist
 find * -type f -name '*.h' | sort >>$flist

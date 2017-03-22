@@ -2,13 +2,13 @@
 ** https://web.stanford.edu/class/cs276a/projects/docs/berkeleydb/
 **/
 
-#include <jclib/db.h>
-#include <jclib/log.h>
+#include <jcaslib/db.h>
+#include <jcaslib/log.h>
 
 int
 main (void)
 {
-    DBM *db = db_open ("/tmp/jclib-db_ex");
+    DBM *db = db_open ("/tmp/jcaslib-db_ex");
     db_insert (db, "dbkey", "dbval");
 
     /* force warn message about key already exists */

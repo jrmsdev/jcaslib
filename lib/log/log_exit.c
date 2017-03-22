@@ -1,4 +1,4 @@
-#include <jclib/log.h>
+#include <jcaslib/log.h>
 #include <stdlib.h>
 
 void log_exit(int stat, char *fmt, ...) {

@@ -7,7 +7,7 @@ USE_GDBM="false"
 usage()
 {
     cat <<EOH
-jclib configure
+jcaslib configure
 $0 [options]
 Options:
     --help, -h     - show help message and exit
@@ -38,7 +38,7 @@ do
 done
 
 configure_mk=mk/configure.mk
-configure_h=include/jclib/configure.h
+configure_h=include/jcaslib/configure.h
 
 # -- CFLAGS to load configure.h
 echo "CFLAGS_DEFINE = -DLOAD_CONFIGURE_H" >$configure_mk
