@@ -1,5 +1,5 @@
-#ifndef JCLIB_STR_H
-#define JCLIB_STR_H
+#ifndef JCASLIB_STR_H
+#define JCASLIB_STR_H
 
 #include <stdlib.h>
 #include <stdarg.h>
@@ -60,4 +60,4 @@ extern void str_array_insert (str_array_type *arr, size_t idx, const char *str);
 extern void str_array_append (str_array_type *arr, const char *str);
 extern char * str_array_get (str_array_type *arr, size_t idx);
 
-#endif /* JCLIB_STR_H */
+#endif /* JCASLIB_STR_H */

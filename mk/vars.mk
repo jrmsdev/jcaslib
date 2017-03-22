@@ -1,6 +1,6 @@
 SH = /bin/sh
-JCLIB_DEBUG ?=
-CFLAGS += -Wall -Wextra -pedantic -pedantic-errors -std=c11 $(JCLIB_DEBUG)
+JCASLIB_DEBUG ?=
+CFLAGS += -Wall -Wextra -pedantic -pedantic-errors -std=c11 $(JCASLIB_DEBUG)
 
 PREFIX ?= /opt/pkg
 

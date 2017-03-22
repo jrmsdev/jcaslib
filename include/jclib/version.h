@@ -1,5 +1,5 @@
-#ifndef JCLIB_VERSION_H
-#define JCLIB_VERSION_H
+#ifndef JCASLIB_VERSION_H
+#define JCASLIB_VERSION_H
 
 #define JCASLIB_APP_NAME "jclib"
 #define JCASLIB_VERSION_MAJOR 0
@@ -8,4 +8,4 @@
 
 extern void print_version();
 
-#endif /* JCLIB_VERSION_H */
+#endif /* JCASLIB_VERSION_H */

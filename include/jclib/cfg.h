@@ -1,4 +1,4 @@
-#ifndef JCLIB_CFG_H
-#define JCLIB_CFG_H
+#ifndef JCASLIB_CFG_H
+#define JCASLIB_CFG_H
 void cfg ();
-#endif /* JCLIB_CFG_H */
+#endif /* JCASLIB_CFG_H */

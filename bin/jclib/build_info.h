@@ -1,5 +1,5 @@
-#ifndef JCLIB_BUILD_INFO_H
-#define JCLIB_BUILD_INFO_H
+#ifndef JCASLIB_BUILD_INFO_H
+#define JCASLIB_BUILD_INFO_H
 
 #include ".build_info.h"
 
@@ -29,4 +29,4 @@
 
 extern void print_build_info();
 
-#endif /* JCLIB_BUILD_INFO_H */
+#endif /* JCASLIB_BUILD_INFO_H */

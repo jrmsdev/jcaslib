@@ -50,8 +50,8 @@ test -n "$DESTDIR" && {
 }
 
 # -- configure.h head
-echo "#ifndef JCLIB_CONFIGURE_H" >$configure_h
-echo "#define JCLIB_CONFIGURE_H" >>$configure_h
+echo "#ifndef JCASLIB_CONFIGURE_H" >$configure_h
+echo "#define JCASLIB_CONFIGURE_H" >>$configure_h
 
 # -- configure options
 test $# -gt 0 && {
@@ -65,6 +65,6 @@ test "x$USE_GDBM" = "xtrue" && {
 }
 
 # -- configure.h tail
-echo "#endif /* JCLIB_CONFIGURE_H */" >>$configure_h
+echo "#endif /* JCASLIB_CONFIGURE_H */" >>$configure_h
 
 exit 0

@@ -1,5 +1,5 @@
-#ifndef JCLIB_PATH_H
-#define JCLIB_PATH_H
+#ifndef JCASLIB_PATH_H
+#define JCASLIB_PATH_H
 
 #include <jclib/str.h>
 
@@ -7,4 +7,4 @@
 
 extern void path_join (str_type *dst, size_t count, char *str, ...);
 
-#endif /* JCLIB_PATH_H */
+#endif /* JCASLIB_PATH_H */

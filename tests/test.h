@@ -1,5 +1,5 @@
-#ifndef JCLIB_TEST_H
-#define JCLIB_TEST_H
+#ifndef JCASLIB_TEST_H
+#define JCASLIB_TEST_H
 
 #define EQ(a, b) (a == b ? 0 : 1)
 #define NE(a, b) (a != b ? 0 : 1)
@@ -13,4 +13,4 @@ extern void t_end (const char *name);
 extern void t_log (const char *fmt, ...);
 extern void t_check (int status, const char *errmsg);
 
-#endif /* JCLIB_TEST_H */
+#endif /* JCASLIB_TEST_H */
