@@ -44,5 +44,5 @@ script:
     - bmake -j2
     - bmake examples
     - bmake dist
-    - ./build/lib/libjc.so
+    - LD_LIBRARY_PATH=./build/lib ./build/bin/jclib
     - bmake check

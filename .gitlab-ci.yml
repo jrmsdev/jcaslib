@@ -14,7 +14,7 @@ before_script:
     - ./configure --use-gdbm
     - bmake depend
     - bmake -j2
-    - ./build/lib/libjc.so
+    - LD_LIBRARY_PATH=./build/lib ./build/bin/jclib
     - bmake examples
     - bmake dist
     - bmake check
