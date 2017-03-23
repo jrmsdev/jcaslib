@@ -15,6 +15,9 @@
 
 #define DB_VERSION 20170320
 #define DB_KEY_PREFIX ":db:"
+#define DB_UPDATE_KEY DB_KEY_PREFIX"update"
+#define DB_INIT_KEY DB_KEY_PREFIX"init"
+#define DB_VERSION_KEY DB_KEY_PREFIX"version"
 
 typedef struct {
     char *key;
@@ -39,6 +42,7 @@ extern void dbdata_free (dbdata *dat);
 #define dbdata_val(dat, idx) dat->db[idx]->val
 #define dbdata_len(dat) dat->len
 
+char * _db_fetch (DBM *db, const char *key);
 int _db_store (DBM *db, const char *key, const char *val, int flags);
 void _db_init (DBM *db);
 void _db_updated ();

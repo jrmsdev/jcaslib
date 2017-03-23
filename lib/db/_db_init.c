@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define DB_INIT_KEY DB_KEY_PREFIX"init"
-#define DB_VERSION_KEY DB_KEY_PREFIX"version"
-
 void
 _db_init (DBM *db)
 {
@@ -19,7 +16,6 @@ _db_init (DBM *db)
         snprintf (init_s, 11, "%ld", init_t);
         _db_store (db, DB_INIT_KEY, init_s, DBM_REPLACE);
     }
-
     val = NULL;
     val = db_fetch (db, DB_VERSION_KEY);
     if (val == NULL)

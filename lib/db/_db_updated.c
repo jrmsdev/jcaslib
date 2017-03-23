@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#define DB_UPDATE_KEY DB_KEY_PREFIX"update"
-
 void
 _db_updated (DBM *db)
 {
