@@ -30,6 +30,7 @@ typedef struct {
 } dbdata;
 
 extern DBM * db_open (const char *fname);
+extern DBM * db_create (const char *fname);
 extern void db_close (DBM *db);
 extern void db_insert (DBM *db, const char *key, const char *val);
 extern void db_replace (DBM *db, const char *key, const char *val);
@@ -42,6 +43,7 @@ extern void dbdata_free (dbdata *dat);
 #define dbdata_val(dat, idx) dat->db[idx]->val
 #define dbdata_len(dat) dat->len
 
+DBM * _db_open (const char *fname, int flags);
 char * _db_fetch (DBM *db, const char *key);
 int _db_store (DBM *db, const char *key, const char *val, int flags);
 void _db_init (DBM *db);

@@ -8,7 +8,7 @@
 int
 main (void)
 {
-    DBM *db = db_open ("/tmp/jcaslib-db_ex");
+    DBM *db = db_create ("/tmp/jcaslib-db_ex");
     db_insert (db, "dbkey", "dbval");
 
     /* force warn message about key already exists */
