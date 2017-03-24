@@ -6,5 +6,6 @@
 #define PATH_SEP "/"
 
 extern void path_join (str_type *dst, size_t count, char *str, ...);
+extern int path_exists (const char *path);
 
 #endif /* JCASLIB_PATH_H */
