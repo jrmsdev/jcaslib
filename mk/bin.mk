@@ -10,6 +10,11 @@ BIN_NAME != basename $(PWD)
 BIN_PATH = $(BUILDD)/bin/$(BIN_NAME)
 BIN_SRCS != ls *.c
 SHARED_LIB_PATH = $(BUILDD)/lib/libjcas.so
+BIN_OBJS_DIR = $(BIN_PATH).objs
+BIN_OBJS =
+.for srcf in $(BIN_SRCS)
+BIN_OBJS += $(BIN_OBJS_DIR)/$(srcf:S/.c/.o/)
+.endfor
 
 
 .PHONY: build
@@ -21,10 +26,16 @@ build: pre-build $(BIN_PATH)
 pre-build:
 
 
-$(BIN_PATH): $(BIN_SRCS) $(SHARED_LIB_PATH)
+$(BIN_PATH): $(BIN_OBJS)
 	@mkdir -p $(BUILDD)/bin
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
-		-o $(BIN_PATH) $(BIN_SRCS) $(LDFLAGS)
+		-o $(BIN_PATH) $(BIN_OBJS) $(LDFLAGS)
+
+
+$(BIN_OBJS): $(SHARED_LIB_PATH)
+	@mkdir -p $(BIN_OBJS_DIR)
+	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -fPIC -c\
+		-o $(.TARGET) $(.TARGET:T:S/.o/.c/)
 
 
 $(SHARED_LIB_PATH):
@@ -38,7 +49,7 @@ clean-bin:
 
 .PHONY: clean
 clean: clean-bin
-	@rm -vrf $(BUILDD)/bin
+	@rm -vrf $(BIN_PATH) $(BIN_OBJS)
 
 
 .PHONY: distclean
@@ -47,8 +58,10 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend: pre-build
+	$(CC) -I $(INCD) -E -MM *.c |\
+			sed 's#^\(.*\)\.o:#$(BIN_OBJS_DIR)/\1.o:#' >.depend
 	$(CC) -I $(INCD) -E -MM $(BIN_NAME).c |\
-			sed 's#^$(BIN_NAME)\.o\:#$(BIN_PATH):#' >.depend
+			sed 's#^$(BIN_NAME)\.o\:#$(BIN_PATH):#' >>.depend
 
 
 .PHONY: clean-depend
