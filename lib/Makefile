@@ -32,7 +32,7 @@ $(LIB_PATH): $(MOD_OBJS)
 
 $(SHARED_LIB_PATH): $(MOD_OBJS)
 	@mkdir -p $(BUILDD)
-	$(CC) -shared -o $(SHARED_LIB_PATH) $(MOD_OBJS) $(LD_CFLAGS)
+	$(CC) -shared -o $(SHARED_LIB_PATH) $(MOD_OBJS) $(LDFLAGS)
 
 
 $(MOD_OBJS): $(MOD_SRCS) $(MOD_HEADERS)

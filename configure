@@ -60,7 +60,7 @@ test $# -gt 0 && {
 
 # -- configure gdbm
 test "x$USE_GDBM" = "xtrue" && {
-    echo "LD_CFLAGS = -lgdbm -lgdbm_compat" >>$configure_mk
+    echo "LDFLAGS = -lgdbm -lgdbm_compat" >>$configure_mk
     echo "#define USE_GDBM" >>$configure_h
 }
 

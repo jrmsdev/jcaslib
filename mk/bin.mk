@@ -3,7 +3,7 @@
 include configure.mk
 .endif
 
-LD_CFLAGS += -ljcas
+LDFLAGS += -ljcas
 BUILDD = ../../build
 INCD = ../../include
 BIN_NAME != basename $(PWD)
@@ -24,7 +24,7 @@ pre-build:
 $(BIN_PATH): $(BIN_SRCS) $(SHARED_LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
-		-o $(BIN_PATH) $(BIN_SRCS) $(LD_CFLAGS)
+		-o $(BIN_PATH) $(BIN_SRCS) $(LDFLAGS)
 
 
 $(SHARED_LIB_PATH):

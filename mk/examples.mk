@@ -21,7 +21,7 @@ build-lib:
 
 .SUFFIXES: .bin .c
 $(BINS): $(.PREFIX).o $(LIB_PATH)
-	$(CC) $(CFLAGS) -o $(.TARGET) $(.PREFIX).o $(LIB_PATH) $(LD_CFLAGS)
+	$(CC) $(CFLAGS) -o $(.TARGET) $(.PREFIX).o $(LIB_PATH) $(LDFLAGS)
 
 
 .SUFFIXES: .o .c
