@@ -80,7 +80,8 @@ uninstall:
 .PHONY: dist
 dist:
 	@$(MAKE) install DESTDIR=$(PWD)/dist/work INSTALL_BACKUP=''
-	@cd dist/work && tar -cJf ../jcaslib-v$(DIST_VERSION).txz ./*
+	@(cd dist/work && tar -cJf ../jcaslib-v$(DIST_VERSION).txz \
+		`find . -type f | sort`)
 	touch dist/jcaslib-v$(DIST_VERSION).txz
 
 
