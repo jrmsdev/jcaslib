@@ -1,3 +1,6 @@
+#define _DEFAULT_SOURCE
+#define _XOPEN_SOURCE
+
 #include "jcasdb.h"
 #include <time.h>
 #include <stdlib.h>
