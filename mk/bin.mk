@@ -58,9 +58,9 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend: pre-build
-	$(CC) -I $(INCD) -E -MM *.c |\
+	$(CC) $(CFLAGS_DEFINE) -I$(INCD) -E -MM *.c |\
 			sed 's#^\(.*\)\.o:#$(BIN_OBJS_DIR)/\1.o:#' >.depend
-	$(CC) -I $(INCD) -E -MM $(BIN_NAME).c |\
+	$(CC) $(CFLAGS_DEFINE) -I$(INCD) -E -MM $(BIN_NAME).c |\
 			sed 's#^$(BIN_NAME)\.o\:#$(BIN_PATH):#' >>.depend
 
 
