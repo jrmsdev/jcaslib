@@ -44,8 +44,8 @@ xmalloc_t (test_suite_T *ts)
 int
 main (int argc, char *argv[])
 {
-    if (argc < 0)
-        errx (1, "ERROR: argc < 0???");
+    if (argc < 1)
+        errx (1, "ERROR: argc < 1???");
     test_suite_T *ts = tsuite_start (argv[0]);
     xmalloc_t (ts);
     xrealloc_t (ts);
