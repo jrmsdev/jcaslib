@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-void
+int
 xrealloc_t (void)
 {
     test_T *t = t_start ("xrealloc", 3);
@@ -20,12 +20,14 @@ xrealloc_t (void)
     t_check (t, EQ (p[49], '\0'), "p[49] != \\0");
     t_check (t, EQ (p[59], 'T'), "p[59] != T");
 
+    t_check (t, 15, "TEST");
+
     free (p);
-    t_end (t);
+    return (t_end (t));
 }
 
 
-void
+int
 xmalloc_t (void)
 {
     test_T *t = t_start ("xmalloc", 3);
@@ -36,14 +38,15 @@ xmalloc_t (void)
     t_check (t, EQ (p[49], '\0'), "xmalloc: p[49] != \\0");
 
     free (p);
-    t_end (t);
+    return (t_end (t));
 }
 
 
 int
 main (void)
 {
-    xmalloc_t ();
-    xrealloc_t ();
-    return (0);
+    int failed = 0;
+    failed += xmalloc_t ();
+    failed += xrealloc_t ();
+    return (failed);
 }
