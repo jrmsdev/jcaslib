@@ -4,7 +4,7 @@ include ../mk/vars.mk
 INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
-TESTLIB = ../build/lib/test/test.o
+TESTLIB = ../build/lib/libjcas-test.a
 TEST_FILES != ls *_t.c | sed 's/_t\.c/_t\.run/'
 TEST_SUITE ?= $(TEST_FILES)
 

@@ -5,9 +5,8 @@ test -z "${TEST_SUITE}" && {
     exit 1
 }
 
-test -s ../lib/test/test.c || {
-    echo "ERR: running from invalid dir?" >&2
-    echo "ERR: ../lib/test/test.c file not found" >&2
+test -d ../lib/test || {
+    echo "ERR: not running from inside tests dir?" >&2
     exit 1
 }
 
