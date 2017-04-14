@@ -9,9 +9,9 @@
 
 
 void
-str_alloc_t (void)
+str_alloc_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("str_alloc", 3);
+    test_T *t = t_start (ts, "str_alloc", 3);
     str_type *s = str_alloc ();
 
     t_log (t, "sizeof -> %zu", sizeof (*s));
@@ -30,9 +30,9 @@ str_alloc_t (void)
 
 
 void
-str_realloc_t (void)
+str_realloc_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("str_realloc", 3);
+    test_T *t = t_start (ts, "str_realloc", 3);
     str_type *s = str_alloc ();
 
     t_log (t, "sizeof -> %zu", sizeof (*s));
@@ -53,9 +53,12 @@ str_realloc_t (void)
 
 
 int
-main (void)
+main (int argc, char *argv[])
 {
-    str_alloc_t ();
-    str_realloc_t ();
-    return (0);
+    if (argc < 0)
+        errx (1, "ERROR: argc < 0???");
+    test_suite_T *ts = tsuite_start (argv[0]);
+    str_alloc_t (ts);
+    str_realloc_t (ts);
+    return (tsuite_end (ts));
 }

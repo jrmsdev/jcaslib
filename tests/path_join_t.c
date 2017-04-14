@@ -14,9 +14,9 @@
 
 
 void
-path_join_t (void)
+path_join_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("path_join", 2);
+    test_T *t = t_start (ts, "path_join", 2);
     str_type *p = str_alloc ();
 
     path_join (p, 3, "/path", "join", "test");
@@ -31,10 +31,12 @@ path_join_t (void)
     t_end (t);
 }
 
-
 int
-main (void)
+main (int argc, char *argv[])
 {
-    path_join_t ();
-    return (0);
+    if (argc < 0)
+        errx (1, "ERROR: argc < 0???");
+    test_suite_T *ts = tsuite_start (argv[0]);
+    path_join_t (ts);
+    return (tsuite_end (ts));
 }

@@ -11,9 +11,9 @@
 
 
 void
-str_nset_t (void)
+str_nset_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("str_nset", 4);
+    test_T *t = t_start (ts, "str_nset", 4);
     str_type *s = str_alloc ();
 
     str_nset (s, "TEST", 4);
@@ -35,9 +35,9 @@ str_nset_t (void)
 
 
 void
-str_set_t (void)
+str_set_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("str_set", 2);
+    test_T *t = t_start (ts, "str_set", 2);
     str_type *s = str_alloc ();
 
     str_set (s, "TEST");
@@ -53,9 +53,12 @@ str_set_t (void)
 
 
 int
-main (void)
+main (int argc, char *argv[])
 {
-    str_nset_t ();
-    str_set_t ();
-    return (0);
+    if (argc < 0)
+        errx (1, "ERROR: argc < 0???");
+    test_suite_T *ts = tsuite_start (argv[0]);
+    str_nset_t (ts);
+    str_set_t (ts);
+    return (tsuite_end (ts));
 }

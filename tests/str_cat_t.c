@@ -11,9 +11,9 @@
 
 
 void
-str_ncat_t (void)
+str_ncat_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("str_ncat", 1);
+    test_T *t = t_start (ts, "str_ncat", 1);
     str_type *s = str_alloc ();
     t_log (t, "str len0: %zu", str_len (s));
 
@@ -27,9 +27,9 @@ str_ncat_t (void)
 
 
 void
-str_cat_t (void)
+str_cat_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("str_cat", 2);
+    test_T *t = t_start (ts, "str_cat", 2);
     str_type *s = str_alloc ();
     t_log (t, "str len0: %zu", str_len (s));
 
@@ -45,9 +45,12 @@ str_cat_t (void)
 
 
 int
-main (void)
+main (int argc, char *argv[])
 {
-    str_ncat_t ();
-    str_cat_t ();
-    return (0);
+    if (argc < 0)
+        errx (1, "ERROR: argc < 0???");
+    test_suite_T *ts = tsuite_start (argv[0]);
+    str_ncat_t (ts);
+    str_cat_t (ts);
+    return (tsuite_end (ts));
 }

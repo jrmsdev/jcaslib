@@ -15,9 +15,9 @@
 
 
 void
-str_join_t (void)
+str_join_t (test_suite_T *ts)
 {
-    test_T *t = t_start ("str_join", 2);
+    test_T *t = t_start (ts, "str_join", 2);
     str_type *s = str_alloc ();
 
     str_nset (s, "TEST", 4);
@@ -35,8 +35,11 @@ str_join_t (void)
 
 
 int
-main (void)
+main (int argc, char *argv[])
 {
-    str_join_t ();
-    return (0);
+    if (argc < 0)
+        errx (1, "ERROR: argc < 0???");
+    test_suite_T *ts = tsuite_start (argv[0]);
+    str_join_t (ts);
+    return (tsuite_end (ts));
 }
