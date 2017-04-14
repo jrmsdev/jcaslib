@@ -1,6 +1,9 @@
 #ifndef JCASLIB_TEST_H
 #define JCASLIB_TEST_H
 
+#include <err.h>
+#include <stdlib.h>
+
 #define EQ(a, b) (a == b ? 0 : 1)
 #define NE(a, b) (a != b ? 0 : 1)
 #define LT(a, b) (a < b ? 0 : 1)

@@ -48,10 +48,8 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend:
-	$(CC) -I$(INCD) -E -MM test.c |\
-		sed 's#^#$(TESTSD)/#' >.depend
 	$(CC) -I$(INCD) -E -MM *_t.c |\
-		sed 's#\(.*\)\.o:#$(TESTSD)/\1.run:#' >>.depend
+		sed 's#\(.*\)\.o:#$(TESTSD)/\1.run:#' >.depend
 
 
 .PHONY: clean-depend
