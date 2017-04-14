@@ -2,7 +2,7 @@
 #include "../lib/log/log_exit.c"
 #include "../lib/lib/xmalloc.c"
 #include "../lib/lib/xrealloc.c"
-#include "test.h"
+#include <jcaslib/test.h>
 #include <string.h>
 
 

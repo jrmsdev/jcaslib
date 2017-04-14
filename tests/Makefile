@@ -4,6 +4,7 @@ include ../mk/vars.mk
 INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
+TESTLIB = ../build/lib/test/test.o
 TEST_FILES != ls *_t.c | sed 's/_t\.c/_t\.run/'
 TEST_SUITE ?= $(TEST_FILES)
 
@@ -22,15 +23,18 @@ check: all
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 
-$(TEST_BINS): $(TESTSD)/test.o
+$(TEST_BINS): $(TESTLIB)
 	@mkdir -p $(TESTSD)
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
-		 $(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTSD)/test.o
+		 $(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTLIB)
 
 
-$(TESTSD)/test.o: test.h test.c
-	@mkdir -p $(TESTSD)
-	$(CC) $(CFLAGS) -I$(INCD) -fPIC -c -o $(TESTSD)/test.o test.c
+$(TESTLIB): build-testlib
+
+
+.PHONY: build-testlib
+build-testlib:
+	@$(MAKE) -C ../lib/test build
 
 
 .PHONY: clean
