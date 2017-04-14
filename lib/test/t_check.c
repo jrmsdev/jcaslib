@@ -7,6 +7,6 @@ t_check (test_T *t, int status, const char *errmsg)
     if (status > 0)
     {
         t->failed++;
-        errx (status, "%s: %s\n", t->name, errmsg);
+        t_log (t, "[FAIL] %s: %s (%d)\n", t->name, errmsg, status);
     }
 }

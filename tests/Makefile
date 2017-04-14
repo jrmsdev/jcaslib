@@ -23,7 +23,7 @@ check: all
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 
-$(TEST_BINS): $(TESTLIB)
+$(TEST_BINS): $(TESTLIB) ../lib/test/*.c ../include/jcaslib/test.h
 	@mkdir -p $(TESTSD)
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
 		 $(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTLIB)
@@ -50,6 +50,7 @@ distclean: clean clean-depend
 depend:
 	$(CC) -I$(INCD) -E -MM *_t.c |\
 		sed 's#\(.*\)\.o:#$(TESTSD)/\1.run:#' >.depend
+	@$(MAKE) -C ../lib/test depend
 
 
 .PHONY: clean-depend

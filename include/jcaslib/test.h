@@ -2,6 +2,8 @@
 #define JCASLIB_TEST_H
 
 #include <err.h>
+#include <stdio.h>
+#include <stdarg.h>
 #include <stdlib.h>
 
 #define EQ(a, b) (a == b ? 0 : 1)
