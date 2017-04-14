@@ -63,3 +63,13 @@ depend:
 clean-depend:
 	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh clean-depend
 	@rm -vf $(PWD)/.depend
+
+
+.PHONY: install
+install:
+	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh install
+
+
+.PHONY: uninstall
+uninstall:
+	@MAKE=$(MAKE) $(SCRIPTSD)/mk-fordirs.sh uninstall

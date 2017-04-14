@@ -57,6 +57,7 @@ installdirs:
 	@$(INSTALL_F) include/jcaslib/*.h $(DESTDIR)$(PREFIX)/include/jcaslib
 	@rm -f $(DESTDIR)$(PREFIX)/include/jcaslib/configure.h
 	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jcaslib
+	@$(MAKE) -C lib install
 	@$(MAKE) -C bin install
 	@touch .do-install
 
@@ -74,6 +75,7 @@ uninstall:
 	@rm -vf $(LIB_PATH) $(SHARED_LIB_PATH)
 	@rm -rvf $(DESTDIR)$(PREFIX)/include/jcaslib
 	@rm -rvf $(DESTDIR)$(PREFIX)/share/licenses/jcaslib
+	@$(MAKE) -C lib uninstall
 	@$(MAKE) -C bin uninstall
 
 

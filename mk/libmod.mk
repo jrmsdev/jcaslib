@@ -78,3 +78,20 @@ $(MOD_LIBPATH): $(MOD_OBJS)
 $(MOD_LIBPATH_SO): $(MOD_OBJS)
 	@mkdir -p $(MOD_LIBDIR)
 	$(CC) -shared -o $(MOD_LIBPATH_SO) $(MOD_OBJS) $(LDFLAGS)
+
+
+.PHONY: install-lib
+install-lib:
+.ifdef MOD_GENLIB
+	@$(INSTALL_F) $(MOD_LIBPATH) $(DESTDIR)$(PREFIX)/lib
+	@$(INSTALL_F) $(MOD_LIBPATH_SO) $(DESTDIR)$(PREFIX)/lib
+.endif
+
+
+.PHONY: install
+install: install-lib
+
+
+.PHONY: uninstall
+uninstall:
+	@rm -vf $(DESTDIR)$(PREFIX)/$(MOD_LIBNAME).*
