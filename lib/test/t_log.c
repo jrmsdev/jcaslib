@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <jcaslib/test.h>
 #include <stdarg.h>
 
