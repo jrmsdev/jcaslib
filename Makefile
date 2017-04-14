@@ -99,6 +99,12 @@ distclean:
 check:
 	@$(MAKE) -C tests check
 
+
+.PHONY: check-valgrind
+check-valgrind:
+	@$(MAKE) -C tests check-valgrind
+
+
 .PHONY: expand
 expand:
 	@./scripts/expand-tabs.sh
