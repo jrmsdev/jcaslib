@@ -20,8 +20,6 @@ xrealloc_t (void)
     t_check (t, EQ (p[49], '\0'), "p[49] != \\0");
     t_check (t, EQ (p[59], 'T'), "p[59] != T");
 
-    t_check (t, 15, "TEST");
-
     free (p);
     return (t_end (t));
 }
