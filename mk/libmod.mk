@@ -17,9 +17,10 @@ MOD_OBJS =
 MOD_OBJS += $(BUILDD)/$(src:S/.c/.o/)
 .endfor
 
-MOD_LIBNAME := libjcas-$(MOD_NAME).a
+MOD_LIBNAME := libjcas-$(MOD_NAME)
 MOD_LIBDIR := ../../build/lib
-MOD_LIBPATH := $(MOD_LIBDIR)/$(MOD_LIBNAME)
+MOD_LIBPATH := $(MOD_LIBDIR)/$(MOD_LIBNAME).a
+MOD_LIBPATH_SO := $(MOD_LIBDIR)/$(MOD_LIBNAME).so
 
 
 .PHONY: build
@@ -65,10 +66,15 @@ distclean: clean clean-depend
 
 
 .PHONY: mod-genlib
-mod-genlib: $(MOD_LIBPATH)
+mod-genlib: $(MOD_LIBPATH) $(MOD_LIBPATH_SO)
 
 
-$(MOD_LIBPATH):
+$(MOD_LIBPATH): $(MOD_OBJS)
 	@mkdir -p $(MOD_LIBDIR)
 	@ar -rc $(MOD_LIBPATH) $(MOD_OBJS)
 	ranlib $(MOD_LIBPATH)
+
+
+$(MOD_LIBPATH_SO): $(MOD_OBJS)
+	@mkdir -p $(MOD_LIBDIR)
+	$(CC) -shared -o $(MOD_LIBPATH_SO) $(MOD_OBJS) $(LDFLAGS)
