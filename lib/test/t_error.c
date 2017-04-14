@@ -3,9 +3,9 @@
 void
 t_error (test_T *t, const char *errmsg)
 {
+    if (t->fatal_error || t->ts->error)
+        return;
     t->failed++;
-    int stat = t->failed;
+    t->ts->error++;
     warnx ("[FAIL] %s: ERROR - %s", t->name, errmsg);
-    t_end (t);
-    exit (stat);
 }

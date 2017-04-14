@@ -8,7 +8,7 @@ static void addline (test_T *t, char *msg);
 void
 t_log (test_T *t, const char *fmt, ...)
 {
-    if (t->fatal_error)
+    if (t->fatal_error || t->ts->error)
         return;
     va_list ap;
     va_start (ap, fmt);

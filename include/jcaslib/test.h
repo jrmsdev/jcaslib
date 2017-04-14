@@ -16,6 +16,7 @@
 typedef struct {
     const char *name;
     int failed;
+    int error;
 } test_suite_T;
 
 extern test_suite_T * tsuite_start (const char *name);

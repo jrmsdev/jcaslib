@@ -9,6 +9,7 @@ tsuite_start (const char *name)
 
     ts->name = name;
     ts->failed = 0;
+    ts->error = 0;
 
     return (ts);
 }

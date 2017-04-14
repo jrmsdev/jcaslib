@@ -7,8 +7,12 @@ static void free_t (test_T *t);
 void
 t_end (test_T *t)
 {
-    t_check (t, EQ (t->run, t->expect), "check(s) run != expect");
-    t->run--; /* discount previous call to t_check */
+    if (EQ (t->run, t->expect) != 0)
+    {
+        warnx ("[FAIL] %s: check(s) run(%d) != expect(%d)",
+                t->name, t->run, t->expect);
+        t->failed++;
+    }
     if (t->failed == 0)
     {
         warnx ("[ OK ] %s: %d/%d check(s)", t->name, t->run, t->expect);
