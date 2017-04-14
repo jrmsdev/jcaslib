@@ -1,6 +1,7 @@
 #!/bin/sh
 
 TESTSD=../build/tests
+CHECK_VALGRIND=false
 
 test -z "${TEST_SUITE}" && {
     echo "ERR: no test suite" >&2
@@ -17,6 +18,15 @@ test -d ${TESTSD} || {
     exit 1
 }
 
+if test "--valgrind" = "$1"
+then
+    CHECK_VALGRIND=true
+    which valgrind >/dev/null 2>/dev/null || {
+        echo "ERR: valgrind command not found" >&2
+        exit 1
+    }
+fi
+
 echo "jcaslib tests start: `date`"
 echo
 t_START=`date '+%s'`
@@ -25,9 +35,27 @@ t_fail=0
 
 for t in ${TEST_SUITE}
 do
-    #~ valgrind --leak-check=full ${TESTSD}/${t}
-    ${TESTSD}/${t}
-    t_fail=`expr $t_fail + $?`
+    if $CHECK_VALGRIND
+    then
+        vgout=${TESTSD}/${t}.vgout.$$
+        valgrind --quiet --leak-check=full --log-file=${vgout} ${TESTSD}/${t}
+        vgstat=$?
+        t_fail=`expr $t_fail + $vgstat`
+        if test -s ${vgout}
+        then
+            echo "${t}: [FAIL] valgrind report not empty"
+            echo "${t}: [....] ${vgout}"
+            if test 0 -eq $vgstat
+            then
+                t_fail=`expr 1 + $t_fail`
+            fi
+        else
+            rm -f ${vgout}
+        fi
+    else
+        ${TESTSD}/${t}
+        t_fail=`expr $t_fail + $?`
+    fi
 done
 
 t_END=`date '+%s'`

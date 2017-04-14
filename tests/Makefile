@@ -23,6 +23,11 @@ check: all
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 
+.PHONY: check-valgrind
+check-valgrind: all
+	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh --valgrind
+
+
 $(TEST_BINS): $(TESTLIB) ../lib/test/*.c ../include/jcaslib/test.h
 	@mkdir -p $(TESTSD)
 	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
