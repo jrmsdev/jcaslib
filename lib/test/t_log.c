@@ -6,6 +6,8 @@ static void addline (test_T *t, char *msg);
 void
 t_log (test_T *t, const char *fmt, ...)
 {
+    if (t->fatal_error)
+        return;
     va_list ap;
     va_start (ap, fmt);
     char *msg;

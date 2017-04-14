@@ -12,5 +12,6 @@ t_start (const char *name, int expect)
     t->failed = 0;
     t->log = NULL;
     t->loglines = 0;
+    t->fatal_error = 0;
     return (t);
 }
