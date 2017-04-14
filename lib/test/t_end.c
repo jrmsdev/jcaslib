@@ -6,14 +6,16 @@ static void show_log (test_T *t);
 int
 t_end (test_T *t)
 {
+    t_check (t, EQ (t->run, t->expect), "check(s) run != expect");
+    t->run--; /* discount previous call to t_check */
     int stat = t->failed;
     if (stat == 0)
     {
-        warnx ("[ OK ] %s: %d check(s)", t->name, t->run);
+        warnx ("[ OK ] %s: %d/%d check(s)", t->name, t->run, t->expect);
     }
     else
     {
-        t_log (t, "check(s) ran: %d - failed: %d", t->run, stat);
+        t_log (t, "check(s) run: %d/%d - fail: %d", t->run, t->expect, stat);
         show_log (t);
     }
     free_log (t);
