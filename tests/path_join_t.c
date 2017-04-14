@@ -16,19 +16,19 @@
 void
 path_join_t (void)
 {
-    t_start ("path_join");
+    test_T *t = t_start ("path_join");
     str_type *p = str_alloc ();
 
     path_join (p, 3, "/path", "join", "test");
 
-    t_log ("path len: %zu", str_len (p));
-    t_log ("path: %s", str_get (p));
+    t_log (t, "path len: %zu", str_len (p));
+    t_log (t, "path: %s", str_get (p));
 
-    t_check (EQ (str_len (p), 15), "path len != 15");
-    t_check (strcmp (str_get (p), "/path/join/test"), "path != /path/join/test");
+    t_check (t, EQ (str_len (p), 15), "path len != 15");
+    t_check (t, strcmp (str_get (p), "/path/join/test"), "path != /path/join/test");
 
     str_free (p);
-    t_end ("path_join");
+    t_end (t);
 }
 
 

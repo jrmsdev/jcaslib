@@ -8,9 +8,14 @@
 #define GT(a, b) (a > b ? 0 : 1)
 #define GE(a, b) (a >= b ? 0 : 1)
 
-extern void t_start (const char *name);
-extern void t_end (const char *name);
-extern void t_log (const char *fmt, ...);
-extern void t_check (int status, const char *errmsg);
+typedef struct {
+        const char *name;
+        int end;
+} test_T;
+
+extern test_T * t_start (const char *name);
+extern void t_end (test_T *t);
+extern void t_log (test_T *t, const char *fmt, ...);
+extern void t_check (test_T *t, int status, const char *errmsg);
 
 #endif /* JCASLIB_TEST_H */

@@ -11,44 +11,44 @@
 void
 str_alloc_t (void)
 {
-    t_start ("str_alloc");
+    test_T *t = t_start ("str_alloc");
     str_type *s = str_alloc ();
 
-    t_log ("sizeof -> %zu", sizeof (*s));
-    t_check (EQ (sizeof (*s), 24), "sizeof != 24");
+    t_log (t, "sizeof -> %zu", sizeof (*s));
+    t_check (t, EQ (sizeof (*s), 24), "sizeof != 24");
 
-    t_log ("STR_ALLOC -> %d", STR_ALLOC);
-    t_log ("size -> %zu", str_size (s));
-    t_check (EQ (str_size (s), STR_ALLOC), "size != STR_ALLOC");
+    t_log (t, "STR_ALLOC -> %d", STR_ALLOC);
+    t_log (t, "size -> %zu", str_size (s));
+    t_check (t, EQ (str_size (s), STR_ALLOC), "size != STR_ALLOC");
 
-    t_log ("str_len -> %zu", str_len (s));
-    t_check (EQ (str_len (s), 0), "str_len != 0");
+    t_log (t, "str_len -> %zu", str_len (s));
+    t_check (t, EQ (str_len (s), 0), "str_len != 0");
 
     str_free (s);
-    t_end ("str_alloc");
+    t_end (t);
 }
 
 
 void
 str_realloc_t (void)
 {
-    t_start ("str_realloc");
+    test_T *t = t_start ("str_realloc");
     str_type *s = str_alloc ();
 
-    t_log ("sizeof -> %zu", sizeof (*s));
-    t_check (EQ (sizeof (*s), 24), "sizeof != 24");
+    t_log (t, "sizeof -> %zu", sizeof (*s));
+    t_check (t, EQ (sizeof (*s), 24), "sizeof != 24");
 
-    t_log ("STR_ALLOC -> %d", STR_ALLOC);
-    t_log ("size -> %zu", str_size (s));
-    t_check (EQ (str_size (s), STR_ALLOC), "size != STR_ALLOC");
+    t_log (t, "STR_ALLOC -> %d", STR_ALLOC);
+    t_log (t, "size -> %zu", str_size (s));
+    t_check (t, EQ (str_size (s), STR_ALLOC), "size != STR_ALLOC");
 
     str_realloc (s);
-    t_log ("resized -> %zu", str_size (s));
-    t_check (EQ (str_size (s), (STR_ALLOC * 2)),
+    t_log (t, "resized -> %zu", str_size (s));
+    t_check (t, EQ (str_size (s), (STR_ALLOC * 2)),
                     "resized != (STR_ALLOC * 2)");
 
     str_free (s);
-    t_end ("str_realloc");
+    t_end (t);
 }
 
 

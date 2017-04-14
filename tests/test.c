@@ -1,47 +1,38 @@
 #include "test.h"
+
+#include <err.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 
 
-#define EX_NOT_FINISHED 60
-#define EX_NOT_STARTED 61
-
-
-static const char *current_t = NULL;
-
-
-void
+test_T *
 t_start (const char *name)
 {
-    if (current_t != NULL)
-    {
-        printf ("current test: %s not finished\n", current_t);
-        exit (EX_NOT_FINISHED);
-    }
-    current_t = name;
+    test_T *t = (test_T *) malloc (sizeof (test_T));
+    if (t == NULL)
+        errx (1, "t_start malloc failed!");
+    t->name = name;
+    t->end = 0;
+    return (t);
 }
 
 
 void
-t_end (const char *name)
+t_end (test_T *t)
 {
-    if (strcmp (name, current_t) != 0)
-    {
-        printf ("invalid current test: %s\n", name);
-        exit (EX_NOT_STARTED);
-    }
-    current_t = NULL;
+    free (t);
+    t = NULL;
 }
 
 
 void
-t_log (const char *fmt, ...)
+t_log (test_T *t, const char *fmt, ...)
 {
     va_list ap;
     va_start (ap, fmt);
-    printf ("%s: ", current_t);
+    printf ("%s: ", t->name);
     vprintf (fmt, ap);
     printf ("\n");
     va_end (ap);
@@ -49,11 +40,11 @@ t_log (const char *fmt, ...)
 
 
 void
-t_check (int status, const char *errmsg)
+t_check (test_T *t, int status, const char *errmsg)
 {
     if (status > 0)
     {
-        printf ("%s: %s\n", current_t, errmsg);
+        printf ("%s: %s\n", t->name, errmsg);
         exit (status);
     }
 }
