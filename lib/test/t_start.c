@@ -8,5 +8,7 @@ t_start (const char *name, int expect)
         errx (1, "t_start malloc failed!");
     t->name = name;
     t->expect = expect;
+    t->run = 0;
+    t->failed = 0;
     return (t);
 }
