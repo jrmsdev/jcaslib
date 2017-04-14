@@ -17,9 +17,16 @@ MOD_OBJS =
 MOD_OBJS += $(BUILDD)/$(src:S/.c/.o/)
 .endfor
 
+MOD_LIBNAME := libjcas-$(MOD_NAME).a
+MOD_LIBDIR := ../../build/lib
+MOD_LIBPATH := $(MOD_LIBDIR)/$(MOD_LIBNAME)
+
 
 .PHONY: build
 build: pre-build $(MOD_OBJS)
+.ifdef MOD_GENLIB
+	@$(MAKE) mod-genlib
+.endif
 
 
 # pre-build target could be overwritten per module if needed
@@ -55,3 +62,13 @@ clean-mod:
 
 .PHONY: distclean
 distclean: clean clean-depend
+
+
+.PHONY: mod-genlib
+mod-genlib: $(MOD_LIBPATH)
+
+
+$(MOD_LIBPATH):
+	@mkdir -p $(MOD_LIBDIR)
+	@ar -rc $(MOD_LIBPATH) $(MOD_OBJS)
+	ranlib $(MOD_LIBPATH)
