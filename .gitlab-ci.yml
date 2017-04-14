@@ -8,6 +8,7 @@ variables:
 
 before_script:
     - apt-get -qq update && apt-get -qq -y $APTARGS install $DEBPKGS $CC
+    - test "true" = "$CHECK_VG" && apt-get -qq -y $APTARGS install valgrind
     - $CC --version
 
 .script: &build_script
@@ -18,6 +19,7 @@ before_script:
     - bmake examples
     - bmake dist
     - bmake check
+    - test "true" = "$CHECK_VG" && bmake check-valgrind
 
 build_gcc:
     stage: build
@@ -26,6 +28,7 @@ build_gcc:
     image: gcc
     variables:
         CC: gcc
+        CHECK_VG: "false"
     script: *build_script
 
 build_clang:
@@ -35,4 +38,5 @@ build_clang:
     image: debian:stable
     variables:
         CC: clang
+        CHECK_VG: "true"
     script: *build_script

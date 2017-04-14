@@ -23,12 +23,14 @@ matrix:
           sudo: false
           env:
               - LD_LIBRARY_PATH=./build/lib
+              - CHECK_VG=true
           dist: trusty
           addons:
               apt:
                   packages:
                       - libgdbm-dev
                       - bmake
+                      - valgrind
           compiler: clang
           before_script:
               - ./configure --use-gdbm
@@ -54,3 +56,4 @@ script:
     - bmake dist
     - ./build/bin/jcaslib
     - bmake check
+    - $CHECK_VG && bmake check-valgrind
