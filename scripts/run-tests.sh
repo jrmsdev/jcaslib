@@ -19,18 +19,20 @@ test -d ${TESTSD} || {
 
 echo "jcaslib tests start: `date`"
 echo
+t_START=`date '+%s'`
 
 t_fail=0
 
 for t in ${TEST_SUITE}
 do
-    #valgrind --leak-check=full ${TESTSD}/${t}
+    #~ valgrind --leak-check=full ${TESTSD}/${t}
     ${TESTSD}/${t}
     t_fail=`expr $t_fail + $?`
 done
 
+t_END=`date '+%s'`
 echo
-echo "check(s) failed: ${t_fail}"
+echo "check(s) failed: ${t_fail} - in $(expr $t_END - $t_START) second(s)"
 echo "jcaslib tests end: `date`"
 
 exit ${t_fail}

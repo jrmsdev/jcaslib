@@ -8,10 +8,14 @@ t_end (test_T *t)
 {
     int stat = t->failed;
     if (stat == 0)
+    {
         warnx ("[ OK ] %s: %d check(s)", t->name, t->run);
+    }
     else
-        show_log (t);
+    {
         t_log (t, "check(s) ran: %d - failed: %d", t->run, stat);
+        show_log (t);
+    }
     free_log (t);
     free (t);
     t = NULL;
@@ -34,5 +38,5 @@ void
 show_log (test_T *t)
 {
     for (size_t i = 0; i < t->loglines; i++)
-        warnx ("       %s: %s", t->name, t->log[i]);
+        warnx ("[....] %s: %s", t->name, t->log[i]);
 }
