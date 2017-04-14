@@ -13,7 +13,7 @@
 void
 str_ncat_t (void)
 {
-    test_T *t = t_start ("str_ncat");
+    test_T *t = t_start ("str_ncat", 1);
     str_type *s = str_alloc ();
     t_log (t, "str len0: %zu", str_len (s));
 
@@ -29,7 +29,7 @@ str_ncat_t (void)
 void
 str_cat_t (void)
 {
-    test_T *t = t_start ("str_cat");
+    test_T *t = t_start ("str_cat", 2);
     str_type *s = str_alloc ();
     t_log (t, "str len0: %zu", str_len (s));
 

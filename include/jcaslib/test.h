@@ -10,10 +10,10 @@
 
 typedef struct {
         const char *name;
-        int end;
+        int expect;
 } test_T;
 
-extern test_T * t_start (const char *name);
+extern test_T * t_start (const char *name, int expect);
 extern void t_end (test_T *t);
 extern void t_log (test_T *t, const char *fmt, ...);
 extern void t_check (test_T *t, int status, const char *errmsg);

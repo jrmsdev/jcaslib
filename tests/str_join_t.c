@@ -17,7 +17,7 @@
 void
 str_join_t (void)
 {
-    test_T *t = t_start ("str_join");
+    test_T *t = t_start ("str_join", 2);
     str_type *s = str_alloc ();
 
     str_nset (s, "TEST", 4);

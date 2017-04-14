@@ -16,7 +16,7 @@
 void
 path_join_t (void)
 {
-    test_T *t = t_start ("path_join");
+    test_T *t = t_start ("path_join", 2);
     str_type *p = str_alloc ();
 
     path_join (p, 3, "/path", "join", "test");

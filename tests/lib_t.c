@@ -9,7 +9,7 @@
 void
 xrealloc_t (void)
 {
-    test_T *t = t_start ("xrealloc");
+    test_T *t = t_start ("xrealloc", 3);
 
     char *p = (char *) xmalloc (50);
     t_check (t, EQ (p[49], '\0'), "xrealloc: initial p[49] != \\0");
@@ -28,7 +28,7 @@ xrealloc_t (void)
 void
 xmalloc_t (void)
 {
-    test_T *t = t_start ("xmalloc");
+    test_T *t = t_start ("xmalloc", 3);
     char *p = (char *) xmalloc (50);
 
     t_check (t, EQ (p[0], '\0'), "xmalloc: p[0] != \\0");

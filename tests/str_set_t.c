@@ -13,7 +13,7 @@
 void
 str_nset_t (void)
 {
-    test_T *t = t_start ("str_nset");
+    test_T *t = t_start ("str_nset", 4);
     str_type *s = str_alloc ();
 
     str_nset (s, "TEST", 4);
@@ -37,7 +37,7 @@ str_nset_t (void)
 void
 str_set_t (void)
 {
-    test_T *t = t_start ("str_set");
+    test_T *t = t_start ("str_set", 2);
     str_type *s = str_alloc ();
 
     str_set (s, "TEST");

@@ -11,7 +11,7 @@
 void
 str_alloc_t (void)
 {
-    test_T *t = t_start ("str_alloc");
+    test_T *t = t_start ("str_alloc", 3);
     str_type *s = str_alloc ();
 
     t_log (t, "sizeof -> %zu", sizeof (*s));
@@ -32,7 +32,7 @@ str_alloc_t (void)
 void
 str_realloc_t (void)
 {
-    test_T *t = t_start ("str_realloc");
+    test_T *t = t_start ("str_realloc", 3);
     str_type *s = str_alloc ();
 
     t_log (t, "sizeof -> %zu", sizeof (*s));
