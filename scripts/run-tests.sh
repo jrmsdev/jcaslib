@@ -31,36 +31,38 @@ echo "jcaslib tests start: `date`"
 echo
 t_START=`date '+%s'`
 
-t_fail=0
+t_FAIL=0
+t_FILES=0
 
 for t in ${TEST_SUITE}
 do
+    t_FILES=`expr 1 + $t_FILES`
     if $CHECK_VALGRIND
     then
         vgout=${TESTSD}/${t}.vgout.$$
         valgrind --quiet --leak-check=full --log-file=${vgout} ${TESTSD}/${t}
         vgstat=$?
-        t_fail=`expr $t_fail + $vgstat`
+        t_FAIL=`expr $t_FAIL + $vgstat`
         if test -s ${vgout}
         then
             echo "${t}: [FAIL] valgrind report not empty"
             echo "${t}: [....] ${vgout}"
             if test 0 -eq $vgstat
             then
-                t_fail=`expr 1 + $t_fail`
+                t_FAIL=`expr 1 + $t_FAIL`
             fi
         else
             rm -f ${vgout}
         fi
     else
         ${TESTSD}/${t}
-        t_fail=`expr $t_fail + $?`
+        t_FAIL=`expr $t_FAIL + $?`
     fi
 done
 
 t_END=`date '+%s'`
 echo
-echo "check(s) failed: ${t_fail} - in $(expr $t_END - $t_START) second(s)"
+echo "_t files: ${t_FILES} - check(s) failed: ${t_FAIL} - in $(expr $t_END - $t_START) second(s)"
 echo "jcaslib tests end: `date`"
 
-exit ${t_fail}
+exit ${t_FAIL}
