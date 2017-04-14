@@ -4,24 +4,24 @@ static void free_log (test_T *t);
 static void show_log (test_T *t);
 static void free_t (test_T *t);
 
-int
+void
 t_end (test_T *t)
 {
     t_check (t, EQ (t->run, t->expect), "check(s) run != expect");
     t->run--; /* discount previous call to t_check */
-    int stat = t->failed;
-    if (stat == 0)
+    if (t->failed == 0)
     {
         warnx ("[ OK ] %s: %d/%d check(s)", t->name, t->run, t->expect);
     }
     else
     {
-        t_log (t, "check(s) run: %d/%d - fail: %d", t->run, t->expect, stat);
+        warnx ("[....] %s: check(s) run: %d/%d - fail: %d",
+                t->name, t->run, t->expect, t->failed);
         show_log (t);
+        t->ts->failed += t->failed;
     }
     free_log (t);
     free_t (t);
-    return stat;
 }
 
 void
@@ -53,6 +53,7 @@ free_t (test_T *t)
     t->log = NULL;
     t->loglines = 0;
     t->fatal_error = 0;
+    t->ts = NULL;
     free (t);
     t = NULL;
 }

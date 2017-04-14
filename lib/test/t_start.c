@@ -1,7 +1,7 @@
 #include <jcaslib/test.h>
 
 test_T *
-t_start (const char *name, int expect)
+t_start (test_suite_T *ts, const char *name, int expect)
 {
     test_T *t = (test_T *) malloc (sizeof (test_T));
     if (t == NULL)
@@ -14,6 +14,7 @@ t_start (const char *name, int expect)
     t->log = NULL;
     t->loglines = 0;
     t->fatal_error = 0;
+    t->ts = ts;
 
     return (t);
 }
