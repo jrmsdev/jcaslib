@@ -18,6 +18,8 @@ typedef struct {
         int expect;
         int run;
         int failed;
+        char **log;
+        size_t loglines;
 } test_T;
 
 extern test_T * t_start (const char *name, int expect);
