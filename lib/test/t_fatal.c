@@ -8,6 +8,6 @@ t_fatal (test_T *t, int status, const char *errmsg)
     {
         t->failed++;
         t->fatal_error = 1;
-        warnx ("[FAIL] FATAL %s: %s (%d)", t->name, errmsg, status);
+        warnx ("[FAIL] %s: FATAL - %s (%d)", t->name, errmsg, status);
     }
 }

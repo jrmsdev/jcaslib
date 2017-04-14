@@ -3,6 +3,9 @@
 void
 t_error (test_T *t, const char *errmsg)
 {
-    const char *t_name = t->name;
-    errx (1, "[FAIL] ERROR %s: %s", t_name, errmsg);
+    t->failed++;
+    int stat = t->failed;
+    warnx ("[FAIL] %s: ERROR - %s", t->name, errmsg);
+    t_end (t);
+    exit (stat);
 }
