@@ -69,14 +69,26 @@ def html_tail (out_f):
         fh.close ()
 
 
-def cat_file (src, dst):
-    with open (src, 'r') as srcfh:
-        with open (dst, 'a') as dstfh:
-            for src_l in srcfh.readlines ():
-                dstfh.write (html.escape (src_l))
-            dstfh.flush ()
-            dstfh.close ()
-        srcfh.close ()
+def write_index (funcs, files):
+    dst = os.path.join (htmlcov_dir, 'index.html')
+
+    def files_info (fh):
+        print ("files:", len (files), file = fh)
+        idx = 0
+        for i in files:
+            idx += 1
+            i['idx'] = idx
+            line = TMPL_FILE_INFO.format(**i)
+            print (line, file = fh)
+
+    html_head (dst, 'index');
+
+    with open (dst, 'a') as fh:
+        files_info (fh)
+        fh.flush ()
+        fh.close ()
+
+    html_tail (dst);
 
 
 def parse_index ():
@@ -146,42 +158,14 @@ def parse_index ():
     write_index (funcs_data, files_data)
 
 
-def write_index (funcs, files):
-    dst = os.path.join (htmlcov_dir, 'index.html')
-
-    def files_info (fh):
-        print ("files:", len (files), file = fh)
-        idx = 0
-        for i in files:
-            idx += 1
-            i['idx'] = idx
-            line = TMPL_FILE_INFO.format(**i)
-            print (line, file = fh)
-
-    html_head (dst, 'index');
-
+def write_html (dst, title, gcov):
+    html_head (dst, title)
     with open (dst, 'a') as fh:
-        files_info (fh)
+        for line in gcov['lines']:
+            print (line['tmpl'].format (**line['data']), file = fh)
         fh.flush ()
         fh.close ()
-
-    html_tail (dst);
-
-
-def write_gcov_index ():
-    idxn = os.path.basename (index_file)
-    dst = os.path.join (htmlcov_dir, idxn + '.html')
-    html_head (dst, idxn);
-    cat_file (index_file, dst)
-    html_tail (dst);
-
-
-def write_gcov_html (src):
-    dst = os.path.basename (src)
-    out_f = os.path.join (htmlcov_dir, dst + '.html')
-    html_head (out_f, dst)
-    cat_file (src, out_f)
-    html_tail (out_f)
+    html_tail (dst)
 
 
 re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
@@ -243,19 +227,8 @@ def parse_gcov (src):
     print ("parse:", src, "->", dst)
 
 
-def write_html (dst, title, gcov):
-    html_head (dst, title)
-    with open (dst, 'a') as fh:
-        for line in gcov['lines']:
-            print (line['tmpl'].format (**line['data']), file = fh)
-        fh.flush ()
-        fh.close ()
-    html_tail (dst)
-
-
 def scan_files ():
     for src in sorted (glob.glob ('*.gcov')):
-        write_gcov_html (src)
         parse_gcov (src)
 
 
@@ -270,7 +243,6 @@ def pre_checks ():
 
 def main ():
     pre_checks ()
-    write_gcov_index ()
     scan_files ()
     parse_index ()
 
