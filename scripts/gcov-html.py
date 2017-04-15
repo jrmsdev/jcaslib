@@ -78,6 +78,10 @@ def html_navbar ():
     s = TMPL_LINK.format (href = './index.html', content = 'index')
     return s + "\n"
 
+
+def html_gcov_attribs ():
+    return ""
+
 #
 # -- file i/o (write) actions
 #
@@ -118,7 +122,7 @@ def write_summary (funcs, files):
     write_html_tail (dst);
 
 
-def write_html (dst, title, gcov):
+def write_gcov_html (dst, title, gcov):
     write_html_head (dst, title)
     with open (dst, 'a') as fh:
         print (html_navbar (), file = fh)
@@ -293,7 +297,7 @@ def parse_gcov (src):
                 print ("parse:", src, "unkown line:", gcov_lines)
 
         fh.close ()
-    write_html (dst, src.replace ('.gcov', ''), gcov)
+    write_gcov_html (dst, src.replace ('.gcov', ''), gcov)
     return gcov
 
 
