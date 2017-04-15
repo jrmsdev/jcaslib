@@ -14,11 +14,12 @@ htmlcov_dir = 'htmlcov'
 CSS = '''<style>
     body {
         background-color: #000000;
-        color: #00bb00;
+        color: #00cc00;
         font-family: monospace;
         font-size: 14px;
         padding: 1% 1%;
         margin: 0;
+        line-height: 1.5em;
     }
     </style>'''
 
@@ -35,6 +36,7 @@ TMPL_TAIL = '''</pre>
 </body>
 </html>'''
 
+TMPL_FILE_INFO = '{idx:5}: {lines_exec:15} <i>{name}</i>'
 
 def html_head (out_f, title):
     with open (out_f, 'w') as fh:
@@ -93,9 +95,10 @@ def parse_index ():
 
                 elif line.startswith ('Function '):
                     try:
-                        cur['name'] = line.strip().split(' ')[1].replace("'", "")
-                    except IndexError as e:
-                        cur['name'] = '[[IndexError:%s]]' % str (e)
+                        cur['name'] = html.escape (
+                                line.strip().split(' ')[1].replace("'", ""))
+                    except IndexError:
+                        cur['name'] = '[[IndexError]]'
 
             if in_file:
 
@@ -106,17 +109,19 @@ def parse_index ():
 
                 elif line.startswith ('File '):
                     try:
-                        cur['name'] = line.strip().split(' ')[1].replace("'", "")
-                    except IndexError as e:
-                        cur['name'] = '[[IndexError:%s]]' % str (e)
+                        cur['name'] = html.escape (
+                                line.strip().split(' ')[1].replace("'", ""))
+                    except IndexError:
+                        cur['name'] = '[[IndexError]]'
 
             if cur is not None:
 
                 if line.startswith ('Lines executed:'):
                     try:
-                        cur['lines_exec'] = line.strip().split(':')[1].strip()
-                    except IndexError as e:
-                        cur['lines_exec'] = '[[IndexError:%s]]' % str (e)
+                        cur['lines_exec'] = html.escape (
+                                line.strip().split(':')[1].strip())
+                    except IndexError:
+                        cur['lines_exec'] = '[[IndexError]]'
 
         fh.close ()
 
@@ -128,9 +133,13 @@ def write_index (funcs, files):
     dst = os.path.join (htmlcov_dir, 'index.html')
 
     def files_info (fh):
+        print ("files:", len (files), file = fh)
+        idx = 0
         for i in files:
-            line = "{name} {lines_exec}".format(**i)
-            print (html.escape (line), file = fh)
+            idx += 1
+            i['idx'] = idx
+            line = TMPL_FILE_INFO.format(**i)
+            print (line, file = fh)
 
     html_head (dst, 'index');
 
