@@ -13,25 +13,36 @@ TEST_BINS =
 TEST_BINS += $(TESTSD)/$(t)
 .endfor
 
+COV_CFLAG :=
+.ifdef TEST_COVERAGE
+COV_CFLAG = -coverage -O0
+.endif
+GCOV_CC ?= gcc
+GCOV_CMD ?= gcov5
+
 
 .PHONY: all
-all: $(TEST_BINS)
+all: build
+
+
+.PHONY: build
+build: $(TEST_BINS)
 
 
 .PHONY: check
-check: all
+check: build
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
 
 
 .PHONY: check-valgrind
-check-valgrind: all
+check-valgrind: build
 	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh --valgrind
 
 
 $(TEST_BINS): $(TESTLIB) ../lib/test/*.c ../include/jcaslib/test.h
 	@mkdir -p $(TESTSD)
-	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
-		 $(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTLIB)
+	$(CC) $(COV_CFLAG) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
+		$(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTLIB)
 
 
 $(TESTLIB): build-testlib
@@ -44,7 +55,7 @@ build-testlib:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(TESTSD)
+	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda
 
 
 .PHONY: distclean
@@ -61,3 +72,10 @@ depend:
 .PHONY: clean-depend
 clean-depend:
 	@rm -vf .depend
+
+
+.PHONY: check-coverage
+check-coverage:
+	@$(MAKE) clean build CC=$(GCOV_CC) TEST_COVERAGE=1
+	@$(MAKE) check
+	@GCOV_CC=$(GCOV_CC) GCOV_CMD=$(GCOV_CMD) $(SCRIPTSD)/check-gcov.sh
