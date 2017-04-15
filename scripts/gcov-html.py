@@ -49,7 +49,7 @@ TMPL_TAIL = '''</pre>
 </body>
 </html>'''
 
-TMPL_FILE_INFO = '{idx:5}: {lines_exec:15} <i>{name}</i>'
+TMPL_FILE_SUMM = '{idx:5}: {lines_exec:15} <i>{name}</i>'
 
 TMPL_CODE_NORMAL = '<code class="normal">{lineno:>4}: {content}</code>'
 
@@ -83,7 +83,7 @@ def write_summary (funcs, files):
         for i in files:
             idx += 1
             i['idx'] = idx
-            line = TMPL_FILE_INFO.format(**i)
+            line = TMPL_FILE_SUMM.format(**i)
             print (line, file = fh)
 
     html_head (dst, 'gcov run summary');
@@ -267,6 +267,12 @@ def scan_files ():
 def write_index (gcovdb):
     dst = os.path.join (htmlcov_dir, 'index.html')
     html_head (dst, 'index')
+
+    with open (dst, 'a') as fh:
+        print ("scanned files:", len (gcovdb), file = fh)
+        fh.flush ()
+        fh.close ()
+
     html_tail (dst)
     print ("index:", dst)
 
