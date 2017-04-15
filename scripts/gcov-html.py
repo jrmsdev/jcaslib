@@ -61,7 +61,70 @@ def cat_file (src, dst):
 
 
 def parse_index ():
-    pass
+
+    funcs_data = list()
+    files_data = list()
+
+    def new_cur ():
+        return {'name': None, 'lines_exec': None}
+
+    with open (index_file, 'r') as fh:
+        in_function = False
+        in_file = False
+        cur = None
+
+        for line in fh.readlines ():
+
+            if cur is None:
+                if not in_function and line.startswith ('Function '):
+                    in_function = True
+                    cur = new_cur ()
+
+                if not in_file and line.startswith ('File '):
+                    in_file = True
+                    cur = new_cur ()
+
+            if in_function:
+
+                if line.strip () == "":
+                    in_function = False
+                    funcs_data.append (cur)
+                    cur = None
+
+                elif line.startswith ('Function '):
+                    try:
+                        cur['name'] = line.strip().split(' ')[1].replace("'", "")
+                    except IndexError as e:
+                        cur['name'] = '[[IndexError:%s]]' % str (e)
+
+            if in_file:
+
+                if line.strip () == "":
+                    in_file = False
+                    files_data.append (cur)
+                    cur = None
+
+                elif line.startswith ('File '):
+                    try:
+                        cur['name'] = line.strip().split(' ')[1].replace("'", "")
+                    except IndexError as e:
+                        cur['name'] = '[[IndexError:%s]]' % str (e)
+
+            if cur is not None:
+
+                if line.startswith ('Lines executed:'):
+                    try:
+                        cur['lines_exec'] = line.strip().split(':')[1].strip()
+                    except IndexError as e:
+                        cur['lines_exec'] = '[[IndexError:%s]]' % str (e)
+
+        fh.close ()
+
+    for fd in funcs_data:
+        print ("funcs_data:", fd)
+
+    for fd in files_data:
+        print ("files_data:", fd)
 
 
 def write_gcov_index ():
@@ -73,16 +136,21 @@ def write_gcov_index ():
 
 
 def write_gcov_html (src):
-        dst = os.path.basename (src)
-        out_f = os.path.join (htmlcov_dir, dst + '.html')
-        html_head (out_f, dst.replace ('.html', '', 1))
-        cat_file (src, out_f)
-        html_tail (out_f)
+    dst = os.path.basename (src)
+    out_f = os.path.join (htmlcov_dir, dst + '.html')
+    html_head (out_f, dst)
+    cat_file (src, out_f)
+    html_tail (out_f)
+
+
+def parse_gcov (src):
+    pass
 
 
 def scan_files ():
     for src in glob.glob ('*.gcov'):
         write_gcov_html (src)
+        parse_gcov (src)
 
 
 def pre_checks ():
@@ -98,6 +166,7 @@ def main ():
     pre_checks ()
     write_gcov_index ()
     scan_files ()
+    parse_index ()
 
 
 if __name__ == '__main__':
