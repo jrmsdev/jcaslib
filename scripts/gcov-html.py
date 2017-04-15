@@ -24,6 +24,9 @@ CSS = '''<style>
         margin: 0;
         line-height: 1.5em;
     }
+    a {
+        color: #0000cc;
+    }
     code.noexec {
         color: #cc0000;
     }
@@ -60,6 +63,20 @@ TMPL_CODE_NOEXEC = '<code class="noexec">{lineno:>4}: {content}</code>'
 TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
 
 TMPL_GCOV_INFO = '<code class="info"><small>{content}</small></code>'
+
+TMPL_LINK = '<a href="{href}">{content}</a>'
+
+#
+# -- html helpers
+#
+
+def html_link (href, content):
+    return TMPL_LINK.format (href = href + '.html', content = content)
+
+
+def html_navbar ():
+    s = TMPL_LINK.format (href = './index.html', content = 'index')
+    return s + "\n"
 
 #
 # -- file i/o (write) actions
@@ -104,6 +121,7 @@ def write_summary (funcs, files):
 def write_html (dst, title, gcov):
     write_html_head (dst, title)
     with open (dst, 'a') as fh:
+        print (html_navbar (), file = fh)
         for line in gcov['lines']:
             print (line['tmpl'].format (**line['data']), file = fh)
         fh.flush ()
@@ -120,7 +138,7 @@ def write_index (gcovdb):
         print ("scanned files:", len (gcovdb), file = fh)
 
         for i in gcovdb:
-            print ("       ", i['src'], file = fh)
+            print ("       ", html_link (i['src'], i['src']), file = fh)
 
         fh.flush ()
         fh.close ()
