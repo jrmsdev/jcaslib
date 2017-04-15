@@ -305,7 +305,10 @@ def scan_files ():
     db = list()
 
     def gcov_append (src, gcov):
-        db.append ({'src': src.replace ('.gcov', ''), 'data': gcov})
+        db.append ({
+            'src': html.escape (src.replace ('.gcov', '')),
+            'data': gcov,
+        })
 
     for src in sorted (glob.glob ('*.gcov')):
         gcov_append (src, parse_gcov (src))
