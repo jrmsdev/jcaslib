@@ -256,7 +256,7 @@ def scan_files ():
     db = list()
 
     def gcov_append (src, gcov):
-        db.append ({'src': src, 'data': gcov})
+        db.append ({'src': src.replace ('.gcov', ''), 'data': gcov})
 
     for src in sorted (glob.glob ('*.gcov')):
         gcov_append (src, parse_gcov (src))
@@ -269,7 +269,12 @@ def write_index (gcovdb):
     html_head (dst, 'index')
 
     with open (dst, 'a') as fh:
+
         print ("scanned files:", len (gcovdb), file = fh)
+
+        for i in gcovdb:
+            print ("       ", i['src'], file = fh)
+
         fh.flush ()
         fh.close ()
 
