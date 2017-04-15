@@ -258,7 +258,7 @@ def scan_files ():
     def gcov_append (src, gcov):
         db.append ({'src': src, 'data': gcov})
 
-    for src in sorted (glob.glob ('./*.gcov')):
+    for src in sorted (glob.glob ('*.gcov')):
         gcov_append (src, parse_gcov (src))
 
     return db
