@@ -120,11 +120,26 @@ def parse_index ():
 
         fh.close ()
 
-    for fd in funcs_data:
-        print ("funcs_data:", fd)
+    print ("parse index: funcs", len (funcs_data), "- files", len (files_data))
+    write_index (funcs_data, files_data)
 
-    for fd in files_data:
-        print ("files_data:", fd)
+
+def write_index (funcs, files):
+    dst = os.path.join (htmlcov_dir, 'index.html')
+
+    def files_info (fh):
+        for i in files:
+            line = "{name} {lines_exec}".format(**i)
+            print (html.escape (line), file = fh)
+
+    html_head (dst, 'index');
+
+    with open (dst, 'a') as fh:
+        files_info (fh)
+        fh.flush ()
+        fh.close ()
+
+    html_tail (dst);
 
 
 def write_gcov_index ():
