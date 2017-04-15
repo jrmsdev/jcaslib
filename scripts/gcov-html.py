@@ -26,10 +26,13 @@ CSS = '''<style>
         color: #cc0000;
     }
     code.exec {
-        color: #00ff00;
+        color: #00ee00;
     }
     code.normal {
-        color: #007700;
+        color: #008800;
+    }
+    code.info {
+        color: #aa00bb;
     }
     </style>'''
 
@@ -53,6 +56,8 @@ TMPL_CODE_NORMAL = '<code class="normal">{lineno:>4}: {content}</code>'
 TMPL_CODE_NOEXEC = '<code class="noexec">{lineno:>4}: {content}</code>'
 
 TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
+
+TMPL_GCOV_INFO = '<code class="info"><small>{content}</small></code>'
 
 
 def html_head (out_f, title):
@@ -173,22 +178,34 @@ re_gcov_attr_runs = re.compile ('^\s*-:\s*0:Runs:(\d*)$')
 re_gcov_normal = re.compile ('^\s*-:\s*(\d*):(.*)$')
 re_gcov_noexec = re.compile ('^\s*#####:\s*(\d*):(.*)$')
 re_gcov_exec = re.compile ('^\s*\d*:\s*(\d*):(.*)$')
+re_gcov_info = re.compile ('^(\w+\s.*)$')
 
 
 def parse_gcov (src):
 
-    def new_line(tmpl, lineno, content):
-        return {
+    def new_code_line (gcov, tmpl, lineno, content):
+        gcov['lines'].append ({
             'tmpl': tmpl,
             'data': {'lineno': lineno, 'content': content},
-        }
+        })
+
+    def new_line (gcov, tmpl, content):
+        gcov['lines'].append ({'tmpl': tmpl, 'data': {'content': content}})
 
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
     gcov = dict(lines = list ())
 
+    # XXX: not sure why yet but it needs to start as 1 instead of 0
+    gcov_lines = 1
+
+    print ("parse:", src, "->", dst)
+
     with open (src, 'r') as fh:
         for line in fh.readlines ():
+
+            m = None
+            gcov_lines += 1
 
             m = re_gcov_attr_source.match (line)
             if m:
@@ -204,31 +221,38 @@ def parse_gcov (src):
             if m:
                 idx = m.group (1)
                 if idx != "0":
-                    gcov['lines'].append (new_line (TMPL_CODE_NORMAL,
-                            idx, html.escape (m.group (2))))
+                    new_code_line (gcov, TMPL_CODE_NORMAL, idx,
+                            html.escape (m.group (2)))
                 continue
 
             m = re_gcov_noexec.match (line)
             if m:
                 idx = m.group (1)
-                gcov['lines'].append (new_line (TMPL_CODE_NOEXEC,
-                        idx, html.escape (m.group (2))))
+                new_code_line (gcov, TMPL_CODE_NOEXEC, idx,
+                        html.escape (m.group (2)))
                 continue
 
             m = re_gcov_exec.match (line)
             if m:
                 idx = m.group (1)
-                gcov['lines'].append (new_line (TMPL_CODE_EXEC,
-                        idx, html.escape (m.group (2))))
+                new_code_line (gcov, TMPL_CODE_EXEC, idx,
+                        html.escape (m.group (2)))
                 continue
+
+            m = re_gcov_info.match (line)
+            if m:
+                new_line (gcov, TMPL_GCOV_INFO, html.escape (m.group (1)))
+                continue
+
+            if m is None:
+                print ("parse:", src, "unkown line:", gcov_lines)
 
         fh.close ()
     write_html (dst, src.replace ('.gcov', ''), gcov)
-    print ("parse:", src, "->", dst)
 
 
 def scan_files ():
-    for src in sorted (glob.glob ('*.gcov')):
+    for src in sorted (glob.glob ('./*.gcov')):
         parse_gcov (src)
 
 
