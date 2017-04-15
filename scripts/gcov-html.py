@@ -249,11 +249,26 @@ def parse_gcov (src):
 
         fh.close ()
     write_html (dst, src.replace ('.gcov', ''), gcov)
+    return gcov
 
 
 def scan_files ():
+    db = list()
+
+    def gcov_append (src, gcov):
+        db.append ({'src': src, 'data': gcov})
+
     for src in sorted (glob.glob ('./*.gcov')):
-        parse_gcov (src)
+        gcov_append (src, parse_gcov (src))
+
+    return db
+
+
+def write_index (gcovdb):
+    dst = os.path.join (htmlcov_dir, 'index.html')
+    html_head (dst, 'index')
+    html_tail (dst)
+    print ("index:", dst)
 
 
 def pre_checks ():
@@ -267,8 +282,9 @@ def pre_checks ():
 
 def main ():
     pre_checks ()
-    scan_files ()
+    gcovdb = scan_files ()
     parse_summary ()
+    write_index (gcovdb)
 
 
 if __name__ == '__main__':
