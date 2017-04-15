@@ -8,7 +8,7 @@ import glob
 
 
 index_file = 'gcov.index'
-htmlcov_dir = 'htmlcov'
+htmlcov_dir = './htmlcov'
 
 
 CSS = '''<style>
@@ -125,7 +125,7 @@ def parse_index ():
 
         fh.close ()
 
-    print ("parse index: funcs", len (funcs_data), "- files", len (files_data))
+    print ("index: funcs", len (funcs_data), "- files", len (files_data))
     write_index (funcs_data, files_data)
 
 
@@ -168,11 +168,21 @@ def write_gcov_html (src):
 
 
 def parse_gcov (src):
-    pass
+    dst = os.path.join (htmlcov_dir, src)
+    dst = dst.replace('.gcov', '.html')
+    with open (src, 'r') as fh:
+        fh.close ()
+    write_html (dst, src.replace ('.gcov', ''))
+    print ("parse:", src, "->", dst)
+
+
+def write_html (dst, title):
+    html_head (dst, title)
+    html_tail (dst)
 
 
 def scan_files ():
-    for src in glob.glob ('*.gcov'):
+    for src in sorted (glob.glob ('*.gcov')):
         write_gcov_html (src)
         parse_gcov (src)
 
