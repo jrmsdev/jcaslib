@@ -194,7 +194,10 @@ re_gcov_exec = re.compile ('^\s*\d*:\s*(\d*):(.*)$')
 def parse_gcov (src):
 
     def new_line(tmpl, lineno, content):
-        return {'tmpl': tmpl, 'lineno': lineno, 'content': content}
+        return {
+            'tmpl': tmpl,
+            'data': {'lineno': lineno, 'content': content},
+        }
 
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
@@ -244,7 +247,7 @@ def write_html (dst, title, gcov):
     html_head (dst, title)
     with open (dst, 'a') as fh:
         for line in gcov['lines']:
-            print (line['tmpl'].format (**line), file = fh)
+            print (line['tmpl'].format (**line['data']), file = fh)
         fh.flush ()
         fh.close ()
     html_tail (dst)

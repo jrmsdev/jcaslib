@@ -76,6 +76,6 @@ check-coverage:
 
 .PHONY: htmlcov
 htmlcov:
-	@test -s gcov.index || (echo "'$(MAKE) check-coverage' first"; exit 1)
+	@test -s gcov.index || echo "run '$(MAKE) check-coverage' first"
 	@mkdir -p htmlcov
 	@$(SCRIPTSD)/gcov-html.py
