@@ -10,19 +10,6 @@ matrix:
           sudo: false
           env:
               - LD_LIBRARY_PATH=./build/lib
-          dist: trusty
-          addons:
-              apt:
-                  packages:
-                      - libgdbm-dev
-                      - bmake
-          compiler: gcc
-          before_script:
-              - ./configure --use-gdbm
-        - os: linux
-          sudo: false
-          env:
-              - LD_LIBRARY_PATH=./build/lib
               - CHECK_VG=true
           dist: trusty
           addons:
@@ -31,6 +18,19 @@ matrix:
                       - libgdbm-dev
                       - bmake
                       - valgrind
+          compiler: gcc
+          before_script:
+              - ./configure --use-gdbm
+        - os: linux
+          sudo: false
+          env:
+              - LD_LIBRARY_PATH=./build/lib
+          dist: trusty
+          addons:
+              apt:
+                  packages:
+                      - libgdbm-dev
+                      - bmake
           compiler: clang
           before_script:
               - ./configure --use-gdbm
