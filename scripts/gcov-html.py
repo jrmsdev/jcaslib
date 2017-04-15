@@ -5,6 +5,7 @@ import os.path
 import sys
 import html
 import glob
+import re
 
 
 index_file = 'gcov.index'
@@ -37,6 +38,7 @@ TMPL_TAIL = '''</pre>
 </html>'''
 
 TMPL_FILE_INFO = '{idx:5}: {lines_exec:15} <i>{name}</i>'
+
 
 def html_head (out_f, title):
     with open (out_f, 'w') as fh:
@@ -167,10 +169,21 @@ def write_gcov_html (src):
     html_tail (out_f)
 
 
+re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
+
+
 def parse_gcov (src):
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
+    gcov = dict()
     with open (src, 'r') as fh:
+        for line in fh.readlines ():
+
+            m = re_gcov_attr_source.match (line)
+            if m:
+                gcov['attr.source'] = m.group (1)
+                print ("parse: source ->", gcov['attr.source'])
+
         fh.close ()
     write_html (dst, src.replace ('.gcov', ''))
     print ("parse:", src, "->", dst)
