@@ -170,27 +170,46 @@ def write_gcov_html (src):
 
 
 re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
+re_gcov_attr_runs = re.compile ('^\s*-:\s*0:Runs:(\d*)$')
+re_gcov_normal = re.compile ('^\s*-:\s*(\d*):(.*)$')
 
 
 def parse_gcov (src):
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
-    gcov = dict()
+    gcov = dict(lines = list ())
     with open (src, 'r') as fh:
         for line in fh.readlines ():
 
             m = re_gcov_attr_source.match (line)
             if m:
-                gcov['attr.source'] = m.group (1)
-                print ("parse: source ->", gcov['attr.source'])
+                gcov['attr.source'] = html.escape (m.group (1))
+                continue
+
+            m = re_gcov_attr_runs.match (line)
+            if m:
+                gcov['attr.runs'] = html.escape (m.group (1))
+                continue
+
+            m = re_gcov_normal.match (line)
+            if m:
+                idx = m.group (1)
+                if idx != "0":
+                    gcov['lines'].append (html.escape (m.group(2)))
+                continue
 
         fh.close ()
-    write_html (dst, src.replace ('.gcov', ''))
+    write_html (dst, src.replace ('.gcov', ''), gcov)
     print ("parse:", src, "->", dst)
 
 
-def write_html (dst, title):
+def write_html (dst, title, gcov):
     html_head (dst, title)
+    with open (dst, 'a') as fh:
+        for line in gcov['lines']:
+            fh.write (line + "\n")
+        fh.flush ()
+        fh.close ()
     html_tail (dst)
 
 
