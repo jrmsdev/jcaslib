@@ -25,6 +25,12 @@ CSS = '''<style>
     code.noexec {
         color: #cc0000;
     }
+    code.exec {
+        color: #00ff00;
+    }
+    code.normal {
+        color: #007700;
+    }
     </style>'''
 
 TMPL_HEAD = '''<!doctype html>
@@ -42,9 +48,11 @@ TMPL_TAIL = '''</pre>
 
 TMPL_FILE_INFO = '{idx:5}: {lines_exec:15} <i>{name}</i>'
 
-TMPL_CODE_NORMAL = '<code>{lineno:6}: {content}</code>'
+TMPL_CODE_NORMAL = '<code class="normal">{lineno:>4}: {content}</code>'
 
-TMPL_CODE_NOEXEC = '<code class="noexec">{lineno:6}: {content}</code>'
+TMPL_CODE_NOEXEC = '<code class="noexec">{lineno:>4}: {content}</code>'
+
+TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
 
 
 def html_head (out_f, title):
@@ -180,12 +188,13 @@ re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
 re_gcov_attr_runs = re.compile ('^\s*-:\s*0:Runs:(\d*)$')
 re_gcov_normal = re.compile ('^\s*-:\s*(\d*):(.*)$')
 re_gcov_noexec = re.compile ('^\s*#####:\s*(\d*):(.*)$')
+re_gcov_exec = re.compile ('^\s*\d*:\s*(\d*):(.*)$')
 
 
 def parse_gcov (src):
 
-    def new_line(idx, typ, content):
-        return {'lineno': idx, 'type': typ, 'content': content}
+    def new_line(tmpl, lineno, content):
+        return {'tmpl': tmpl, 'lineno': lineno, 'content': content}
 
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
@@ -208,15 +217,22 @@ def parse_gcov (src):
             if m:
                 idx = m.group (1)
                 if idx != "0":
-                    gcov['lines'].append (new_line (
-                            idx, 'NORMAL', html.escape (m.group (2))))
+                    gcov['lines'].append (new_line (TMPL_CODE_NORMAL,
+                            idx, html.escape (m.group (2))))
                 continue
 
             m = re_gcov_noexec.match (line)
             if m:
                 idx = m.group (1)
-                gcov['lines'].append (new_line (
-                        idx, 'NOEXEC', html.escape (m.group (2))))
+                gcov['lines'].append (new_line (TMPL_CODE_NOEXEC,
+                        idx, html.escape (m.group (2))))
+                continue
+
+            m = re_gcov_exec.match (line)
+            if m:
+                idx = m.group (1)
+                gcov['lines'].append (new_line (TMPL_CODE_EXEC,
+                        idx, html.escape (m.group (2))))
                 continue
 
         fh.close ()
@@ -228,16 +244,7 @@ def write_html (dst, title, gcov):
     html_head (dst, title)
     with open (dst, 'a') as fh:
         for line in gcov['lines']:
-            tmpl = None
-
-            if line['type'] == 'NORMAL':
-                tmpl = TMPL_CODE_NORMAL
-
-            elif line['type'] == 'NOEXEC':
-                tmpl = TMPL_CODE_NOEXEC
-
-            print (tmpl.format (**line), file = fh)
-
+            print (line['tmpl'].format (**line), file = fh)
         fh.flush ()
         fh.close ()
     html_tail (dst)
