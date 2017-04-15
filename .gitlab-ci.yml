@@ -19,7 +19,7 @@ before_script:
     - bmake examples
     - bmake dist
     - bmake check
-    - test "true" = "$CHECK_VG" && bmake check-valgrind
+    - (test "true" = "$CHECK_VG" && bmake check-valgrind) || true
 
 build_gcc:
     stage: build

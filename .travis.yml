@@ -56,4 +56,4 @@ script:
     - bmake dist
     - ./build/bin/jcaslib
     - bmake check
-    - test "true" = "$CHECK_VG" && bmake check-valgrind
+    - (test "true" = "$CHECK_VG" && bmake check-valgrind) || true
