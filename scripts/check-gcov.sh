@@ -22,10 +22,11 @@ then
     exit 1
 fi
 
+rm -f gcov.index
 for src_f in *.c
 do
-    echo $src_f
-    $GCOV_CMD $src_f
+    $GCOV_CMD $src_f >>gcov.index
 done
+cat gcov.index
 
 exit 0
