@@ -110,8 +110,3 @@ check-valgrind:
 .PHONY: expand
 expand:
 	@./scripts/expand-tabs.sh
-
-
-.PHONY: check-coverage
-check-coverage:
-	@$(MAKE) -C tests check-coverage

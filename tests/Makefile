@@ -48,7 +48,7 @@ build-testlib:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcov.index
+	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcov.index htmlcov
 
 
 .PHONY: distclean
@@ -73,3 +73,10 @@ check-coverage:
 	@$(MAKE) clean build CC=$(GCOV_CC) TEST_COVERAGE=1
 	@$(MAKE) check
 	@GCOV_CC=$(GCOV_CC) GCOV_CMD=$(GCOV_CMD) $(SCRIPTSD)/check-gcov.sh
+
+
+.PHONY: htmlcov
+htmlcov:
+	@test -s gcov.index || (echo "'$(MAKE) check-coverage' first"; exit 1)
+	@mkdir -p htmlcov
+	@$(SCRIPTSD)/gcov-html.py
