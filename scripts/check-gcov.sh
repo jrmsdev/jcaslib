@@ -2,6 +2,7 @@
 
 GCOV_CC=${GCOV_CC:-"gcc"}
 GCOV_CMD=${GCOV_CMD:-"gcov"}
+GCOV_ARGS=${GCOV_ARGS:-"-b"}
 
 which $GCOV_CC >/dev/null 2>/dev/null || {
     echo "${GCOV_CC} command not found" >&2
@@ -25,7 +26,7 @@ fi
 rm -f gcov.index
 for src_f in *.c
 do
-    $GCOV_CMD $src_f >>gcov.index
+    $GCOV_CMD $GCOV_ARGS $src_f >>gcov.index
 done
 cat gcov.index
 

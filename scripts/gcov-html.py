@@ -54,11 +54,14 @@ def cat_file (src, dst):
     with open (src, 'r') as srcfh:
         with open (dst, 'a') as dstfh:
             for src_l in srcfh.readlines ():
-                html.escape (src_l)
-                dstfh.write (src_l)
+                dstfh.write (html.escape (src_l))
             dstfh.flush ()
             dstfh.close ()
         srcfh.close ()
+
+
+def parse_index ():
+    pass
 
 
 def write_index ():
