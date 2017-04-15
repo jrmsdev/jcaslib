@@ -64,20 +64,25 @@ def parse_index ():
     pass
 
 
-def write_index ():
-    html_f = os.path.join (htmlcov_dir, 'index.html')
-    html_head (html_f, 'index');
-    cat_file (index_file, html_f)
-    html_tail (html_f);
+def write_gcov_index ():
+    idxn = os.path.basename (index_file)
+    dst = os.path.join (htmlcov_dir, idxn + '.html')
+    html_head (dst, idxn);
+    cat_file (index_file, dst)
+    html_tail (dst);
+
+
+def write_gcov_html (src):
+        dst = os.path.basename (src)
+        out_f = os.path.join (htmlcov_dir, dst + '.html')
+        html_head (out_f, dst.replace ('.html', '', 1))
+        cat_file (src, out_f)
+        html_tail (out_f)
 
 
 def scan_files ():
     for src in glob.glob ('*.gcov'):
-        dst = os.path.basename (src).replace ('.gcov', '.html', 1)
-        out_f = os.path.join (htmlcov_dir, dst)
-        html_head (out_f, dst.replace ('.html', '', 1))
-        cat_file (src, out_f)
-        html_tail (out_f)
+        write_gcov_html (src)
 
 
 def pre_checks ():
@@ -91,7 +96,7 @@ def pre_checks ():
 
 def main ():
     pre_checks ()
-    write_index ()
+    write_gcov_index ()
     scan_files ()
 
 
