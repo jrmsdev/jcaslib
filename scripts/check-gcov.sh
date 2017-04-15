@@ -28,6 +28,5 @@ for src_f in *.c
 do
     $GCOV_CMD $GCOV_ARGS $src_f >>gcov.index
 done
-cat gcov.index
 
 exit 0
