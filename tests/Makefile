@@ -1,6 +1,5 @@
 include ../mk/vars.mk
 
-
 INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests

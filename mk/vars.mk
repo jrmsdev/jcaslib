@@ -2,7 +2,7 @@ SH = /bin/sh
 JCASLIB_DEBUG ?=
 
 .ifdef TEST_COVERAGE
-JCASLIB_DEBUG += -coverage -O0
+JCASLIB_DEBUG += -coverage -fprofile-arcs -ftest-coverage -O0
 .endif
 
 CFLAGS += -Wall -Wextra -pedantic -pedantic-errors -std=c11 $(JCASLIB_DEBUG)
