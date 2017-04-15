@@ -7,10 +7,12 @@ import html
 import glob
 import re
 
-
 gcov_out = 'gcov.out'
 htmlcov_dir = './htmlcov'
 
+#
+# -- HTML templates
+#
 
 CSS = '''<style>
     body {
@@ -59,6 +61,9 @@ TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
 
 TMPL_GCOV_INFO = '<code class="info"><small>{content}</small></code>'
 
+#
+# -- file i/o (write) actions
+#
 
 def write_html_head (out_f, title):
     with open (out_f, 'w') as fh:
@@ -95,6 +100,37 @@ def write_summary (funcs, files):
 
     write_html_tail (dst);
 
+
+def write_html (dst, title, gcov):
+    write_html_head (dst, title)
+    with open (dst, 'a') as fh:
+        for line in gcov['lines']:
+            print (line['tmpl'].format (**line['data']), file = fh)
+        fh.flush ()
+        fh.close ()
+    write_html_tail (dst)
+
+
+def write_index (gcovdb):
+    dst = os.path.join (htmlcov_dir, 'index.html')
+    write_html_head (dst, 'index')
+
+    with open (dst, 'a') as fh:
+
+        print ("scanned files:", len (gcovdb), file = fh)
+
+        for i in gcovdb:
+            print ("       ", i['src'], file = fh)
+
+        fh.flush ()
+        fh.close ()
+
+    write_html_tail (dst)
+    print ("index:", dst)
+
+#
+# -- parse gcov info/report files
+#
 
 def parse_summary ():
 
@@ -163,16 +199,7 @@ def parse_summary ():
     write_summary (funcs_data, files_data)
 
 
-def write_html (dst, title, gcov):
-    write_html_head (dst, title)
-    with open (dst, 'a') as fh:
-        for line in gcov['lines']:
-            print (line['tmpl'].format (**line['data']), file = fh)
-        fh.flush ()
-        fh.close ()
-    write_html_tail (dst)
-
-
+# -- parse gcov regexs
 re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
 re_gcov_attr_runs = re.compile ('^\s*-:\s*0:Runs:(\d*)$')
 re_gcov_normal = re.compile ('^\s*-:\s*(\d*):(.*)$')
@@ -252,6 +279,10 @@ def parse_gcov (src):
     return gcov
 
 
+#
+# -- main
+#
+
 def scan_files ():
     db = list()
 
@@ -262,24 +293,6 @@ def scan_files ():
         gcov_append (src, parse_gcov (src))
 
     return db
-
-
-def write_index (gcovdb):
-    dst = os.path.join (htmlcov_dir, 'index.html')
-    write_html_head (dst, 'index')
-
-    with open (dst, 'a') as fh:
-
-        print ("scanned files:", len (gcovdb), file = fh)
-
-        for i in gcovdb:
-            print ("       ", i['src'], file = fh)
-
-        fh.flush ()
-        fh.close ()
-
-    write_html_tail (dst)
-    print ("index:", dst)
 
 
 def pre_checks ():
