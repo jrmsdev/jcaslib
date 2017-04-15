@@ -13,13 +13,6 @@ TEST_BINS =
 TEST_BINS += $(TESTSD)/$(t)
 .endfor
 
-COV_CFLAG :=
-.ifdef TEST_COVERAGE
-COV_CFLAG = -coverage -O0
-.endif
-GCOV_CC ?= gcc
-GCOV_CMD ?= gcov5
-
 
 .PHONY: all
 all: build
@@ -41,7 +34,7 @@ check-valgrind: build
 
 $(TEST_BINS): $(TESTLIB) ../lib/test/*.c ../include/jcaslib/test.h
 	@mkdir -p $(TESTSD)
-	$(CC) $(COV_CFLAG) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
+	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
 		$(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTLIB)
 
 
@@ -55,7 +48,7 @@ build-testlib:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda
+	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcov.index
 
 
 .PHONY: distclean
@@ -76,6 +69,7 @@ clean-depend:
 
 .PHONY: check-coverage
 check-coverage:
+	@$(MAKE) -C ../lib clean build CC=$(GCOV_CC) TEST_COVERAGE=1
 	@$(MAKE) clean build CC=$(GCOV_CC) TEST_COVERAGE=1
 	@$(MAKE) check
 	@GCOV_CC=$(GCOV_CC) GCOV_CMD=$(GCOV_CMD) $(SCRIPTSD)/check-gcov.sh
