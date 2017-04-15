@@ -22,7 +22,6 @@ CSS = '''<style>
         font-size: 14px;
         padding: 1% 1%;
         margin: 0;
-        line-height: 1.5em;
     }
     a {
         color: #0000cc;
@@ -62,9 +61,9 @@ TMPL_CODE_NOEXEC = '<code class="noexec">{lineno:>4}: {content}</code>'
 
 TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
 
-TMPL_GCOV_INFO = '<code class="info"><small>{content}</small></code>'
+TMPL_GCOV_INFO = '<code class="info"><small><small>{content}</small></small></code>'
 
-TMPL_GCOV_ATTRIB = '<span class="attrib">{attr_key}: {attr_val}</span>'
+TMPL_GCOV_ATTRIB = '<small>{attr_key}: {attr_val}</small>'
 
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
@@ -88,10 +87,12 @@ def html_gcov_attribs (src, gcov):
         if k.startswith ('attr.'):
             if not attr_found:
                 attr_found = True
-                s = TMPL_GCOV_ATTRIB.format (attr_key = 'gcov',
-                        attr_val = html.escape (src))
+                s = TMPL_GCOV_ATTRIB.format (attr_key = 'gcov', attr_val = src)
             try:
                 kn = k.split ('.')[1]
+                kv = gcov.get ('attr.' + kn, None)
+                s += "\n"
+                s += TMPL_GCOV_ATTRIB.format (attr_key = kn, attr_val = kv)
             except IndexError as e:
                 print ("gcov_attribs:", src, "IndexError:", str (e))
     return s + "\n"
