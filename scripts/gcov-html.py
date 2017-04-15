@@ -17,7 +17,7 @@ htmlcov_dir = './htmlcov'
 CSS = '''<style>
     body {
         background-color: #000000;
-        color: #00cc00;
+        color: #666666;
         font-family: monospace;
         font-size: 14px;
         padding: 1% 1%;
@@ -64,6 +64,8 @@ TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
 
 TMPL_GCOV_INFO = '<code class="info"><small>{content}</small></code>'
 
+TMPL_GCOV_ATTRIB = '<span class="attrib">{attr_key}: {attr_val}</span>'
+
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
 #
@@ -79,8 +81,20 @@ def html_navbar ():
     return s + "\n"
 
 
-def html_gcov_attribs ():
-    return ""
+def html_gcov_attribs (src, gcov):
+    s = "[no attribs]" + src
+    attr_found = False
+    for k in sorted (gcov.keys ()):
+        if k.startswith ('attr.'):
+            if not attr_found:
+                attr_found = True
+                s = TMPL_GCOV_ATTRIB.format (attr_key = 'gcov',
+                        attr_val = html.escape (src))
+            try:
+                kn = k.split ('.')[1]
+            except IndexError as e:
+                print ("gcov_attribs:", src, "IndexError:", str (e))
+    return s + "\n"
 
 #
 # -- file i/o (write) actions
@@ -122,12 +136,16 @@ def write_summary (funcs, files):
     write_html_tail (dst);
 
 
-def write_gcov_html (dst, title, gcov):
-    write_html_head (dst, title)
+def write_gcov_html (src, dst, gcov):
+    write_html_head (dst, src.replace ('.gcov', ''))
     with open (dst, 'a') as fh:
+
         print (html_navbar (), file = fh)
+        print (html_gcov_attribs (src, gcov), file = fh)
+
         for line in gcov['lines']:
             print (line['tmpl'].format (**line['data']), file = fh)
+
         fh.flush ()
         fh.close ()
     write_html_tail (dst)
@@ -297,7 +315,7 @@ def parse_gcov (src):
                 print ("parse:", src, "unkown line:", gcov_lines)
 
         fh.close ()
-    write_gcov_html (dst, src.replace ('.gcov', ''), gcov)
+    write_gcov_html (src, dst, gcov)
     return gcov
 
 
