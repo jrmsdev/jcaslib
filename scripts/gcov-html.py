@@ -89,7 +89,7 @@ def html_gcov_attribs (src, gcov):
                 attr_found = True
                 s = TMPL_GCOV_ATTRIB.format (attr_key = 'gcov', attr_val = src)
             try:
-                kn = k.split ('.')[1]
+                kn = '.'.join (k.split ('.')[1:])
                 kv = gcov.get ('attr.' + kn, None)
                 s += "\n"
                 s += TMPL_GCOV_ATTRIB.format (attr_key = kn, attr_val = kv)
@@ -260,12 +260,21 @@ def parse_gcov (src):
     def new_line (gcov, tmpl, content):
         gcov['lines'].append ({'tmpl': tmpl, 'data': {'content': content}})
 
+    def update_attribs (gcov, attr):
+        for k in attr.keys ():
+            gcov['attr.' + k] = attr.get (k)
+
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
     gcov = dict(lines = list ())
 
     # XXX: not sure why yet but it needs to start as 1 instead of 0
     gcov_lines = 1
+    attr = {
+        'source.lines': 0,
+        'source.lines.exec': 0,
+        'source.lines.noexec': 0,
+    }
 
     print ("parse:", src, "->", dst)
 
@@ -289,12 +298,15 @@ def parse_gcov (src):
             if m:
                 idx = m.group (1)
                 if idx != "0":
+                    attr['source.lines'] += 1
                     new_code_line (gcov, TMPL_CODE_NORMAL, idx,
                             html.escape (m.group (2)))
                 continue
 
             m = re_gcov_noexec.match (line)
             if m:
+                attr['source.lines'] += 1
+                attr['source.lines.noexec'] += 1
                 idx = m.group (1)
                 new_code_line (gcov, TMPL_CODE_NOEXEC, idx,
                         html.escape (m.group (2)))
@@ -302,6 +314,8 @@ def parse_gcov (src):
 
             m = re_gcov_exec.match (line)
             if m:
+                attr['source.lines'] += 1
+                attr['source.lines.exec'] += 1
                 idx = m.group (1)
                 new_code_line (gcov, TMPL_CODE_EXEC, idx,
                         html.escape (m.group (2)))
@@ -316,7 +330,10 @@ def parse_gcov (src):
                 print ("parse:", src, "unkown line:", gcov_lines)
 
         fh.close ()
+
+    update_attribs (gcov, attr)
     write_gcov_html (src, dst, gcov)
+
     return gcov
 
 
