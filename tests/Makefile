@@ -68,8 +68,8 @@ clean-depend:
 
 .PHONY: check-coverage
 check-coverage:
-	@$(MAKE) -C ../lib clean build CC=$(GCOV_CC) TEST_COVERAGE=1
-	@$(MAKE) clean build CC=$(GCOV_CC) TEST_COVERAGE=1
+	@$(MAKE) -C ../lib build CC=$(GCOV_CC) TEST_COVERAGE=1
+	@$(MAKE) build CC=$(GCOV_CC) TEST_COVERAGE=1
 	@$(MAKE) check
 	@GCOV_CC=$(GCOV_CC) GCOV_CMD=$(GCOV_CMD) $(SCRIPTSD)/check-gcov.sh
 
