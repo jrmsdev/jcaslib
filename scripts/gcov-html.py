@@ -8,7 +8,7 @@ import glob
 import re
 
 
-index_file = 'gcov.index'
+gcov_out = 'gcov.out'
 htmlcov_dir = './htmlcov'
 
 
@@ -74,8 +74,8 @@ def html_tail (out_f):
         fh.close ()
 
 
-def write_index (funcs, files):
-    dst = os.path.join (htmlcov_dir, 'index.html')
+def write_summary (funcs, files):
+    dst = os.path.join (htmlcov_dir, 'summary.html')
 
     def files_info (fh):
         print ("files:", len (files), file = fh)
@@ -86,7 +86,7 @@ def write_index (funcs, files):
             line = TMPL_FILE_INFO.format(**i)
             print (line, file = fh)
 
-    html_head (dst, 'index');
+    html_head (dst, 'gcov run summary');
 
     with open (dst, 'a') as fh:
         files_info (fh)
@@ -96,7 +96,7 @@ def write_index (funcs, files):
     html_tail (dst);
 
 
-def parse_index ():
+def parse_summary ():
 
     funcs_data = list()
     files_data = list()
@@ -104,7 +104,7 @@ def parse_index ():
     def new_cur ():
         return {'name': None, 'lines_exec': None}
 
-    with open (index_file, 'r') as fh:
+    with open (gcov_out, 'r') as fh:
         in_function = False
         in_file = False
         cur = None
@@ -159,8 +159,8 @@ def parse_index ():
 
         fh.close ()
 
-    print ("index: funcs", len (funcs_data), "- files", len (files_data))
-    write_index (funcs_data, files_data)
+    print ("summary: funcs", len (funcs_data), "- files", len (files_data))
+    write_summary (funcs_data, files_data)
 
 
 def write_html (dst, title, gcov):
@@ -257,8 +257,8 @@ def scan_files ():
 
 
 def pre_checks ():
-    if not os.path.isfile (index_file):
-        print (index_file, "file not found")
+    if not os.path.isfile (gcov_out):
+        print (gcov_out, "file not found")
         sys.exit (1)
     if not os.path.isdir (htmlcov_dir):
         print (htmlcov_dir, "dir not found")
@@ -268,7 +268,7 @@ def pre_checks ():
 def main ():
     pre_checks ()
     scan_files ()
-    parse_index ()
+    parse_summary ()
 
 
 if __name__ == '__main__':

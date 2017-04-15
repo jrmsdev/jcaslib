@@ -23,13 +23,14 @@ then
     exit 1
 fi
 
-rm -f gcov.index
+gcov_out='gcov.out'
+rm -f $gcov_out
 for src_f in *.c
 do
     run_cmd="$GCOV_CMD $GCOV_ARGS $src_f"
     echo $run_cmd
-    $run_cmd >>gcov.index
+    $run_cmd >>$gcov_out
 done
-echo "gcov.index done"
+echo "${gcov_out} done"
 
 exit 0

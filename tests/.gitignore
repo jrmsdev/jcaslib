@@ -1,5 +1,5 @@
 *.gcov
 *.gcda
 *.gcno
-gcov.index
+gcov.out
 htmlcov/*.html
