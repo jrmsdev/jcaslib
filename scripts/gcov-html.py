@@ -60,14 +60,14 @@ TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
 TMPL_GCOV_INFO = '<code class="info"><small>{content}</small></code>'
 
 
-def html_head (out_f, title):
+def write_html_head (out_f, title):
     with open (out_f, 'w') as fh:
         print (TMPL_HEAD.format (title = title, css = CSS), file = fh)
         fh.flush ()
         fh.close ()
 
 
-def html_tail (out_f):
+def write_html_tail (out_f):
     with open (out_f, 'a') as fh:
         print (TMPL_TAIL, file = fh)
         fh.flush ()
@@ -86,14 +86,14 @@ def write_summary (funcs, files):
             line = TMPL_FILE_SUMM.format(**i)
             print (line, file = fh)
 
-    html_head (dst, 'gcov run summary');
+    write_html_head (dst, 'gcov run summary');
 
     with open (dst, 'a') as fh:
         files_info (fh)
         fh.flush ()
         fh.close ()
 
-    html_tail (dst);
+    write_html_tail (dst);
 
 
 def parse_summary ():
@@ -164,13 +164,13 @@ def parse_summary ():
 
 
 def write_html (dst, title, gcov):
-    html_head (dst, title)
+    write_html_head (dst, title)
     with open (dst, 'a') as fh:
         for line in gcov['lines']:
             print (line['tmpl'].format (**line['data']), file = fh)
         fh.flush ()
         fh.close ()
-    html_tail (dst)
+    write_html_tail (dst)
 
 
 re_gcov_attr_source = re.compile ('^\s*-:\s*0:Source:(.*)$')
@@ -266,7 +266,7 @@ def scan_files ():
 
 def write_index (gcovdb):
     dst = os.path.join (htmlcov_dir, 'index.html')
-    html_head (dst, 'index')
+    write_html_head (dst, 'index')
 
     with open (dst, 'a') as fh:
 
@@ -278,7 +278,7 @@ def write_index (gcovdb):
         fh.flush ()
         fh.close ()
 
-    html_tail (dst)
+    write_html_tail (dst)
     print ("index:", dst)
 
 
