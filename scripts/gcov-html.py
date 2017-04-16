@@ -23,6 +23,7 @@ CSS = '''<style>
         font-size: 14px;
         padding: 1% 1%;
         margin: 0;
+        line-height: 1.3em;
     }
     a {
         color: #0000cc;
@@ -38,6 +39,9 @@ CSS = '''<style>
     }
     code.info {
         color: #aa00bb;
+    }
+    pre.index {
+        line-height: 1.5em;
     }
     .status_error {
         color: #cc0000;
@@ -60,7 +64,7 @@ TMPL_HEAD = '''<!doctype html>
     <title>jcaslib tests coverage - {title}</title>
 </head>
 <body>
-<pre>'''
+<pre class="{main_class}">'''
 
 TMPL_TAIL = '''</pre>
 <pre class="footer">
@@ -83,7 +87,9 @@ TMPL_GCOV_ATTRIB = '<small class="status_{attr_class}">{attr_key}: {attr_val}</s
 
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
-TMPL_FILE_INDEX = '<span class="status_{status_class}">{status:>7}</span> <a href="{href}">{filename}</a>'
+TMPL_FILE_INDEX_STATUS = '{sep_char:{sep}}<span class="status_{status}">{status}</span> '
+
+TMPL_FILE_INDEX = '<b>{file_href}</b>{sep_char:{sep}} <span class="status_{status}">{status_info}</span>'
 
 #
 # -- html helpers
@@ -95,7 +101,7 @@ def html_link (href, content):
 
 def html_navbar ():
     s = TMPL_LINK.format (href = './index.html', content = 'index')
-    return s + "\n"
+    return "<b>%s</b>\n" % s
 
 
 def html_gcov_attribs (src, gcov):
@@ -136,9 +142,10 @@ def html_gcov_attribs (src, gcov):
 # -- file i/o (write) actions
 #
 
-def write_html_head (out_f, title):
+def write_html_head (out_f, title, main_class = "none"):
     with open (out_f, 'w') as fh:
-        print (TMPL_HEAD.format (title = title, css = CSS), file = fh)
+        print (TMPL_HEAD.format (title = title, css = CSS,
+                main_class = main_class), file = fh)
         fh.flush ()
         fh.close ()
 
@@ -194,7 +201,7 @@ def write_gcov_html (src, dst, gcov):
 def write_index (gcovdb):
 
     dst = os.path.join (htmlcov_dir, 'index.html')
-    write_html_head (dst, 'index')
+    write_html_head (dst, 'index', main_class = 'index')
 
     with open (dst, 'a') as fh:
 
@@ -203,13 +210,22 @@ def write_index (gcovdb):
         for i in gcovdb:
             gcov_src = i['src']
             gcov = i['data']
-            fmt_d = {
-                'status': gcov.get ('attr.status.info', None),
-                'status_class': gcov.get ('attr.status', None),
-                'href': gcov_src + '.html',
-                'filename': gcov_src,
-            }
-            print (TMPL_FILE_INDEX.format (**fmt_d), file = fh)
+
+            status = gcov.get ('attr.status', None)
+            print (TMPL_FILE_INDEX_STATUS.format (
+                    sep = 7 - len (status),
+                    sep_char = ' ',
+                    status = status), file = fh, end = '')
+
+            seplen = (50 - len (gcov_src))
+            if seplen < 0:
+                seplen = 0
+            print (TMPL_FILE_INDEX.format (
+                    status = status,
+                    status_info = gcov.get ('attr.status.info', None),
+                    sep = seplen,
+                    sep_char = ' ',
+                    file_href = html_link (gcov_src, gcov_src)), file = fh)
 
         fh.flush ()
         fh.close ()
@@ -323,10 +339,10 @@ def parse_gcov (src):
             attr['status'] = "error"
         else:
             percent_ok = ((lines_normal + lines_exec) * 100) / lines
-            attr['status.info'] = "%.2f%% done" % percent_ok
-            if percent_ok <= 60:
+            attr['status.info'] = "done: {:>6.2f}%".format (percent_ok)
+            if percent_ok <= 70:
                 attr['status'] = 'error'
-            elif percent_ok <= 90:
+            elif percent_ok <= 96:
                 attr['status'] = 'warn'
 
     dst = os.path.join (htmlcov_dir, src)
