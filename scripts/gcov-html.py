@@ -42,6 +42,18 @@ CSS = '''<style>
     .attrib_error {
         color: #cc0000;
     }
+    .attrib_info {
+        color: #00cccc;
+    }
+    .attrib_warn {
+        color: #cccc33;
+    }
+    .attrib_ok {
+        color: #00cc00;
+    }
+    .file_ok {
+        color: #00aa00;
+    }
     </style>'''
 
 TMPL_HEAD = '''<!doctype html>
@@ -74,6 +86,8 @@ TMPL_GCOV_ATTRIB = '<small class="attrib_{attr_class}">{attr_key}: {attr_val}</s
 
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
+TMPL_FILE_INDEX = '<span class="file_{status_class}">{status:>7}</span> <a href="{href}">{filename}</a>'
+
 #
 # -- html helpers
 #
@@ -92,7 +106,7 @@ def html_gcov_attribs (src, gcov):
     attr_found = False
     for k in sorted (gcov.keys ()):
         if k.startswith ('attr.'):
-            atclass = "ok"
+            atclass = "normal"
             if not attr_found:
                 attr_found = True
                 s = TMPL_GCOV_ATTRIB.format (
@@ -102,8 +116,18 @@ def html_gcov_attribs (src, gcov):
                 kv = gcov.get ('attr.' + kn, None)
                 s += "\n"
 
-                if kn == "source.lines.noexec" and 0 != int (kv):
-                    atclass = "error"
+                if kn == "source.lines.noexec":
+                    if 0 != int (kv):
+                        atclass = "error"
+
+                elif kn == "status":
+                    atclass = kv
+
+                elif kn == "status.info":
+                    atclass = gcov.get ('attr.status', atclass)
+
+                elif kn == "source":
+                    atclass = "info"
 
                 s += TMPL_GCOV_ATTRIB.format (
                         attr_class = atclass, attr_key = kn, attr_val = kv)
@@ -171,6 +195,7 @@ def write_gcov_html (src, dst, gcov):
 
 
 def write_index (gcovdb):
+
     dst = os.path.join (htmlcov_dir, 'index.html')
     write_html_head (dst, 'index')
 
@@ -179,7 +204,15 @@ def write_index (gcovdb):
         print ("scanned files:", len (gcovdb), file = fh)
 
         for i in gcovdb:
-            print ("       ", html_link (i['src'], i['src']), file = fh)
+            gcov_src = i['src']
+            gcov = i['data']
+            fmt_d = {
+                'status': gcov.get ('attr.status.info', None),
+                'status_class': gcov.get ('attr.status', None),
+                'href': gcov_src + '.html',
+                'filename': gcov_src,
+            }
+            print (TMPL_FILE_INDEX.format (**fmt_d), file = fh)
 
         fh.flush ()
         fh.close ()
@@ -282,16 +315,36 @@ def parse_gcov (src):
         for k in attr.keys ():
             gcov['attr.' + k] = attr.get (k)
 
+    def gcov_status (attr):
+        lines = attr.get ('source.lines', 0)
+        lines_normal = attr.get ('source.lines.normal', 0)
+        lines_exec = attr.get ('source.lines.exec', 0)
+        lines_noexec = attr.get ('source.lines.noexec', 0)
+
+        if lines != (lines_normal + lines_exec + lines_noexec):
+            attr['status.info'] = "lines count error"
+            attr['status'] = "error"
+        else:
+            percent_ok = ((lines_normal + lines_exec) * 100) / lines
+            attr['status.info'] = "%.2f%% done" % percent_ok
+            if percent_ok <= 60:
+                attr['status'] = 'error'
+            elif percent_ok <= 90:
+                attr['status'] = 'warn'
+
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
-    gcov = dict(lines = list ())
+    gcov = dict(lines = list (), status_info = '')
 
     # XXX: not sure why yet but it needs to start as 1 instead of 0
     gcov_lines = 1
     attr = {
         'source.lines': 0,
+        'source.lines.normal': 0,
         'source.lines.exec': 0,
         'source.lines.noexec': 0,
+        'status': 'ok',
+        'status.info': '',
     }
 
     print ("parse:", src, "->", dst)
@@ -317,6 +370,7 @@ def parse_gcov (src):
                 idx = m.group (1)
                 if idx != "0":
                     attr['source.lines'] += 1
+                    attr['source.lines.normal'] += 1
                     new_code_line (gcov, TMPL_CODE_NORMAL, idx,
                             html.escape (m.group (2)))
                 continue
@@ -349,6 +403,7 @@ def parse_gcov (src):
 
         fh.close ()
 
+    gcov_status (attr)
     update_attribs (gcov, attr)
     write_gcov_html (src, dst, gcov)
 
