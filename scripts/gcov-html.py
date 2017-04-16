@@ -11,6 +11,9 @@ import time
 gcov_out = 'gcov.out'
 htmlcov_dir = './htmlcov'
 
+PERCENT_ERROR = 70
+PERCENT_WARN = 96
+
 #
 # -- HTML templates
 #
@@ -91,6 +94,8 @@ TMPL_FILE_INDEX_STATUS = '{sep_char:{sep}}<span class="status_{status}">{status}
 
 TMPL_FILE_INDEX = '<b>{file_href}</b>{sep_char:{sep}} <span class="status_{status}">{status_info}</span>'
 
+TMPL_GLOBAL_STATUS = 'global status: <span class="status_{status}">{percent:.2f}% done</span>'
+
 #
 # -- html helpers
 #
@@ -114,12 +119,15 @@ def html_gcov_attribs (src, gcov):
                 attr_found = True
                 s = TMPL_GCOV_ATTRIB.format (
                         attr_class = atclass, attr_key = 'gcov', attr_val = src)
+                s += "\n"
             try:
                 kn = '.'.join (k.split ('.')[1:])
                 kv = gcov.get ('attr.' + kn, None)
-                s += "\n"
 
-                if kn == "source.lines.noexec":
+                if kn.startswith ('__'):
+                    continue
+
+                elif kn == "source.lines.noexec":
                     if 0 != int (kv):
                         atclass = "error"
 
@@ -134,8 +142,10 @@ def html_gcov_attribs (src, gcov):
 
                 s += TMPL_GCOV_ATTRIB.format (
                         attr_class = atclass, attr_key = kn, attr_val = kv)
+                s += "\n"
             except IndexError as e:
                 print ("gcov_attribs:", src, "IndexError:", str (e))
+
     return s + "\n"
 
 #
@@ -184,7 +194,9 @@ def write_summary (funcs, files):
 
 
 def write_gcov_html (src, dst, gcov):
-    write_html_head (dst, gcov.get ('attr.source', None))
+    title = '%s %.2f%% done' % \
+            (gcov.get ('attr.source'), gcov.get ('attr.__percent_ok'))
+    write_html_head (dst, title)
     with open (dst, 'a') as fh:
 
         print (html_navbar (), file = fh)
@@ -200,12 +212,31 @@ def write_gcov_html (src, dst, gcov):
 
 def write_index (gcovdb):
 
+    gcov_count = len (gcovdb)
+    percent_total = 0
+    total_expect = 100 * gcov_count
+    total_ok = 0
+    total_status = 'ok'
     dst = os.path.join (htmlcov_dir, 'index.html')
-    write_html_head (dst, 'index', main_class = 'index')
+
 
     with open (dst, 'a') as fh:
 
-        print ("scanned files:", len (gcovdb), file = fh)
+        for i in gcovdb:
+            gcov = i['data']
+            percent_total += gcov.get ('attr.__percent_ok', 0)
+        total_ok = (percent_total * 100) / total_expect
+        if total_ok <= PERCENT_ERROR:
+            total_status = 'error'
+        elif total_ok <= PERCENT_WARN:
+            total_status = 'warn'
+
+        write_html_head (dst, '%.2f%% done' % total_ok,
+                main_class = 'index')
+
+        print (TMPL_GLOBAL_STATUS.format (
+                percent = total_ok, status = total_status), file = fh)
+        print ("scanned files:", gcov_count, file = fh)
 
         for i in gcovdb:
             gcov_src = i['src']
@@ -337,13 +368,15 @@ def parse_gcov (src):
         if lines != (lines_normal + lines_exec + lines_noexec):
             attr['status.info'] = "lines count error"
             attr['status'] = "error"
+            attr['status.percent_ok'] = 0
         else:
             percent_ok = ((lines_normal + lines_exec) * 100) / lines
             attr['status.info'] = "done: {:>6.2f}%".format (percent_ok)
-            if percent_ok <= 70:
+            if percent_ok <= PERCENT_ERROR:
                 attr['status'] = 'error'
-            elif percent_ok <= 96:
+            elif percent_ok <= PERCENT_WARN:
                 attr['status'] = 'warn'
+            attr['__percent_ok'] = percent_ok
 
     dst = os.path.join (htmlcov_dir, src)
     dst = dst.replace('.gcov', '.html')
