@@ -148,7 +148,7 @@ def write_summary (funcs, files):
 
 
 def write_gcov_html (src, dst, gcov):
-    write_html_head (dst, src.replace ('.gcov', ''))
+    write_html_head (dst, gcov.get ('attr.source', None))
     with open (dst, 'a') as fh:
 
         print (html_navbar (), file = fh)
