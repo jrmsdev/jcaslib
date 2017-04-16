@@ -6,6 +6,7 @@ import sys
 import html
 import glob
 import re
+import time
 
 gcov_out = 'gcov.out'
 htmlcov_dir = './htmlcov'
@@ -53,6 +54,9 @@ TMPL_HEAD = '''<!doctype html>
 <pre>'''
 
 TMPL_TAIL = '''</pre>
+<pre class="footer">
+<small><small>{doc_name}: {doc_update}</small></small>
+</pre>
 </body>
 </html>'''
 
@@ -119,8 +123,12 @@ def write_html_head (out_f, title):
 
 
 def write_html_tail (out_f):
+    fmt = {
+        'doc_name': out_f.replace (htmlcov_dir + '/', '', 1),
+        'doc_update': time.asctime (),
+    }
     with open (out_f, 'a') as fh:
-        print (TMPL_TAIL, file = fh)
+        print (TMPL_TAIL.format (**fmt), file = fh)
         fh.flush ()
         fh.close ()
 
