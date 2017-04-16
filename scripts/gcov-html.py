@@ -39,20 +39,17 @@ CSS = '''<style>
     code.info {
         color: #aa00bb;
     }
-    .attrib_error {
+    .status_error {
         color: #cc0000;
     }
-    .attrib_info {
+    .status_info {
         color: #00cccc;
     }
-    .attrib_warn {
+    .status_warn {
         color: #cccc33;
     }
-    .attrib_ok {
+    .status_ok {
         color: #00cc00;
-    }
-    .file_ok {
-        color: #00aa00;
     }
     </style>'''
 
@@ -82,11 +79,11 @@ TMPL_CODE_EXEC = '<code class="exec">{lineno:>4}: {content}</code>'
 
 TMPL_GCOV_INFO = '<code class="info"><small><small>{content}</small></small></code>'
 
-TMPL_GCOV_ATTRIB = '<small class="attrib_{attr_class}">{attr_key}: {attr_val}</small>'
+TMPL_GCOV_ATTRIB = '<small class="status_{attr_class}">{attr_key}: {attr_val}</small>'
 
 TMPL_LINK = '<a href="{href}">{content}</a>'
 
-TMPL_FILE_INDEX = '<span class="file_{status_class}">{status:>7}</span> <a href="{href}">{filename}</a>'
+TMPL_FILE_INDEX = '<span class="status_{status_class}">{status:>7}</span> <a href="{href}">{filename}</a>'
 
 #
 # -- html helpers
