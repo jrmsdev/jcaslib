@@ -31,7 +31,15 @@ build_gcc:
     image: gcc
     variables:
         CC: gcc
-        CHECK_VG: "false"
+    script: *build_script
+
+build_clang:
+    stage: build
+    only:
+        - master
+    image: debian:stable
+    variables:
+        CC: clang
     script: *build_script
 
 check_clang:
