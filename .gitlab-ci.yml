@@ -22,6 +22,7 @@ before_script:
 .script: &check_script
     - bmake check
     - (test "true" = "$CHECK_VG" && bmake check-valgrind) || true
+    - (test "true" = "$CHECK_COV" && bmake clean check-coverage) || true
 
 build_gcc:
     stage: build
@@ -41,6 +42,7 @@ check_clang:
     variables:
         CC: clang
         CHECK_VG: "false"
+        CHECK_COV: "false"
     script: *check_script
 
 check_valgrind:
@@ -51,4 +53,16 @@ check_valgrind:
     variables:
         CC: gcc
         CHECK_VG: "true"
+        CHECK_COV: "false"
+    script: *check_script
+
+check_coverage:
+    stage: build
+    only:
+        - master
+    image: gcc
+    variables:
+        CC: gcc
+        CHECK_VG: "true"
+        CHECK_COV: "true"
     script: *check_script

@@ -6,6 +6,7 @@ TESTSD = ../build/tests
 TESTLIB = ../build/lib/libjcas-test.a
 TEST_FILES != ls *_t.c | sed 's/_t\.c/_t\.run/'
 TEST_SUITE ?= $(TEST_FILES)
+CHECK_COVERAGE ?= false
 
 TEST_BINS =
 .for t in $(TEST_SUITE)
@@ -23,7 +24,8 @@ build: $(TEST_BINS)
 
 .PHONY: check
 check: build
-	@TEST_SUITE="$(TEST_SUITE)" $(SCRIPTSD)/run-tests.sh
+	@TEST_SUITE="$(TEST_SUITE)" CHECK_COVERAGE=$(CHECK_COVERAGE) \
+		$(SCRIPTSD)/run-tests.sh
 
 
 .PHONY: check-valgrind
@@ -70,7 +72,7 @@ clean-depend:
 check-coverage:
 	@$(MAKE) -C ../lib build CC=$(GCOV_CC) TEST_COVERAGE=1
 	@$(MAKE) build CC=$(GCOV_CC) TEST_COVERAGE=1
-	@$(MAKE) check
+	@$(MAKE) check CHECK_COVERAGE=true
 	@GCOV_CC=$(GCOV_CC) GCOV_CMD=$(GCOV_CMD) $(SCRIPTSD)/run-gcov.sh
 
 

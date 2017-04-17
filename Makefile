@@ -103,7 +103,7 @@ check:
 
 
 .PHONY: check-coverage
-check-coverage: clean
+check-coverage:
 	@$(MAKE) -C tests check-coverage
 
 

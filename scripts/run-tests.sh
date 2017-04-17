@@ -2,7 +2,7 @@
 
 TESTSD=../build/tests
 CHECK_VALGRIND=false
-CHECK_COVERAGE=false
+CHECK_COVERAGE=${CHECK_COVERAGE:-'false'}
 
 test -z "${TEST_SUITE}" && {
     echo "ERR: no test suite" >&2
