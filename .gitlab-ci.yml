@@ -20,9 +20,9 @@ before_script:
     - bmake dist
 
 .script: &check_script
-    - bmake check
-    - (test "true" = "$CHECK_VG" && bmake check-valgrind) || true
-    - (test "true" = "$CHECK_COV" && bmake clean check-coverage) || true
+    - $CHECK_COV || bmake check
+    - $CHECK_VG && bmake check-valgrind
+    - $CHECK_COV && bmake clean check-coverage
 
 build_gcc:
     stage: build
@@ -71,6 +71,6 @@ check_coverage:
     image: gcc
     variables:
         CC: gcc
-        CHECK_VG: "true"
+        CHECK_VG: "false"
         CHECK_COV: "true"
     script: *check_script
