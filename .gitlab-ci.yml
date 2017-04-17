@@ -23,6 +23,7 @@ before_script:
     - $CHECK_COV || bmake check
     - $CHECK_VG && bmake check-valgrind
     - $CHECK_COV && bmake clean check-coverage
+    - true
 
 build_gcc:
     stage: build
