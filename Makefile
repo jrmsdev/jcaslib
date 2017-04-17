@@ -102,6 +102,11 @@ check:
 	@$(MAKE) -C tests check
 
 
+.PHONY: check-coverage
+check-coverage: clean
+	@$(MAKE) -C tests check-coverage
+
+
 .PHONY: check-valgrind
 check-valgrind:
 	@$(MAKE) -C tests check-valgrind

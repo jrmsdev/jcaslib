@@ -15,3 +15,4 @@ INSTALL_F = install -v -m 0444 $(INSTALL_BACKUP)
 
 GCOV_CC ?= gcc
 GCOV_CMD ?= gcov5
+GCOV_REPORT_SCRIPT ?= $(PREFIX)/bin/gcov-report
