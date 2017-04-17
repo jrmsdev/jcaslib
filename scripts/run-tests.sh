@@ -2,6 +2,7 @@
 
 TESTSD=../build/tests
 CHECK_VALGRIND=false
+CHECK_COVERAGE=false
 
 test -z "${TEST_SUITE}" && {
     echo "ERR: no test suite" >&2
@@ -28,6 +29,7 @@ then
 fi
 
 echo "jcaslib tests start: `date`"
+echo "jcaslib check valgrind:$CHECK_VALGRIND coverage:$CHECK_COVERAGE"
 echo
 t_START=`date '+%s'`
 

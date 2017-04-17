@@ -10,14 +10,16 @@ before_script:
     - apt-get -qq update && apt-get -qq -y $APTARGS install $DEBPKGS $CC
     - test "true" = "$CHECK_VG" && apt-get -qq -y $APTARGS install valgrind
     - $CC --version
-
-.script: &build_script
     - ./configure --use-gdbm
     - bmake depend
+
+.script: &build_script
     - bmake -j2
     - LD_LIBRARY_PATH=./build/lib ./build/bin/jcaslib
     - bmake examples
     - bmake dist
+
+.script: &check_script
     - bmake check
     - (test "true" = "$CHECK_VG" && bmake check-valgrind) || true
 
@@ -31,12 +33,22 @@ build_gcc:
         CHECK_VG: "false"
     script: *build_script
 
-build_clang:
+check_clang:
     stage: build
     only:
         - master
     image: debian:stable
     variables:
         CC: clang
+        CHECK_VG: "false"
+    script: *check_script
+
+check_valgrind:
+    stage: build
+    only:
+        - master
+    image: gcc
+    variables:
+        CC: gcc
         CHECK_VG: "true"
-    script: *build_script
+    script: *check_script
