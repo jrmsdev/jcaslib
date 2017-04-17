@@ -5,6 +5,7 @@ variables:
     DEBIAN_FRONTEND: noninteractive
     DEBPKGS: bmake libgdbm-dev xz-utils
     APTARGS: --no-install-recommends
+    GCOV_CMD: gcov
 
 before_script:
     - apt-get -qq update && apt-get -qq -y $APTARGS install $DEBPKGS $CC
