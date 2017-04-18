@@ -9,8 +9,9 @@ matrix:
         - os: linux
           sudo: false
           env:
+              - GCC_COVERAGE
               - LD_LIBRARY_PATH=./build/lib
-              - CHECK_VG=true
+              - CHECK_COVERAGE=true
           dist: trusty
           addons:
               apt:
@@ -24,7 +25,9 @@ matrix:
         - os: linux
           sudo: false
           env:
+              - CLANG_VALGRIND
               - LD_LIBRARY_PATH=./build/lib
+              - CHECK_VG=true
           dist: trusty
           addons:
               apt:
@@ -36,6 +39,7 @@ matrix:
               - ./configure --use-gdbm
         - os: osx
           env:
+              - OSX_GCC
               - DYLD_LIBRARY_PATH=./build/lib
           compiler: gcc
           install:
@@ -43,6 +47,7 @@ matrix:
               - brew install bmake
         - os: osx
           env:
+              - OSX_CLANG
               - DYLD_LIBRARY_PATH=./build/lib
           compiler: clang
           install:
@@ -55,5 +60,7 @@ script:
     - bmake examples
     - bmake dist
     - ./build/bin/jcaslib
-    - bmake check
-    - (test "true" = "$CHECK_VG" && bmake check-valgrind) || true
+    - (test "true" = "$CHECK_VG" || test "true" = "$CHECK_COVERAGE") || bmake check
+    - test "true" = "$CHECK_VG" && bmake check-valgrind
+    - test "true" = "$CHECK_COVERAGE" && bmake check-coverage
+    - /usr/bin/env true

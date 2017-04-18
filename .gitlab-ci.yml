@@ -21,9 +21,9 @@ before_script:
     - bmake dist
 
 .script: &check_script
-    - $CHECK_COV || bmake check
+    - ($CHECK_COV || $CHECK_VG) || bmake check
     - $CHECK_VG && bmake check-valgrind
-    - $CHECK_COV && bmake clean check-coverage
+    - $CHECK_COV && bmake check-coverage
     - /bin/true
 
 build_gcc:
