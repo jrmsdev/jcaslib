@@ -1,7 +1,8 @@
 SH = /bin/sh
 JCASLIB_DEBUG ?=
+BUILD_COVERAGE ?= 0
 
-.ifdef TEST_COVERAGE
+.if $(BUILD_COVERAGE) == 1
 JCASLIB_DEBUG += -coverage -fprofile-arcs -ftest-coverage -O0
 .endif
 

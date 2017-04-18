@@ -83,6 +83,7 @@ $(MOD_LIBPATH_SO): $(MOD_OBJS)
 .PHONY: install-lib
 install-lib:
 .ifdef MOD_GENLIB
+	@mkdir -vp $(DESTDIR)$(PREFIX)/lib
 	@$(INSTALL_F) $(MOD_LIBPATH) $(DESTDIR)$(PREFIX)/lib
 	@$(INSTALL_F) $(MOD_LIBPATH_SO) $(DESTDIR)$(PREFIX)/lib
 .endif
