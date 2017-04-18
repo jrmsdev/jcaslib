@@ -49,7 +49,8 @@ build-testlib:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcov.out gcovhtml
+	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcov.out gcovhtml .build-coverage
+	@$(MAKE) -C ../lib/test clean
 
 
 .PHONY: distclean
@@ -68,10 +69,19 @@ clean-depend:
 	@rm -vf .depend
 
 
-.PHONY: check-coverage
-check-coverage:
+.PHONY: build-coverage
+build-coverage: .build-coverage
+
+
+.build-coverage: $(TESTLIB)
+	@$(MAKE) -C ../lib/test clean
 	@$(MAKE) build-testlib CC=$(GCOV_CC) BUILD_COVERAGE=1
 	@$(MAKE) build CC=$(GCOV_CC) BUILD_COVERAGE=1
+	@touch .build-coverage
+
+
+.PHONY: check-coverage
+check-coverage: build-coverage
 	@$(MAKE) check CHECK_COVERAGE=true
 	@GCOV_CC=$(GCOV_CC) GCOV_CMD=$(GCOV_CMD) $(SCRIPTSD)/run-gcov.sh
 
