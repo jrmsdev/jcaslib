@@ -33,6 +33,7 @@ clean:
 depend:
 	@$(MAKE) -C lib depend
 	@$(MAKE) -C bin depend
+	@$(MAKE) -C tests depend
 	@$(MAKE) -C examples depend
 
 
