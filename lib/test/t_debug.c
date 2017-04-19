@@ -1,5 +1,5 @@
 #include <jcaslib/test.h>
-#include "__t_print.h"
+#include "_test.h"
 
 void
 t_debug (test_T *t, const char *fmt, ...)
@@ -13,7 +13,7 @@ t_debug (test_T *t, const char *fmt, ...)
     va_list ap;
     va_start (ap, fmt);
 
-    __t_print (t, "DEBUG:", fmt, ap);
+    _tprint (t, "DEBUG:", fmt, ap);
 
     va_end (ap);
 }

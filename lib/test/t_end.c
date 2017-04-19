@@ -1,4 +1,5 @@
 #include <jcaslib/test.h>
+#include "_test.h"
 
 static void free_log (test_T *t);
 static void show_log (test_T *t);
@@ -9,8 +10,7 @@ t_end (test_T *t)
 {
     if (EQ (t->run, t->expect) != 0)
     {
-        warnx ("[FAIL] %s: check(s) run(%d) != expect(%d)",
-                t->name, t->run, t->expect);
+        _tfail (t, "check(s) run(%d) != expect(%d)", t->run, t->expect);
         t->failed++;
     }
     if (t->failed == 0)
@@ -19,8 +19,8 @@ t_end (test_T *t)
     }
     else
     {
-        warnx ("[....] %s: check(s) run: %d/%d - fail: %d",
-                t->name, t->run, t->expect, t->failed);
+        _tinfo (t, "check(s) run: %d/%d - fail: %d",
+                t->run, t->expect, t->failed);
         show_log (t);
         t->ts->failed += t->failed;
     }
@@ -44,7 +44,7 @@ void
 show_log (test_T *t)
 {
     for (size_t i = 0; i < t->loglines; i++)
-        warnx ("[....] %s: %s", t->name, t->log[i]);
+        _tinfo (t, "%s", t->log[i]);
 }
 
 void
