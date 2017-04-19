@@ -16,6 +16,9 @@ free_ts (test_suite_T *ts)
     ts->progname = NULL;
     ts->failed = 0;
     ts->error = 0;
+    ts->name = NULL;
+    ts->namelen = 0;
+
     free (ts);
     ts = NULL;
 }

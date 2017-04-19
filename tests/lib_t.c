@@ -13,7 +13,11 @@ xrealloc_t (test_suite_T *ts)
     test_T *t = t_start (ts, "xrealloc", 3);
 
     t->DEBUG = 0;
-    t_debug (t, "LALALA");
+    if (t->DEBUG)
+    {
+        t_debug (t, "LALALA");
+        t_check (t, 15, "TEST: initial p[49] != \\0");
+    }
 
     char *p = (char *) xmalloc (50);
     t_check (t, EQ (p[49], '\0'), "initial p[49] != \\0");

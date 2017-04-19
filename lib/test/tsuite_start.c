@@ -1,4 +1,6 @@
 #include <jcaslib/test.h>
+#include <libgen.h>
+#include <string.h>
 
 test_suite_T *
 tsuite_start (const char *progname)
@@ -11,6 +13,13 @@ tsuite_start (const char *progname)
     ts->progname = progname;
     ts->failed = 0;
     ts->error = 0;
+
+    ts->name = basename (progname);
+    ts->namelen = strlen (ts->name);
+
+    /* remove .run extension (if exists) */
+    if (memcmp (".run", &ts->name[ts->namelen - 4], 4) == 0)
+        ts->name[ts->namelen - 4] = '\0';
 
     return (ts);
 }

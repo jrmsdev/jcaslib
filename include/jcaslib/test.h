@@ -14,19 +14,23 @@
 #define GE(a, b) (a >= b ? 0 : 1)
 
 
-/* test suite struct */
+/* test suite */
 typedef struct {
     int DEBUG;
     const char *progname;
     int failed;
     int error;
+    char *name;
+    size_t namelen;
 } test_suite_T;
 
+
+/* test suite funcs */
 extern test_suite_T * tsuite_start (const char *progname);
 extern int tsuite_end (test_suite_T *ts);
 
 
-/* test struct */
+/* test */
 typedef struct {
     int DEBUG;
     const char *name;
@@ -39,15 +43,16 @@ typedef struct {
     test_suite_T *ts;
 } test_T;
 
+
+/* test funcs */
 extern test_T * t_start (test_suite_T *ts, const char *name, int expect);
 extern void t_end (test_T *t);
-
-/* test functions */
 extern void t_check (test_T *t, int status, const char *errmsg);
 extern void t_fatal (test_T *t, int status, const char *fmt, ...);
 extern void t_error (test_T *t, const char *fmt, ...);
 
-/* log/debug functions */
+
+/* util funcs */
 extern void t_log (test_T *t, const char *fmt, ...);
 extern void t_debug (test_T *t, const char *fmt, ...);
 
