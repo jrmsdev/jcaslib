@@ -45,7 +45,7 @@ extern void t_end (test_T *t);
 /* test functions */
 extern void t_check (test_T *t, int status, const char *errmsg);
 extern void t_fatal (test_T *t, int status, const char *fmt, ...);
-extern void t_error (test_T *t, const char *errmsg);
+extern void t_error (test_T *t, const char *fmt, ...);
 
 /* log/debug functions */
 extern void t_log (test_T *t, const char *fmt, ...);

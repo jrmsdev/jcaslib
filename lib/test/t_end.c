@@ -15,7 +15,7 @@ t_end (test_T *t)
     }
     if (t->failed == 0)
     {
-        warnx ("[ OK ] %s: %d/%d check(s)", t->name, t->run, t->expect);
+        _tpass (t, "%d/%d check(s)", t->run, t->expect);
     }
     else
     {
