@@ -13,14 +13,17 @@
 #define GT(a, b) (a > b ? 0 : 1)
 #define GE(a, b) (a >= b ? 0 : 1)
 
+
 typedef struct {
-    const char *name;
+    const char *progname;
     int failed;
     int error;
 } test_suite_T;
 
-extern test_suite_T * tsuite_start (const char *name);
+
+extern test_suite_T * tsuite_start (const char *progname);
 extern int tsuite_end (test_suite_T *ts);
+
 
 typedef struct {
     const char *name;
@@ -32,6 +35,7 @@ typedef struct {
     int fatal_error;
     test_suite_T *ts;
 } test_T;
+
 
 extern test_T * t_start (test_suite_T *ts, const char *name, int expect);
 extern void t_end (test_T *t);
