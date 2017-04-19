@@ -7,6 +7,7 @@ t_start (test_suite_T *ts, const char *name, int expect)
     if (t == NULL)
         errx (1, "%s: t_start malloc failed!", name);
 
+    t->DEBUG = 0;
     t->name = name;
     t->expect = expect;
     t->run = 0;

@@ -1,7 +1,5 @@
 #define _GNU_SOURCE
-
 #include <jcaslib/test.h>
-#include <stdarg.h>
 
 static void addline (test_T *t, char *msg);
 

@@ -7,5 +7,5 @@ t_error (test_T *t, const char *errmsg)
         return;
     t->failed++;
     t->ts->error++;
-    warnx ("[FAIL] %s: ERROR - %s", t->name, errmsg);
+    warnx ("ERROR: %s: %s", t->name, errmsg);
 }

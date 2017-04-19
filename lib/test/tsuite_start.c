@@ -7,11 +7,10 @@ tsuite_start (const char *progname)
     if (ts == NULL)
         errx (1, "%s: t_start malloc failed!", progname);
 
+    ts->DEBUG = 0;
     ts->progname = progname;
     ts->failed = 0;
     ts->error = 0;
-
-    warnx ("DEBUG: ts->progname: %s", ts->progname);
 
     return (ts);
 }
