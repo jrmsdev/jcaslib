@@ -4,13 +4,13 @@ INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
 TESTLIB = ../build/lib/libjcas-test.a
-TEST_FILES != ls *_t.c | sed 's/_t\.c/_t\.run/'
-TEST_SUITE ?= $(TEST_FILES)
+TEST_NAMES != ls *_t.c | sed 's/_t\.c//'
+TEST_SUITE ?= $(TEST_NAMES)
 CHECK_COVERAGE ?= false
 
 TEST_BINS =
 .for t in $(TEST_SUITE)
-TEST_BINS += $(TESTSD)/$(t)
+TEST_BINS += $(TESTSD)/$(t)_t.run
 .endfor
 
 

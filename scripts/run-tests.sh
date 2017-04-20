@@ -38,17 +38,18 @@ t_FILES=0
 
 for t in ${TEST_SUITE}
 do
+    tname=${t}_t
     t_FILES=`expr 1 + $t_FILES`
     if $CHECK_VALGRIND
     then
-        vgout=${TESTSD}/${t}.vgout.$$
-        valgrind --quiet --leak-check=full --log-file=${vgout} ${TESTSD}/${t}
+        vgout=${TESTSD}/${tname}.vgout.$$
+        valgrind --quiet --leak-check=full --log-file=${vgout} ${TESTSD}/${tname}.run
         vgstat=$?
         t_FAIL=`expr $t_FAIL + $vgstat`
         if test -s ${vgout}
         then
-            echo "${t}: [FAIL] valgrind report not empty"
-            echo "${t}: [....] ${vgout}"
+            echo "${tname}: [FAIL] valgrind report not empty"
+            echo "${tname}: [....] ${vgout}"
             if test 0 -eq $vgstat
             then
                 t_FAIL=`expr 1 + $t_FAIL`
@@ -57,7 +58,7 @@ do
             rm -f ${vgout}
         fi
     else
-        ${TESTSD}/${t}
+        ${TESTSD}/${tname}.run
         t_FAIL=`expr $t_FAIL + $?`
     fi
 done
