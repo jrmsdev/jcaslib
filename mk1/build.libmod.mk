@@ -1,14 +1,10 @@
-SH = /bin/sh
-DEPS_FILE := $(PWD)/mod.deps.mk
-
-.PHONY: all
-all: build
+include ../../../mk1/vars.mk
+include ../../../mk1/inc.modvars.mk
 
 .PHONY: build
 build:
 	@echo "build.libmod: $(PWD)"
-	@echo "build.libmod: $(DEPS_FILE)"
-
-.PHONY: clean
-clean:
-	@echo "clean.libmod PWD: $(PWD)"
+	@echo "build.libmod: $(BASEDIR)"
+	@echo "build.libmod: $(MOD_DEPMK)"
+	$(CC) -I$(INCDIR) -E -MM $(SRCDIR)/*.c >$(MOD_DEPMK)
+	$(MAKE) -f $(BASEDIR)/mk1/build.modobjs.mk build

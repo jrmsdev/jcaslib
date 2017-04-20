@@ -1,5 +1,4 @@
-SH = /bin/sh
-LIBMODS ?= cfg db lib log path str test
+include mk1/vars.mk
 
 # -- main targets
 
@@ -18,18 +17,17 @@ clean:
 .PHONY: build-libmods
 build-libmods:
 	@(for mod in $(LIBMODS); do \
-		mkdir -vp $(PWD)/build1/lib/$$mod; \
+		mkdir -vp $(PWD)/$(BUILDDIR_NAME)/lib/$$mod; \
 		(cd lib/$$mod && $(MAKE) -f Makefile.1 build); \
 	done)
 
 # -- __mkcheck is only used for development purposes
 # -- self check makefiles with both BSD and GNU make tools (prefer BSD stdout)
-GNUMAKE_FILTER ?= >/dev/null
 MKTGT ?= all
 .PHONY: __mkcheck
 __mkcheck:
 	@echo "--- GNU make start"
-	@gmake -f Makefile.1 $(MKTGT) $(GNUMAKE_FILTER)
+	@gmake -f Makefile.1 $(MKTGT) >/dev/null || true
 	@echo "--- GNU make end"
 	@echo "--- BSD make start"
 	@make -f Makefile.1 $(MKTGT)

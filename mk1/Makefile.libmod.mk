@@ -1,8 +1,9 @@
-SH = /bin/sh
+include ../../mk1/vars.mk
+
 MODDIR := $(PWD)
-SRCDIR != realpath $(MODDIR)/../..
+BASEDIR != realpath $(MODDIR)/../..
 MODNAME != basename $(MODDIR)
-BUILDDIR := $(SRCDIR)/build1/lib/$(MODNAME)
+BUILDDIR := $(BASEDIR)/$(BUILDDIR_NAME)/lib/$(MODNAME)
 
 .PHONY: all
 all: build
@@ -11,8 +12,8 @@ all: build
 build:
 	@echo "libmod: $(PWD)"
 	@mkdir -vp $(BUILDDIR)
-	@$(MAKE) -C $(BUILDDIR) -f $(SRCDIR)/mk1/build.libmod.mk build
+	@(cd $(BUILDDIR) && $(MAKE) -f $(BASEDIR)/mk1/build.libmod.mk build)
 
 .PHONY: clean
 clean:
-	@rm -rfv $(BUILDDIR)
+	@rm -rfv $(BUILDDIR)/*.o
