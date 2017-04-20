@@ -53,8 +53,12 @@ main (int argc, char *argv[])
 {
     if (argc < 1)
         errx (1, "ERROR: argc < 1???");
-    test_suite_T *ts = tsuite_start (argv[0]);
+
+    int expect = 2;
+    test_suite_T *ts = tsuite_start (argv[0], expect);
+
     xmalloc_t (ts);
     xrealloc_t (ts);
+
     return (tsuite_end (ts));
 }

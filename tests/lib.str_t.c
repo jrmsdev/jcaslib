@@ -159,7 +159,9 @@ main (int argc, char *argv[])
 {
     if (argc < 1)
         errx (1, "ERROR: argc < 1???");
-    test_suite_T *ts = tsuite_start (argv[0]);
+
+    int expect = 7;
+    test_suite_T *ts = tsuite_start (argv[0], expect);
 
     str_alloc_t (ts);
     str_realloc_t (ts);
