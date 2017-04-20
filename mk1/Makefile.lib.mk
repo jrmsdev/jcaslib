@@ -27,4 +27,4 @@ buildmods:
 
 .PHONY: clean
 clean:
-	@rm -vf $(LIB_PATH)
+	@rm -vrf $(BUILDDIR)
