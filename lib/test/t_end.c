@@ -8,6 +8,7 @@ static void free_t (test_T *t);
 void
 t_end (test_T *t)
 {
+    t->ts->run++;
     if (EQ (t->run, t->expect) != 0)
     {
         _tfail (t, "check(s) run(%d) != expect(%d)", t->run, t->expect);

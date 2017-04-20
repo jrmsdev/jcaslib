@@ -22,11 +22,13 @@ typedef struct {
     int error;
     char *name;
     size_t namelen;
+    int expect;
+    int run;
 } test_suite_T;
 
 
 /* test suite funcs */
-extern test_suite_T * tsuite_start (const char *progname);
+extern test_suite_T * tsuite_start (const char *progname, int expect);
 extern int tsuite_end (test_suite_T *ts);
 
 
