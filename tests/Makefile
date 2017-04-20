@@ -49,7 +49,7 @@ build-testlib:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcov.out gcovhtml .build-coverage
+	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcovhtml .build-coverage
 	@$(MAKE) -C ../lib/test clean
 
 
@@ -88,7 +88,6 @@ check-coverage: build-coverage
 
 .PHONY: gcovhtml
 gcovhtml:
-	@test -s gcov.out || echo "run '$(MAKE) check-coverage' first"
 	@rm -rf gcovhtml
 	@mkdir -p gcovhtml
 	@test -x $(GCOV_REPORT_SCRIPT)
@@ -96,5 +95,5 @@ gcovhtml:
 
 
 .PHONY: gcovmiss
-gcovmiss: check-coverage
+gcovmiss:
 	@$(SCRIPTSD)/gcov-miss.py

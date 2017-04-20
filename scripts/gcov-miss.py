@@ -13,14 +13,26 @@ if __name__ == '__main__':
         else:
             gcov_files.append (f.replace ('^#', '../').replace ('#', '/').replace ('.gcov', ''))
 
-    src_files = glob ('../lib/*/*.c')
-    src_files.extend (glob ('../bin/*/*.c'))
+    if len (gcov_files) == 0:
+        print ('gcov miss: no *.gcov files found')
+        exit (1)
 
+    src_files = list ()
+    src_files.extend (glob ('../bin/*/*.c'))
+    src_files.extend (glob ('../lib/*/*.c'))
+    src_files.extend (glob ('*_t.c'))
+
+    idx = 0
     gcov_miss = 0
     for f in sorted (src_files):
+        idx += 1
+        status = '  ok'
         if f not in gcov_files:
-            print ('gcov miss:', f.replace ('../', '', 1));
+            status = 'miss'
             gcov_miss += 1
+        print ('gcov ', status, '(', idx, '): ', f.replace ('../', '', 1), sep = '');
 
-    print ('gcov miss:', gcov_miss, 'file(s) - found:', len (src_files))
+    print ('gcov  src:', len (src_files))
+    print ('gcov   ok:', len (gcov_files))
+    print ('gcov miss:', gcov_miss, 'file(s) not tested')
     exit (0)
