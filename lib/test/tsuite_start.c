@@ -17,9 +17,9 @@ tsuite_start (const char *progname)
     ts->name = basename (progname);
     ts->namelen = strlen (ts->name);
 
-    /* remove .run extension (if exists) */
-    if (memcmp (".run", &ts->name[ts->namelen - 4], 4) == 0)
-        ts->name[ts->namelen - 4] = '\0';
+    /* remove _t.run from the end of the ts name (if exists) */
+    if (memcmp ("_t.run", &ts->name[ts->namelen - 6], 6) == 0)
+        ts->name[ts->namelen - 6] = '\0';
 
     return (ts);
 }
