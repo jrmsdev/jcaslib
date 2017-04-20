@@ -3,11 +3,19 @@
 from sys import exit
 from glob import glob
 
+EXCLUDE_TESTFILES = True
+
 if __name__ == '__main__':
 
     gcov_files = list ()
+    gcov_excluded = 0
     for f in sorted (glob ('*.gcov')):
         fpath = f.replace ('^#', '../').replace ('#', '/')
+
+        if EXCLUDE_TESTFILES and fpath.endswith ('_t.c.gcov'):
+            gcov_excluded += 1
+            continue
+
         if fpath in gcov_files:
             print ("gcov dup file?:", f, '->', fpath)
         else:
@@ -20,7 +28,9 @@ if __name__ == '__main__':
     src_files = list ()
     src_files.extend (glob ('../bin/*/*.c'))
     src_files.extend (glob ('../lib/*/*.c'))
-    src_files.extend (glob ('*_t.c'))
+
+    if not EXCLUDE_TESTFILES:
+        src_files.extend (glob ('*_t.c'))
 
     idx = 0
     gcov_miss = 0
@@ -33,6 +43,7 @@ if __name__ == '__main__':
         print ('gcov ', status, '(', idx, '): ', f.replace ('../', '', 1), sep = '');
 
     print ('gcov  src:', len (src_files))
-    print ('gcov   ok:', len (gcov_files))
+    print ('gcov   ok: {} (excluded: {})'.format (
+            len (gcov_files) - gcov_excluded, gcov_excluded))
     print ('gcov miss:', gcov_miss, 'file(s) not tested')
     exit (0)
