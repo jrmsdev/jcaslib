@@ -7,6 +7,7 @@ all: build
 
 .PHONY: build
 build: build-libmods
+	@(cd lib && $(MAKE) -f Makefile.1 build)
 
 .PHONY: clean
 clean:
