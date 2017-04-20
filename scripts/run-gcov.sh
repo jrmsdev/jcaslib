@@ -2,7 +2,7 @@
 
 GCOV_CC=${GCOV_CC:-"gcc"}
 GCOV_CMD=${GCOV_CMD:-"gcov"}
-GCOV_ARGS=${GCOV_ARGS:-"-b -f"}
+GCOV_ARGS=${GCOV_ARGS:-"-b -f -p"}
 
 which $GCOV_CC >/dev/null 2>/dev/null || {
     echo "${GCOV_CC} command not found" >&2

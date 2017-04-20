@@ -93,3 +93,8 @@ gcovhtml:
 	@mkdir -p gcovhtml
 	@test -x $(GCOV_REPORT_SCRIPT)
 	@$(GCOV_REPORT_SCRIPT)
+
+
+.PHONY: gcovmiss
+gcovmiss: check-coverage
+	@$(SCRIPTSD)/gcov-miss.py
