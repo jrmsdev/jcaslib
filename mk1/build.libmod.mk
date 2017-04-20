@@ -1,5 +1,10 @@
 SH = /bin/sh
 
+# -- main targets
+
+.PHONY: all
+all: build
+
 .PHONY: build
 build:
 	@echo "build.libmod: $(PWD)"
