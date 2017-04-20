@@ -12,14 +12,14 @@ build: $(LIBFILE)
 
 $(LIBFILE): buildmods
 	@rm -f $(LIBFILE)
-	@(for mod in $(LIBMODS); do \
+	@(for mod in $(BUILDMODS); do \
 		ar -rc $(LIBFILE) $(BUILDDIR)/$${mod}/*.o; \
 	done)
 	ranlib $(LIBFILE)
 
 .PHONY: buildmods
 buildmods:
-	@(for mod in $(LIBMODS); do \
+	@(for mod in $(BUILDMODS); do \
 		mkdir -vp $(BUILDDIR)/$$mod; \
 		(cd $(BASEDIR)/lib/$$mod && $(MAKE) -f Makefile.1 build); \
 	done)
