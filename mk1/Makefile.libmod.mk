@@ -10,7 +10,6 @@ all: build
 
 .PHONY: build
 build:
-	@echo "libmod: $(PWD)"
 	@mkdir -vp $(BUILDDIR)
 	@(cd $(BUILDDIR) && $(MAKE) -f $(BASEDIR)/mk1/build.libmod.mk build)
 

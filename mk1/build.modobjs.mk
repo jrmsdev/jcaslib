@@ -8,5 +8,6 @@ include depend.mk
 
 .PHONY: build
 build: $(MODOBJS)
-	@echo "build.modobjs: $(PWD)"
-	@echo "build.modobjs: $(MODOBJS)"
+
+$(MODOBJS):
+	$(CC) $(CFLAGS) -o $@ $<
