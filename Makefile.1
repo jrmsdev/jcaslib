@@ -1,26 +1,16 @@
 include mk1/vars.mk
 
-# -- main targets
-
 .PHONY: all
 all: build
 
 .PHONY: build
-build: build-libmods
+build:
 	@(cd lib && $(MAKE) -f Makefile.1 build)
 
 .PHONY: clean
 clean:
 	@rm -rfv build1
 
-# -- util/helper targets
-
-.PHONY: build-libmods
-build-libmods:
-	@(for mod in $(LIBMODS); do \
-		mkdir -vp $(PWD)/$(BUILDDIR_NAME)/lib/$$mod; \
-		(cd lib/$$mod && $(MAKE) -f Makefile.1 build); \
-	done)
 
 # -- __mkcheck is only used for development purposes
 # -- self check makefiles with both BSD and GNU make tools (prefer BSD stdout)
@@ -28,7 +18,7 @@ MKTGT ?= all
 .PHONY: __mkcheck
 __mkcheck:
 	@echo "--- GNU make start"
-	@gmake -f Makefile.1 $(MKTGT) >/dev/null || true
+	@gmake -f Makefile.1 $(MKTGT) >/dev/null
 	@echo "--- GNU make end"
 	@echo "--- BSD make start"
 	@make -f Makefile.1 $(MKTGT)
