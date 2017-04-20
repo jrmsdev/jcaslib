@@ -1,6 +1,5 @@
 SH = /bin/sh
-
-# -- main targets
+DEPS_FILE := $(PWD)/mod.deps.mk
 
 .PHONY: all
 all: build
@@ -8,6 +7,7 @@ all: build
 .PHONY: build
 build:
 	@echo "build.libmod: $(PWD)"
+	@echo "build.libmod: $(DEPS_FILE)"
 
 .PHONY: clean
 clean:

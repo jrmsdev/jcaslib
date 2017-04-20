@@ -19,8 +19,7 @@ clean:
 build-libmods:
 	@(for mod in $(LIBMODS); do \
 		mkdir -vp $(PWD)/build1/lib/$$mod; \
-		$(MAKE) -C $(PWD)/build1/lib/$$mod \
-			-f $(PWD)/mk1/build.libmod.mk build; \
+		(cd lib/$$mod && $(MAKE) -f Makefile.1 build); \
 	done)
 
 # -- __mkcheck is only used for development purposes
