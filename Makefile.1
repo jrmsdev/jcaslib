@@ -6,6 +6,7 @@ all: build
 .PHONY: build
 build:
 	@(cd lib && $(MAKE) -f Makefile.1 build)
+	@(cd bin && $(MAKE) -f Makefile.1 build)
 
 .PHONY: clean
 clean:

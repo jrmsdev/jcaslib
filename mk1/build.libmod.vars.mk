@@ -1,7 +1,6 @@
-MODDIR := $(PWD)
-BASEDIR != realpath $(MODDIR)/../../..
-MODNAME != basename $(MODDIR)
 BUILDDIR := $(PWD)
+BASEDIR != realpath $(BUILDDIR)/../../..
+MODNAME != basename $(BUILDDIR)
 MOD_DEPMK := $(BUILDDIR)/depend.mk
 INCDIR := $(BASEDIR)/include
 SRCDIR := $(BASEDIR)/lib/$(MODNAME)
