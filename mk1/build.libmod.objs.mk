@@ -7,12 +7,7 @@ CFLAGS += -I$(INCDIR) -c -fPIC
 include depend.mk
 
 .PHONY: build
-build: $(MODOBJS) $(MOD_LIBPATH)
+build: $(MODOBJS)
 
 $(MODOBJS):
 	$(CC) $(CFLAGS) -o $@ $<
-
-$(MOD_LIBPATH): $(MODOBJS)
-	@rm -f $(MOD_LIBPATH)
-	@ar -rc $(MOD_LIBPATH) $(MODOBJS)
-	ranlib $(MOD_LIBPATH)

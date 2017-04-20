@@ -11,12 +11,11 @@ all: build
 build: $(LIBFILE)
 
 $(LIBFILE): buildmods
-	rm -f $(LIBFILE)
+	@rm -f $(LIBFILE)
 	@(for mod in $(LIBMODS); do \
-		ar -rc $(LIBFILE) $(BUILDDIR)/$${mod}/*.a; \
+		ar -rc $(LIBFILE) $(BUILDDIR)/$${mod}/*.o; \
 	done)
 	ranlib $(LIBFILE)
-	ar -tf $(LIBFILE)
 
 .PHONY: buildmods
 buildmods:

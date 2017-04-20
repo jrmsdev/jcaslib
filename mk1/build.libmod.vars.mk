@@ -6,4 +6,3 @@ MOD_DEPMK := $(BUILDDIR)/depend.mk
 INCDIR := $(BASEDIR)/include
 SRCDIR := $(BASEDIR)/lib/$(MODNAME)
 MODOBJS != ls $(SRCDIR)/*.c | xargs basename | sed 's/\.c/\.o/'
-MOD_LIBPATH := $(BUILDDIR)/$(MODNAME).a
