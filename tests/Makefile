@@ -4,13 +4,13 @@ INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
 TESTLIB = ../build/lib/libjcas-test.a
-TEST_FILES != ls *_t.c | sed 's/_t\.c/_t\.run/'
-TEST_SUITE ?= $(TEST_FILES)
+TEST_NAMES != ls *_t.c | sed 's/_t\.c//'
+TEST_SUITE ?= $(TEST_NAMES)
 CHECK_COVERAGE ?= false
 
 TEST_BINS =
 .for t in $(TEST_SUITE)
-TEST_BINS += $(TESTSD)/$(t)
+TEST_BINS += $(TESTSD)/$(t)_t.run
 .endfor
 
 
@@ -49,7 +49,7 @@ build-testlib:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcov.out gcovhtml .build-coverage
+	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcovhtml .build-coverage
 	@$(MAKE) -C ../lib/test clean
 
 
@@ -88,8 +88,12 @@ check-coverage: build-coverage
 
 .PHONY: gcovhtml
 gcovhtml:
-	@test -s gcov.out || echo "run '$(MAKE) check-coverage' first"
 	@rm -rf gcovhtml
 	@mkdir -p gcovhtml
 	@test -x $(GCOV_REPORT_SCRIPT)
 	@$(GCOV_REPORT_SCRIPT)
+
+
+.PHONY: gcovmiss
+gcovmiss:
+	@$(SCRIPTSD)/gcov-miss.py

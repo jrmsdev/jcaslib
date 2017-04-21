@@ -2,7 +2,7 @@
 
 GCOV_CC=${GCOV_CC:-"gcc"}
 GCOV_CMD=${GCOV_CMD:-"gcov"}
-GCOV_ARGS=${GCOV_ARGS:-"-b -f"}
+GCOV_ARGS=${GCOV_ARGS:-"-b -f -p"}
 
 which $GCOV_CC >/dev/null 2>/dev/null || {
     echo "${GCOV_CC} command not found" >&2
@@ -23,14 +23,11 @@ then
     exit 1
 fi
 
-gcov_out='gcov.out'
-rm -f $gcov_out
 for src_f in *.c
 do
     run_cmd="$GCOV_CMD $GCOV_ARGS $src_f"
     echo $run_cmd
-    $run_cmd >>$gcov_out
+    $run_cmd >/dev/null
 done
-echo "${gcov_out} done"
 
 exit 0
