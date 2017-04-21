@@ -9,6 +9,7 @@
 #include "../lib/str/str_ncat.c"
 #include "../lib/str/str_join.c"
 #include "../lib/str/str_vjoin.c"
+#include "../lib/path/path_exists.c"
 #include "../lib/path/path_join.c"
 #include <jcaslib/test.h>
 
