@@ -32,15 +32,13 @@ if __name__ == '__main__':
     if not EXCLUDE_TESTFILES:
         src_files.extend (glob ('*_t.c'))
 
-    idx = 0
     gcov_miss = 0
     for f in sorted (src_files):
-        idx += 1
         status = '  ok'
         if f not in gcov_files:
             status = 'miss'
             gcov_miss += 1
-        print ('gcov ', status, '(', idx, '): ', f.replace ('../', '', 1), sep = '');
+            print ('gcov ', status, ': ', f.replace ('../', '', 1), sep = '');
 
     print ('gcov  src:', len (src_files))
     print ('gcov   ok: {} (excluded: {})'.format (
