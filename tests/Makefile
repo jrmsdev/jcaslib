@@ -8,7 +8,7 @@ include configure.mk
 INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
-TESTLIB = ../build/lib/libjcas-test.a
+TESTLIB = ../build/lib/libjcas.a
 TEST_NAMES != ls *_t.c | sed 's/_t\.c//'
 TEST_SUITE ?= $(TEST_NAMES)
 CHECK_COVERAGE ?= false
@@ -18,7 +18,7 @@ TEST_BINS =
 TEST_BINS += $(TESTSD)/$(t)_t.run
 .endfor
 
-CFLAGS += -I$(INCD) $(CFLAGS_DEFINE) $(LD_FLAGS)
+CFLAGS += $(CFLAGS_DEFINE) $(LD_FLAGS)
 
 
 .PHONY: all
@@ -51,13 +51,13 @@ $(TESTLIB): build-testlib
 
 .PHONY: build-testlib
 build-testlib:
-	@$(MAKE) -C ../lib/test build
+	@$(MAKE) -C ../lib build CC=$(CC) BUILD_COVERAGE=$(BUILD_COVERAGE)
 
 
 .PHONY: clean
 clean:
 	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcovhtml .build-coverage
-	@$(MAKE) -C ../lib/test clean
+	@$(MAKE) -C ../lib clean
 
 
 .PHONY: distclean
@@ -68,7 +68,6 @@ distclean: clean clean-depend
 depend:
 	$(CC) -I$(INCD) -E -MM *_t.c |\
 		sed 's#\(.*\)\.o:#$(TESTSD)/\1.run:#' >.depend
-	@$(MAKE) -C ../lib/test depend
 
 
 .PHONY: clean-depend
@@ -77,11 +76,7 @@ clean-depend:
 
 
 .PHONY: build-coverage
-build-coverage: .build-coverage
-
-
-.build-coverage: $(TESTLIB)
-	@$(MAKE) -C ../lib/test clean
+build-coverage:
 	@$(MAKE) build-testlib CC=$(GCOV_CC) BUILD_COVERAGE=1
 	@$(MAKE) build CC=$(GCOV_CC) BUILD_COVERAGE=1
 	@touch .build-coverage

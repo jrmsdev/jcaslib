@@ -1,17 +1,7 @@
-#include "../lib/log/log.c"
-#include "../lib/log/log_exit.c"
-#include "../lib/lib/xmalloc.c"
-#include "../lib/lib/xrealloc.c"
-#include "../lib/str/str_alloc.c"
-#include "../lib/str/str_realloc.c"
-#include "../lib/str/str_free.c"
-#include "../lib/str/str_cat.c"
-#include "../lib/str/str_ncat.c"
-#include "../lib/str/str_join.c"
-#include "../lib/str/str_vjoin.c"
-#include "../lib/path/path_exists.c"
-#include "../lib/path/path_join.c"
+#include <jcaslib/path.h>
 #include <jcaslib/test.h>
+
+#include <string.h>
 
 
 void
@@ -31,6 +21,7 @@ path_join_t (test_suite_T *ts)
     str_free (p);
     t_end (t);
 }
+
 
 int
 main (int argc, char *argv[])

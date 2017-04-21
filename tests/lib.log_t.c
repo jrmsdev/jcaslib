@@ -1,8 +1,4 @@
-#include "../lib/log/log.c"
-#include "../lib/log/log_dbg.c"
-#include "../lib/log/log_err.c"
-#include "../lib/log/log_print.c"
-#include "../lib/log/log_warn.c"
+#include <jcaslib/log.h>
 #include <jcaslib/test.h>
 
 

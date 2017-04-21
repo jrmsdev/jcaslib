@@ -1,6 +1,3 @@
-#include <jcaslib/lib.h>
-#include <jcaslib/log.h>
-#include <jcaslib/str.h>
 #include <jcaslib/db.h>
 #include <jcaslib/test.h>
 

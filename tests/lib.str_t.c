@@ -1,23 +1,7 @@
-#include "../lib/log/log.c"
-#include "../lib/log/log_exit.c"
-#include "../lib/lib/xmalloc.c"
-#include "../lib/lib/xrealloc.c"
-#include "../lib/str/str_alloc.c"
-#include "../lib/str/str_cat.c"
-#include "../lib/str/str_free.c"
-#include "../lib/str/str_join.c"
-#include "../lib/str/str_ncat.c"
-#include "../lib/str/str_nset.c"
-#include "../lib/str/str_realloc.c"
-#include "../lib/str/str_set.c"
-#include "../lib/str/str_vjoin.c"
-#include "../lib/str/str_array_alloc.c"
-#include "../lib/str/str_array_append.c"
-#include "../lib/str/str_array_free.c"
-#include "../lib/str/str_array_get.c"
-#include "../lib/str/str_array_insert.c"
-#include "../lib/str/str_array_realloc.c"
+#include <jcaslib/str.h>
 #include <jcaslib/test.h>
+
+#include <string.h>
 
 
 void
