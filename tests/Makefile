@@ -1,5 +1,10 @@
 include ../mk/vars.mk
 
+.PATH: ../mk
+.if exists(configure.mk)
+include configure.mk
+.endif
+
 INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
@@ -12,6 +17,8 @@ TEST_BINS =
 .for t in $(TEST_SUITE)
 TEST_BINS += $(TESTSD)/$(t)_t.run
 .endfor
+
+CFLAGS += -I$(INCD) $(CFLAGS_DEFINE) $(LD_FLAGS)
 
 
 .PHONY: all

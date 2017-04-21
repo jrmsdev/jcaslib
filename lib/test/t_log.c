@@ -1,4 +1,3 @@
-#define _GNU_SOURCE
 #include <jcaslib/test.h>
 
 static void addline (test_T *t, char *msg);
