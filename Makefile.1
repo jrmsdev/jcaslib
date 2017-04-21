@@ -13,14 +13,14 @@ clean:
 	@rm -rfv build1
 
 
-# -- __mkcheck is only used for development purposes
+# -- __mkrun is only used for development purposes
 # -- self check makefiles with both BSD and GNU make tools (prefer BSD stdout)
 MKTGT ?= all
-.PHONY: __mkcheck
-__mkcheck:
-	@echo "--- GNU make start"
-	@gmake -f Makefile.1 $(MKTGT) >/dev/null
-	@echo "--- GNU make end"
-	@echo "--- BSD make start"
+.PHONY: __mkrun
+__mkrun:
+	@echo "--- BSD (make $(MKTGT)) start"
 	@make -f Makefile.1 $(MKTGT)
-	@echo "--- BSD make end"
+	@echo "--- BSD (make $(MKTGT)) end"
+	@echo "--- GNU (make $(MKTGT)) start"
+	@gmake -f Makefile.1 $(MKTGT) >/dev/null
+	@echo "--- GNU (make $(MKTGT)) end"
