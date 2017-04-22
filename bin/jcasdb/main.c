@@ -1,13 +1,6 @@
 #include "jcasdb.h"
 #include <string.h>
 
-static int
-usage (char *prog)
-{
-    log_print ("usage: %s [-h] command dbfile [command args]", prog);
-    return (1);
-}
-
 int
 main (int argc, char *argv[])
 {
