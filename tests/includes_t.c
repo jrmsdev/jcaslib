@@ -1,3 +1,5 @@
+#include "includes_t.h"
+
 #include "../lib/cfg/cfg.c"
 #include "../lib/db/_db_init.c"
 #include "../lib/db/_db_open.c"
@@ -54,7 +56,7 @@
 
 #include <jcaslib/test.h>
 
-void fake_t (test_suite_T *ts) {
+void includes_t (test_suite_T *ts) {
   int expect = 1;
   test_T *t = t_start (ts, "53 files", expect);
   t_check (t, 0, "");
@@ -66,6 +68,6 @@ int main (int argc, char *argv[]) {
     errx (1, "ERROR: argc < 1???");
   int expect = 1;
   test_suite_T *ts = tsuite_start (argv[0], expect);
-  fake_t (ts);
+  includes_t (ts);
   return (tsuite_end (ts));
 }

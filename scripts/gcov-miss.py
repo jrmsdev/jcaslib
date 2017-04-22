@@ -50,12 +50,14 @@ if __name__ == '__main__':
                 print ('gcov ', status, ': ', f.replace ('../', '', 1), sep = '');
 
     if includes_mode:
+        print ('#include "includes_t.h"')
+        print ()
         for f in include_files:
             print ('#include "{}"'.format (f))
         print ()
         print ('#include <jcaslib/test.h>')
         print ()
-        print ('void fake_t (test_suite_T *ts) {')
+        print ('void includes_t (test_suite_T *ts) {')
         print ('  int expect = 1;')
         print ('  test_T *t = t_start (ts, "{:d} files", expect);'.format (
                 len (include_files)))
@@ -68,7 +70,7 @@ if __name__ == '__main__':
         print ('    errx (1, "ERROR: argc < 1???");')
         print ('  int expect = 1;')
         print ('  test_suite_T *ts = tsuite_start (argv[0], expect);')
-        print ('  fake_t (ts);')
+        print ('  includes_t (ts);')
         print ('  return (tsuite_end (ts));')
         print ('}')
     else:

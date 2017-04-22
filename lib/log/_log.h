@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-static char *_progname = NULL;
+char *_progname __attribute__((unused));
 
 int _logfp (FILE *fp, const char *tag, char *fmt, va_list ap);
 
