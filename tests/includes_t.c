@@ -1,5 +1,3 @@
-#include "includes_t.h"
-
 #include "../lib/cfg/cfg.c"
 #include "../lib/db/_db_init.c"
 #include "../lib/db/_db_open.c"
@@ -16,11 +14,12 @@
 #include "../lib/db/dbdata_free.c"
 #include "../lib/lib/xmalloc.c"
 #include "../lib/lib/xrealloc.c"
-#include "../lib/log/log.c"
+#include "../lib/log/_logfp.c"
 #include "../lib/log/log_dbg.c"
 #include "../lib/log/log_err.c"
 #include "../lib/log/log_exit.c"
 #include "../lib/log/log_print.c"
+#include "../lib/log/log_set_progname.c"
 #include "../lib/log/log_warn.c"
 #include "../lib/path/path_exists.c"
 #include "../lib/path/path_join.c"
@@ -57,7 +56,7 @@
 
 void fake_t (test_suite_T *ts) {
   int expect = 1;
-  test_T *t = t_start (ts, "52 files", expect);
+  test_T *t = t_start (ts, "53 files", expect);
   t_check (t, 0, "");
   t_end (t);
 }

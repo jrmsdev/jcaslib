@@ -1,5 +1,6 @@
 #include <jcaslib/db.h>
 #include <jcaslib/log.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 

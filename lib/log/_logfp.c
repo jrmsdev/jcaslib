@@ -1,7 +1,6 @@
 #include <jcaslib/log.h>
 #include <libgen.h>
-
-static char *_progname = NULL;
+#include "_log.h"
 
 int _logfp(FILE *fp, const char *tag, char *fmt, va_list ap) {
     int ret;
@@ -15,10 +14,4 @@ int _logfp(FILE *fp, const char *tag, char *fmt, va_list ap) {
     va_end(ap);
     ret += fprintf(fp, "%s\n", "");
     return ret;
-}
-
-void
-log_set_progname (char *name)
-{
-    _progname = name;
 }

@@ -1,4 +1,5 @@
 #include <jcaslib/log.h>
+#include "_log.h"
 
 int log_print(char *fmt, ...) {
     va_list ap;
