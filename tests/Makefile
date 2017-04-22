@@ -42,7 +42,7 @@ check-valgrind: build
 
 $(TEST_BINS): $(TESTLIB) ../lib/test/*.c ../include/jcaslib/test.h
 	@mkdir -p $(TESTSD)
-	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
+	$(CC) $(CFLAGS) -I$(INCD) $(LDFLAGS) -o $(.TARGET)\
 		$(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTLIB)
 
 
