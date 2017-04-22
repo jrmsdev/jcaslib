@@ -66,7 +66,7 @@ distclean: clean clean-depend
 
 .PHONY: depend
 depend:
-	$(CC) -I$(INCD) -E -MM *_t.c |\
+	$(CC) -I$(INCD) $(CFLAGS_DEFINE) -E -MM *_t.c |\
 		sed 's#\(.*\)\.o:#$(TESTSD)/\1.run:#' >.depend
 
 
