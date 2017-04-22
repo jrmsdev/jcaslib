@@ -40,14 +40,19 @@ done
 configure_mk=mk/configure.mk
 configure_h=include/jcaslib/configure.h
 
+printf "jcaslib config\n"
+
 # -- CFLAGS to load configure.h
 echo "CFLAGS_DEFINE = -DLOAD_CONFIGURE_H" >$configure_mk
 
 # -- configure install
 echo "PREFIX = $PREFIX" >>$configure_mk
+printf "  %-20s: %s\n" 'prefix' $PREFIX
+
 test -n "$DESTDIR" && {
     echo "DESTDIR = $DESTDIR" >>$configure_mk
 }
+printf "  %-20s: %s\n" 'destdir' $DESTDIR
 
 # -- configure.h head
 echo "#ifndef JCASLIB_CONFIGURE_H" >$configure_h
@@ -63,8 +68,12 @@ test "x$USE_GDBM" = "xtrue" && {
     echo "LDFLAGS = -lgdbm -lgdbm_compat" >>$configure_mk
     echo "#define USE_GDBM" >>$configure_h
 }
+printf "  %-20s: %s\n" 'use-gdbm' $USE_GDBM
 
 # -- configure.h tail
 echo "#endif /* JCASLIB_CONFIGURE_H */" >>$configure_h
+
+printf "  %-20s: %s\n" 'created' $configure_h
+printf "  %-20s: %s\n" 'created' $configure_mk
 
 exit 0
