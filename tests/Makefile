@@ -1,9 +1,14 @@
 include ../mk/vars.mk
 
+.PATH: ../mk
+.if exists(configure.mk)
+include configure.mk
+.endif
+
 INCD = ../include
 SCRIPTSD = ../scripts
 TESTSD = ../build/tests
-TESTLIB = ../build/lib/libjcas-test.a
+TESTLIB = ../build/lib/libjcas.a
 TEST_NAMES != ls *_t.c | sed 's/_t\.c//'
 TEST_SUITE ?= $(TEST_NAMES)
 CHECK_COVERAGE ?= false
@@ -12,6 +17,8 @@ TEST_BINS =
 .for t in $(TEST_SUITE)
 TEST_BINS += $(TESTSD)/$(t)_t.run
 .endfor
+
+CFLAGS += $(CFLAGS_DEFINE) $(LD_FLAGS)
 
 
 .PHONY: all
@@ -35,7 +42,7 @@ check-valgrind: build
 
 $(TEST_BINS): $(TESTLIB) ../lib/test/*.c ../include/jcaslib/test.h
 	@mkdir -p $(TESTSD)
-	$(CC) $(CFLAGS) -I$(INCD) -o $(.TARGET)\
+	$(CC) $(CFLAGS) -I$(INCD) $(LDFLAGS) -o $(.TARGET)\
 		$(.TARGET:S/..\/build\/tests\///:S/.run/.c/) $(TESTLIB)
 
 
@@ -44,13 +51,13 @@ $(TESTLIB): build-testlib
 
 .PHONY: build-testlib
 build-testlib:
-	@$(MAKE) -C ../lib/test build
+	@$(MAKE) -C ../lib build CC=$(CC) BUILD_COVERAGE=$(BUILD_COVERAGE)
 
 
 .PHONY: clean
 clean:
 	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcovhtml .build-coverage
-	@$(MAKE) -C ../lib/test clean
+	@$(MAKE) -C ../lib clean
 
 
 .PHONY: distclean
@@ -61,7 +68,6 @@ distclean: clean clean-depend
 depend:
 	$(CC) -I$(INCD) -E -MM *_t.c |\
 		sed 's#\(.*\)\.o:#$(TESTSD)/\1.run:#' >.depend
-	@$(MAKE) -C ../lib/test depend
 
 
 .PHONY: clean-depend
@@ -70,11 +76,7 @@ clean-depend:
 
 
 .PHONY: build-coverage
-build-coverage: .build-coverage
-
-
-.build-coverage: $(TESTLIB)
-	@$(MAKE) -C ../lib/test clean
+build-coverage:
 	@$(MAKE) build-testlib CC=$(GCOV_CC) BUILD_COVERAGE=1
 	@$(MAKE) build CC=$(GCOV_CC) BUILD_COVERAGE=1
 	@touch .build-coverage

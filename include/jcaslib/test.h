@@ -1,6 +1,8 @@
 #ifndef JCASLIB_TEST_H
 #define JCASLIB_TEST_H
 
+#define _GNU_SOURCE
+
 #include <err.h>
 #include <stdio.h>
 #include <stdarg.h>

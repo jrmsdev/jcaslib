@@ -1,9 +1,6 @@
-#include "../lib/log/log.c"
-#include "../lib/log/log_exit.c"
-#include "../lib/lib/xmalloc.c"
-#include "../lib/lib/xrealloc.c"
-
+#include <jcaslib/lib.h>
 #include <jcaslib/test.h>
+
 #include <string.h>
 
 

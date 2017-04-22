@@ -1,4 +1,4 @@
-#include "../lib/cfg/cfg.c"
+#include <jcaslib/cfg.h>
 #include <jcaslib/test.h>
 
 
