@@ -1,5 +1,6 @@
 #include <jcaslib/db.h>
 #include <jcaslib/log.h>
+#include "_db.h"
 
 void
 db_insert (DBM *db, const char *key, const char *val)

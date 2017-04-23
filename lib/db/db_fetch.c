@@ -1,5 +1,6 @@
 #include <jcaslib/db.h>
 #include <stdlib.h>
+#include "_db.h"
 
 char *
 db_fetch (DBM *db, const char *key)

@@ -1,4 +1,5 @@
 #include <jcaslib/db.h>
+#include "_db.h"
 
 void
 db_replace (DBM *db, const char *key, const char *val)

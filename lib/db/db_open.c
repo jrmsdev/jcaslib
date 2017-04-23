@@ -2,6 +2,7 @@
 #include <jcaslib/log.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include "_db.h"
 
 DBM *
 db_open (const char *fname)

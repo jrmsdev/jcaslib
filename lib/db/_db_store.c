@@ -1,5 +1,6 @@
 #include <jcaslib/db.h>
 #include <jcaslib/log.h>
+#include "_db.h"
 
 int
 _db_store (DBM *db, const char *key, const char *val, int flags)
