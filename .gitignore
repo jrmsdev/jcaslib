@@ -8,3 +8,4 @@ vgcore.*
 bin/jcaslib/.build_info.h
 include/jcaslib/configure.h
 mk/configure.mk
+share/*.bin
