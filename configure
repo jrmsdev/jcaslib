@@ -73,7 +73,7 @@ printf "  %-20s: %s\n" 'use-gdbm' $USE_GDBM
 # -- configure.h tail
 echo "#endif /* JCASLIB_CONFIGURE_H */" >>$configure_h
 
-printf "  %-20s: %s\n" 'created' $configure_h
-printf "  %-20s: %s\n" 'created' $configure_mk
+##printf "  %-20s: %s\n" 'created' $configure_h
+##printf "  %-20s: %s\n" 'created' $configure_mk
 
 exit 0

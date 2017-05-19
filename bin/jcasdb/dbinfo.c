@@ -8,9 +8,9 @@
 int
 dbinfo (DBM *db)
 {
-    char *version = _db_fetch (db, DB_VERSION_KEY);
-    char *created = _db_fetch (db, DB_INIT_KEY);
-    char *updated = _db_fetch (db, DB_UPDATE_KEY);
+    char *version = db_fetch (db, DB_VERSION_KEY);
+    char *created = db_fetch (db, DB_INIT_KEY);
+    char *updated = db_fetch (db, DB_UPDATE_KEY);
 
     struct tm created_tm;
     struct tm updated_tm;
