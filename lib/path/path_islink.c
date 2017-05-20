@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 
 int
-os_isfile (const char *path)
+path_islink (const char *path)
 {
     struct stat *sb = calloc (1, sizeof (struct stat));
     int s = stat (path, sb);
@@ -13,9 +13,9 @@ os_isfile (const char *path)
     {
         warn ("stat error");
         free (sb);
-        return (s);
+        return (-1);
     }
     mode_t m = sb->st_mode;
     free (sb);
-    return (S_ISREG (m));
+    return (S_ISLNK (m));
 }

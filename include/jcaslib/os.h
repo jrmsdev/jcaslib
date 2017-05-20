@@ -3,11 +3,7 @@
 
 #include <dirent.h>
 
-#define OS_PATHSEP "/"
-
-extern int os_isdir (const char *dpath);
-extern int os_isfile (const char *path);
-extern int os_islink (const char *path);
+#define OS_SEP "/"
 
 extern int os_lsdir (struct dirent ***dst, const char *dpath);
 
