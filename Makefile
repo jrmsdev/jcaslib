@@ -90,12 +90,12 @@ dist:
 
 
 .PHONY: distclean
-distclean:
-	@$(MAKE) clean
+distclean: clean
 	@$(MAKE) -C lib distclean
 	@$(MAKE) -C bin distclean
 	@$(MAKE) -C examples distclean
 	@$(MAKE) -C tests distclean
+	@$(MAKE) -C share distclean
 	@rm -rfv build dist mk/configure.mk include/jcaslib/configure.h
 
 
