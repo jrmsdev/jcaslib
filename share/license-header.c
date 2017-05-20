@@ -1,13 +1,14 @@
 /* license-header.c */
 
-#include <jcaslib/path.h>
+#include <jcaslib/os.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int
 main (void)
 {
     struct dirent **dlist;
-    int entries = path_lsdir (&dlist, "./");
+    int entries = os_lsdir (&dlist, "./");
 
     printf ("dlist entries: %d\n", entries);
 

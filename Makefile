@@ -27,6 +27,7 @@ clean:
 	@$(MAKE) -C bin clean
 	@$(MAKE) -C examples clean
 	@$(MAKE) -C tests clean
+	@$(MAKE) -C share clean
 
 
 .PHONY: depend
