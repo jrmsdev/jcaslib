@@ -5,6 +5,8 @@
 
 extern int path_exists (const char *path);
 
+extern char * path_filename_ext (const char *path);
+
 extern int path_isdir (const char *path);
 extern int path_isfile (const char *path);
 extern int path_islink (const char *path);
