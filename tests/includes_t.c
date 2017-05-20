@@ -25,6 +25,7 @@
 #include "../lib/log/log_warn.c"
 #include "../lib/path/path_exists.c"
 #include "../lib/path/path_join.c"
+#include "../lib/path/path_lsdir.c"
 #include "../lib/str/str_alloc.c"
 #include "../lib/str/str_array_alloc.c"
 #include "../lib/str/str_array_append.c"
@@ -58,7 +59,7 @@
 
 void includes_t (test_suite_T *ts) {
   int expect = 1;
-  test_T *t = t_start (ts, "53 files", expect);
+  test_T *t = t_start (ts, "54 files", expect);
   t_check (t, 0, "");
   t_end (t);
 }

@@ -99,3 +99,8 @@ gcovhtml:
 .PHONY: gcovmiss
 gcovmiss:
 	@$(SCRIPTSD)/gcov-miss.py
+
+
+.PHONY: includes
+includes:
+	@$(SCRIPTSD)/gcov-miss.py --includes >includes_t.c
