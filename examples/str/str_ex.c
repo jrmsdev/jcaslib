@@ -4,7 +4,7 @@
 int
 main (void)
 {
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
 
     str_set (s, "lalala");
     printf ("s: %s - %zu - %zu\n", str_get (s), str_len (s), str_size (s));
@@ -20,7 +20,7 @@ main (void)
 
     str_free (s);
 
-    s = str_alloc();
+    s = str_alloc(NULL);
     str_set (s, "lilili");
     printf ("s: %s - %zu - %zu\n", str_get (s), str_len (s), str_size (s));
 

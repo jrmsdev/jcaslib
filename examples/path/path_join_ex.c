@@ -4,7 +4,7 @@
 int
 main (int argc, char *argv[])
 {
-    str_type *p = str_alloc ();
+    str_type *p = str_alloc (NULL);
 
     path_join (p, 4, "/etc", "1", "2", "3");
     printf ("path: '%s'\n", str_get (p));
@@ -12,7 +12,7 @@ main (int argc, char *argv[])
     if (argc > 1)
     {
         str_free (p);
-        p = str_alloc();
+        p = str_alloc(NULL);
         for (int idx = 1; idx < argc; idx++)
         {
             path_join (p, 1, argv[idx]);

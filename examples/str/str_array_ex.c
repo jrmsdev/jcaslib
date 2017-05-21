@@ -15,7 +15,7 @@ main (void)
 
     for (size_t i = 0; i <= str_array_last (arr); i++)
     {
-        printf ("arr[%zu] -> %s\n", i, str_array_get (arr, i));
+        printf ("arr[%zu] -> %s\n", i, str_get (str_array_get (arr, i)));
     }
 
     str_array_free (arr);
