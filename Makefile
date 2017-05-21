@@ -27,7 +27,6 @@ clean:
 	@$(MAKE) -C bin clean
 	@$(MAKE) -C examples clean
 	@$(MAKE) -C tests clean
-	@$(MAKE) -C share clean
 
 
 .PHONY: depend
@@ -36,7 +35,6 @@ depend:
 	@$(MAKE) -C bin depend
 	@$(MAKE) -C tests depend
 	@$(MAKE) -C examples depend
-	@$(MAKE) -C share depend
 
 
 .PHONY: examples
@@ -96,7 +94,6 @@ distclean: clean
 	@$(MAKE) -C bin distclean
 	@$(MAKE) -C examples distclean
 	@$(MAKE) -C tests distclean
-	@$(MAKE) -C share distclean
 	@rm -rfv build dist mk/configure.mk include/jcaslib/configure.h
 
 
