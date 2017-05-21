@@ -49,7 +49,7 @@ clean-bin:
 
 .PHONY: clean
 clean: clean-bin
-	@rm -vrf $(BIN_PATH) $(BIN_OBJS)
+	@rm -vrf $(BIN_PATH) $(BIN_OBJS) $(BIN_NAME).bin
 
 
 .PHONY: distclean
@@ -81,3 +81,13 @@ install:
 .PHONY: uninstall
 uninstall:
 	@rm -vf $(DESTDIR)$(PREFIX)/bin/$(BIN_NAME)
+
+
+.PHONY: devbin
+devbin: build
+	@rm -f $(BIN_NAME).bin
+	@echo '#!/bin/sh' >$(BIN_NAME).bin
+	@echo 'export DYLD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).bin
+	@echo 'export LD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).bin
+	@echo 'exec $(BIN_PATH) $$@' >>$(BIN_NAME).bin
+	@chmod 0750 $(BIN_NAME).bin
