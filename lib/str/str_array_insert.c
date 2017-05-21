@@ -7,7 +7,7 @@ str_array_insert (str_array_type *arr, size_t idx, const char *str)
         str_array_realloc (arr);
 
     if (arr->data[idx] == NULL)
-        arr->data[idx] = str_alloc ();
+        arr->data[idx] = str_alloc (NULL);
 
     str_set (arr->data[idx], str);
     size_t newlen = arr->len + 1;

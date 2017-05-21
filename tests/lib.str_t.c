@@ -8,7 +8,7 @@ void
 str_alloc_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "str_alloc", 3);
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
 
     t_log (t, "sizeof -> %zu", sizeof (*s));
     t_check (t, EQ (sizeof (*s), 24), "sizeof != 24");
@@ -29,7 +29,7 @@ void
 str_realloc_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "str_realloc", 3);
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
 
     t_log (t, "sizeof -> %zu", sizeof (*s));
     t_check (t, EQ (sizeof (*s), 24), "sizeof != 24");
@@ -52,7 +52,7 @@ void
 str_ncat_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "str_ncat", 1);
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
     t_log (t, "str len0: %zu", str_len (s));
 
     str_ncat (s, "TEST", 4);
@@ -68,7 +68,7 @@ void
 str_cat_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "str_cat", 2);
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
     t_log (t, "str len0: %zu", str_len (s));
 
     str_cat (s, "TEST");
@@ -86,7 +86,7 @@ void
 str_join_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "str_join", 2);
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
 
     str_nset (s, "TEST", 4);
     str_join (s, ".", 4, "T", "E", "S", "T");
@@ -106,7 +106,7 @@ void
 str_nset_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "str_nset", 4);
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
 
     str_nset (s, "TEST", 4);
     t_log (t, "str1 len: %zu", str_len (s));
@@ -130,7 +130,7 @@ void
 str_set_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "str_set", 2);
-    str_type *s = str_alloc ();
+    str_type *s = str_alloc (NULL);
 
     str_set (s, "TEST");
     t_log (t, "str len: %zu", str_len (s));

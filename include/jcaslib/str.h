@@ -16,7 +16,7 @@ typedef struct {
     size_t allocated;
 } str_type;
 
-extern str_type * str_alloc ();
+extern str_type * str_alloc (const char *str);
 extern void str_realloc (str_type *s);
 extern void str_free (str_type *s);
 

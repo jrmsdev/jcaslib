@@ -8,7 +8,7 @@ void
 path_join_t (test_suite_T *ts)
 {
     test_T *t = t_start (ts, "path_join", 2);
-    str_type *p = str_alloc ();
+    str_type *p = str_alloc (NULL);
 
     path_join (p, 3, "/path", "join", "test");
 
