@@ -3,7 +3,7 @@
 void
 str_array_insert (str_array_type *arr, size_t idx, const char *str)
 {
-    if (idx > arr->len)
+    if (idx >= arr->len)
         str_array_realloc (arr);
 
     if (arr->data[idx] == NULL)
