@@ -43,7 +43,7 @@ main (int argc, char *argv[])
     if (!path_exists (scan_dirname))
         errx (1, "dir not found: %s", scan_dirname);
 
-    os_lsdir (dlist, scan_dirname, 0);
+    os_lsdir (dlist, scan_dirname, -1);
     for (size_t i = 0; i < str_array_len (dlist); i++)
     {
         str_type *fname = str_array_get (dlist, i);
