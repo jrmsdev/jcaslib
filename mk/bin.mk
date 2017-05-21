@@ -69,9 +69,13 @@ clean-depend:
 	@rm -vf .depend
 
 
+INSTALL_BIN ?= false
+
 .PHONY: install
 install:
+.if $(INSTALL_BIN) == true
 	@$(INSTALL_EXE) $(BIN_PATH) $(DESTDIR)$(PREFIX)/bin/$(BIN_NAME)
+.endif
 
 
 .PHONY: uninstall

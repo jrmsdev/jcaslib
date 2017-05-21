@@ -1,4 +1,7 @@
 include ../../mk/vars.mk
+
+INSTALL_BIN ?= true
+
 include ../../mk/bin.mk
 
 SCRIPTSD = ../../scripts
