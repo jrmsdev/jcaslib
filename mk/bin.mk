@@ -10,6 +10,7 @@ BIN_NAME != basename $(PWD)
 BIN_PATH = $(BUILDD)/bin/$(BIN_NAME)
 BIN_SRCS != ls *.c
 SHARED_LIB_PATH = $(BUILDD)/lib/libjcas.so
+SHARED_LIB_SRCS != ls ../../lib/*/*.c ../../lib/*/*.h
 BIN_OBJS_DIR = $(BIN_PATH).objs
 BIN_OBJS =
 .for srcf in $(BIN_SRCS)
@@ -38,7 +39,7 @@ $(BIN_OBJS): $(SHARED_LIB_PATH)
 		-o $(.TARGET) $(.TARGET:T:S/.o/.c/)
 
 
-$(SHARED_LIB_PATH):
+$(SHARED_LIB_PATH): $(SHARED_LIB_SRCS)
 	@make -C ../../lib build
 
 
