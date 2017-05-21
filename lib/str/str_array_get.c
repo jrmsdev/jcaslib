@@ -1,7 +1,7 @@
 #include <jcaslib/str.h>
 #include <err.h>
 
-char *
+str_type *
 str_array_get (str_array_type *arr, size_t idx)
 {
     if (idx > arr->last)
@@ -10,5 +10,5 @@ str_array_get (str_array_type *arr, size_t idx)
     if (arr->data[idx] == NULL)
         return (NULL);
 
-    return (str_get (arr->data[idx]));
+    return (arr->data[idx]);
 }

@@ -1,10 +1,11 @@
 #ifndef JCASLIB_OS_H
 #define JCASLIB_OS_H
 
-#include <dirent.h>
+#include <jcaslib/str.h>
 
 #define OS_SEP "/"
+#define OS_MAXDEPTH 128
 
-extern int os_lsdir (struct dirent ***dst, const char *dpath);
+extern void os_lsdir (str_array_type *dst, const char *dpath, int maxdepth);
 
 #endif /* JCASLIB_OS_H */
