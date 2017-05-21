@@ -51,6 +51,7 @@ clean-bin:
 .PHONY: clean
 clean: clean-bin
 	@rm -vrf $(BIN_PATH) $(BIN_OBJS) $(BIN_NAME).sh $(BIN_NAME).valgrind
+	@rm -vf vgcore.* $(BIN_NAME).vg*
 
 
 .PHONY: distclean
@@ -96,5 +97,13 @@ dev: build
 	@cat $(BIN_NAME).sh >$(BIN_NAME).valgrind
 	@echo 'exec $(BIN_PATH) $$@' >>$(BIN_NAME).sh
 	@echo 'VGARGS=$${VGARGS:-"$(DEV_VGARGS)"}' >>$(BIN_NAME).valgrind
-	@echo 'exec $(DEV_VG) $${VGARGS} $(BIN_PATH) $$@' >>$(BIN_NAME).valgrind
+	@echo '$(DEV_VG) --quiet --log-file=$(BIN_NAME).vg$$$$ $${VGARGS} $(BIN_PATH) $$@' >>$(BIN_NAME).valgrind
+	@echo 'vgret=$$?' >>$(BIN_NAME).valgrind
+	@echo 'if test 0 -eq $$vgret; then' >>$(BIN_NAME).valgrind
+	@echo '    rm -f $(BIN_NAME).vg$$$$' >>$(BIN_NAME).valgrind
+	@echo 'else' >>$(BIN_NAME).valgrind
+	@echo '    echo $(BIN_NAME).vg$$$$' >>$(BIN_NAME).valgrind
+	@echo '    cat $(BIN_NAME).vg$$$$' >>$(BIN_NAME).valgrind
+	@echo 'fi' >>$(BIN_NAME).valgrind
+	@echo 'exit $$vgret' >>$(BIN_NAME).valgrind
 	@chmod 0750 $(BIN_NAME).sh $(BIN_NAME).valgrind
