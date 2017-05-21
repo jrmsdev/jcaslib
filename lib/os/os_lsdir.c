@@ -32,7 +32,11 @@ _os_lsdir (str_array_type *dst, const char *dpath)
 void
 os_lsdir (str_array_type *dst, const char *dpath, int maxdepth)
 {
+    if (dpath == NULL)
+        return;
     if (maxdepth < 1)
         maxdepth = OS_MAXDEPTH;
-    _os_lsdir (dst, dpath);
+    str_type *basedir = str_alloc (dpath);
+    _os_lsdir (dst, str_get (basedir));
+    str_free (basedir);
 }

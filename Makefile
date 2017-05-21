@@ -36,6 +36,7 @@ depend:
 	@$(MAKE) -C bin depend
 	@$(MAKE) -C tests depend
 	@$(MAKE) -C examples depend
+	@$(MAKE) -C share depend
 
 
 .PHONY: examples
