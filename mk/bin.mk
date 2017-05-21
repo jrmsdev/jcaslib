@@ -51,7 +51,7 @@ clean-bin:
 .PHONY: clean
 clean: clean-bin
 	@rm -vrf $(BIN_PATH) $(BIN_OBJS) $(BIN_NAME).sh $(BIN_NAME).valgrind
-	@rm -vf vgcore.* $(BIN_NAME).vg*
+	@rm -vf vgcore.* $(BIN_NAME).vg* $(BIN_NAME).gdb
 
 
 .PHONY: distclean
@@ -90,17 +90,23 @@ DEV_VGARGS ?= --leak-check=full --show-leak-kinds=all
 
 .PHONY: dev
 dev: build
-	@rm -f $(BIN_NAME).sh $(BIN_NAME).valgrind
+	@rm -f $(BIN_NAME).sh $(BIN_NAME).valgrind $(BIN_NAME).gdb
 
 	@echo '#!/bin/sh' >$(BIN_NAME).sh
 	@echo 'export DYLD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
 	@echo 'export LD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
 
 	@cat $(BIN_NAME).sh >$(BIN_NAME).valgrind
+	@cat $(BIN_NAME).sh >$(BIN_NAME).gdb
 
 	@echo 'exec $(BIN_PATH) $$@' >>$(BIN_NAME).sh
+
+	@echo 'corefile=/var/dumps/$(BIN_NAME).core' >>$(BIN_NAME).gdb
+	@echo 'test -s $$corefile &&' >>$(BIN_NAME).gdb
+	@echo '  exec gdb $(BIN_PATH) $$corefile' >>$(BIN_NAME).gdb
+	@echo 'exec gdb $(BIN_PATH)' >>$(BIN_NAME).gdb
 
 	@echo 'VGARGS=$${VGARGS:-"--leak-check=full --show-leak-kinds=all"}' >>$(BIN_NAME).valgrind
 	@echo 'exec $(DEV_VG) $${VGARGS} $(BIN_PATH) $$@' >>$(BIN_NAME).valgrind
 
-	@chmod 0750 $(BIN_NAME).sh $(BIN_NAME).valgrind
+	@chmod 0750 $(BIN_NAME).sh $(BIN_NAME).valgrind $(BIN_NAME).gdb
