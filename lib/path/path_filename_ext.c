@@ -6,7 +6,7 @@
 char *
 path_filename_ext (const char *path)
 {
-    char *fname = basename (path);
+    char *fname = basename ((char *) path);
     char *dot = strrchr (fname, '.');
     if (!dot || dot == fname)
         return ("");
