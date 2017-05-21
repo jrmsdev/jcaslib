@@ -49,7 +49,7 @@ clean-bin:
 
 .PHONY: clean
 clean: clean-bin
-	@rm -vrf $(BIN_PATH) $(BIN_OBJS) $(BIN_NAME).bin
+	@rm -vrf $(BIN_PATH) $(BIN_OBJS) $(BIN_NAME).sh $(BIN_NAME).valgrind
 
 
 .PHONY: distclean
@@ -83,11 +83,17 @@ uninstall:
 	@rm -vf $(DESTDIR)$(PREFIX)/bin/$(BIN_NAME)
 
 
-.PHONY: devbin
-devbin: build
-	@rm -f $(BIN_NAME).bin
-	@echo '#!/bin/sh' >$(BIN_NAME).bin
-	@echo 'export DYLD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).bin
-	@echo 'export LD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).bin
-	@echo 'exec $(BIN_PATH) $$@' >>$(BIN_NAME).bin
-	@chmod 0750 $(BIN_NAME).bin
+DEV_VG ?= valgrind
+DEV_VGARGS ?= --leak-check=full --show-leak-kinds=all
+
+.PHONY: dev
+dev: build
+	@rm -f $(BIN_NAME).sh $(BIN_NAME).valgrind
+	@echo '#!/bin/sh' >$(BIN_NAME).sh
+	@echo 'export DYLD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
+	@echo 'export LD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
+	@cat $(BIN_NAME).sh >$(BIN_NAME).valgrind
+	@echo 'exec $(BIN_PATH) $$@' >>$(BIN_NAME).sh
+	@echo 'VGARGS=$${VGARGS:-"$(DEV_VGARGS)"}' >>$(BIN_NAME).valgrind
+	@echo 'exec $(DEV_VG) $${VGARGS} $(BIN_PATH) $$@' >>$(BIN_NAME).valgrind
+	@chmod 0750 $(BIN_NAME).sh $(BIN_NAME).valgrind

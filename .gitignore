@@ -1,7 +1,8 @@
 .depend
 .do-install
 *.swp
-bin/*/*.bin
+bin/*/*.sh
+bin/*/*.valgrind
 bin/jcaslib/.build_info.h
 build/*
 dist/*

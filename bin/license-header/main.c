@@ -1,5 +1,3 @@
-/* license-header.c */
-
 #define _WITH_GETLINE
 
 #include <jcaslib/os.h>
