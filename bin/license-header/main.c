@@ -30,12 +30,8 @@ static void
 check_file (char *fname)
 {
     char *fext = path_filename_ext (fname);
-    printf ("check: %s (%s)", fname, fext);
-
     if (memcmp (filename_ext, fext, filename_ext_len) == 0)
-        printf (" OK");
-
-    printf ("\n");
+        printf ("check: %s\n", fname);
 }
 
 
@@ -45,6 +41,10 @@ main (int argc, char *argv[])
     str_array_type *dlist = str_array_alloc ();
     parse_args (argc, argv);
     printf ("scandir:'%s' file_ext:'%s'\n", scan_dirname, filename_ext);
+
+    if (!path_exists (scan_dirname))
+        errx (1, "dir not found: %s", scan_dirname);
+
     os_lsdir (dlist, scan_dirname, 0);
     for (size_t i = 0; i < str_array_len (dlist); i++)
     {
