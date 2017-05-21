@@ -1,4 +1,3 @@
-#include <jcaslib/log.h>
 #include <libgen.h>
 #include "_log.h"
 
