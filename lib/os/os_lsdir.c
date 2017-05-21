@@ -1,16 +1,18 @@
 #include <jcaslib/os.h>
 #include <jcaslib/path.h>
 
-#include <err.h>
 #include <dirent.h>
 #include <string.h>
 
 
 static void
-_os_scandir (str_array_type *dst, str_type *basedir)
+_os_scandir (str_array_type *dst, const char *basedir, int maxdepth, int level)
 {
+    if (level > maxdepth)
+        return;
+
     struct dirent **dlist;
-    int entries = scandir (str_get (basedir), &dlist, NULL, alphasort);
+    int entries = scandir (basedir, &dlist, NULL, alphasort);
 
     for (int i = 0; i < entries; i++)
     {
@@ -24,11 +26,18 @@ _os_scandir (str_array_type *dst, str_type *basedir)
             continue;
         }
 
-        str_type *fpath = str_alloc (str_get (basedir));
-        path_join (fpath, 1, f->d_name);
-        warnx ("fpath: %s", str_get (fpath));
+        str_type *fpath = NULL;
 
-        str_array_append (dst, f->d_name);
+        if ((strlen (basedir) == 1) && (memcmp (basedir, ".", 1) == 0))
+            fpath = str_alloc (NULL);
+        else
+            fpath = str_alloc (basedir);
+
+        path_join (fpath, 1, f->d_name);
+        str_array_append (dst, str_get (fpath));
+
+        if (path_isdir (str_get (fpath)))
+            _os_scandir (dst, str_get (fpath), maxdepth, level + 1);
 
         str_free (fpath);
         free (dlist[i]);
@@ -47,7 +56,5 @@ os_lsdir (str_array_type *dst, const char *dpath, int maxdepth)
     if (maxdepth < 0)
         maxdepth = OS_MAXDEPTH;
 
-    str_type *basedir = str_alloc (dpath);
-    _os_scandir (dst, basedir);
-    str_free (basedir);
+    _os_scandir (dst, dpath, maxdepth, 0);
 }

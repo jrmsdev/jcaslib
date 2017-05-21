@@ -25,11 +25,11 @@ parse_args (int argc, char *argv[])
 
 
 static void
-check_file (char *fname)
+check_file (char *fpath)
 {
-    char *fext = path_filename_ext (fname);
+    char *fext = path_filename_ext (fpath);
     if (memcmp (filename_ext, fext, filename_ext_len) == 0)
-        printf ("check: %s\n", fname);
+        printf ("check: %s\n", fpath);
 }
 
 
@@ -37,6 +37,7 @@ int
 main (int argc, char *argv[])
 {
     str_array_type *dlist = str_array_alloc ();
+
     parse_args (argc, argv);
     printf ("scandir:'%s' file_ext:'%s'\n", scan_dirname, filename_ext);
 
@@ -44,10 +45,15 @@ main (int argc, char *argv[])
         errx (1, "dir not found: %s", scan_dirname);
 
     os_lsdir (dlist, scan_dirname, -1);
+
     for (size_t i = 0; i < str_array_len (dlist); i++)
     {
-        str_type *fname = str_array_get (dlist, i);
-        check_file (str_get (fname));
+        str_type *fpath = str_array_get (dlist, i);
+        if (fpath == NULL)
+            warnx ("NULL fname");
+        else
+            check_file (str_get (fpath));
     }
+
     str_array_free (dlist);
 }
