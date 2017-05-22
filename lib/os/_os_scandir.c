@@ -9,7 +9,6 @@
 
 #include "_os.h"
 
-
 void
 _os_scandir (str_array_type *dst, const char *basedir, int maxdepth, int level)
 {

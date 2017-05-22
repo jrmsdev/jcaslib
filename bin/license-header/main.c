@@ -6,12 +6,12 @@
 #include <err.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
+#include "license-header.h"
 
 
 char *scan_dirname = NULL;
 char *filename_ext = NULL;
-size_t filename_ext_len = 0;
 
 static void
 parse_args (int argc, char *argv[])
@@ -20,16 +20,6 @@ parse_args (int argc, char *argv[])
         errx (1, "invalid number of parameters");
     scan_dirname = argv[1];
     filename_ext = argv[2];
-    filename_ext_len = strlen (filename_ext);
-}
-
-
-static void
-check_file (char *fpath)
-{
-    char *fext = path_filename_ext (fpath);
-    if (memcmp (filename_ext, fext, filename_ext_len) == 0)
-        printf ("check: %s\n", fpath);
 }
 
 
@@ -52,7 +42,7 @@ main (int argc, char *argv[])
         if (fpath == NULL)
             warnx ("NULL fname");
         else
-            check_file (str_get (fpath));
+            check_file (str_get (fpath), filename_ext);
     }
 
     str_array_free (dlist);
