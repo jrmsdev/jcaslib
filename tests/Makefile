@@ -51,6 +51,7 @@ $(TESTLIB): build-testlib
 
 .PHONY: build-testlib
 build-testlib:
+	@$(MAKE) -C ../bin build CC=$(CC) BUILD_COVERAGE=$(BUILD_COVERAGE)
 	@$(MAKE) -C ../lib build CC=$(CC) BUILD_COVERAGE=$(BUILD_COVERAGE)
 
 
@@ -58,6 +59,7 @@ build-testlib:
 clean:
 	@rm -vrf $(TESTSD) $(PWD)/*.gcov $(PWD)/*.gcno
 	@rm -vrf $(PWD)/*.gcda $(PWD)/gcovhtml $(PWD)/.build-coverage
+	@$(MAKE) -C ../bin clean
 	@$(MAKE) -C ../lib clean
 
 

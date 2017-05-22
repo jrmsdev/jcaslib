@@ -1,12 +1,24 @@
 SH = /bin/sh
-JCASLIB_DEBUG ?=
+JCASLIB_DEBUG ?= 1
 BUILD_COVERAGE ?= 0
+COV_CFLAGS :=
 
 .if $(BUILD_COVERAGE) == 1
-JCASLIB_DEBUG += -coverage -fprofile-arcs -ftest-coverage -O0
+COV_CFLAGS = -O0 -fprofile-arcs -fprofile-generate -ftest-coverage
+LDFLAGS += -lgcov
 .endif
 
-CFLAGS += -Wall -Wextra -pedantic -pedantic-errors -std=c11 $(JCASLIB_DEBUG)
+CFLAGS += -pipe -march=native -std=c11
+CFLAGS += -Wall -Wextra -pedantic -pedantic-errors
+CFLAGS += $(COV_CFLAGS)
+
+.if $(JCASLIB_DEBUG) == 0
+.if $(BUILD_COVERAGE) != 1
+CFLAGS += -O2
+.endif
+.else
+CFLAGS += -O0 -ggdb
+.endif
 
 PREFIX ?= /opt/pkg
 

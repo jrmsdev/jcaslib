@@ -2,6 +2,7 @@
 .if exists(configure.mk)
 include configure.mk
 .endif
+
 include mk/vars.mk
 
 

@@ -63,5 +63,6 @@ check_coverage:
         CC: gcc
         CHECK_VG: "false"
         CHECK_COV: "true"
+        BUILD_COVERAGE: "1"
     script:
         - ./scripts/ci/check.sh

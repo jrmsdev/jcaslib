@@ -5,11 +5,8 @@ bmake -j2
 ./build/bin/jcaslib.static
 
 bmake examples
-echo $?
 bmake dist
 
 export LD_LIBRARY_PATH=./build/lib
 export DYLD_LIBRARY_PATH=./build/lib
 ./build/bin/jcaslib
-
-exit $?
