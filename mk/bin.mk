@@ -69,14 +69,14 @@ distclean: clean clean-depend
 .PHONY: depend
 depend: pre-build
 	$(CC) $(CFLAGS_DEFINE) -I$(INCD) -E -MM *.c |\
-			sed 's#^\(.*\)\.o:#$(BIN_OBJS_DIR)/\1.o:#' >.depend
+			sed 's#^\(.*\)\.o:#$(BIN_OBJS_DIR)/\1.o:#' >$(PWD)/.depend
 	$(CC) $(CFLAGS_DEFINE) -I$(INCD) -E -MM main.c |\
-			sed 's#^main\.o\:#$(BIN_PATH):#' >>.depend
+			sed 's#^main\.o\:#$(BIN_PATH):#' >>$(PWD)/.depend
 
 
 .PHONY: clean-depend
 clean-depend:
-	@rm -vf .depend
+	@rm -vf $(PWD)/.depend
 
 
 INSTALL_BIN ?= false

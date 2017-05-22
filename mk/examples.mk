@@ -45,9 +45,9 @@ clean-lib: clean
 
 .PHONY: depend
 depend:
-	$(CC) -I$(INCD) $(CFLAGS_DEFINE) -E -MM *.c >.depend
+	$(CC) -I$(INCD) $(CFLAGS_DEFINE) -E -MM *.c >$(PWD)/.depend
 
 
 .PHONY: clean-depend
 clean-depend:
-	@rm -vf .depend
+	@rm -vf $(PWD)/.depend

@@ -43,12 +43,12 @@ $(MOD_OBJS):
 .PHONY: depend
 depend: pre-build
 	$(CC) $(CFLAGS_INCLUDE) $(CFLAGS_DEFINE) -E -MM *.c |\
-			sed 's#^\(.*\)\.o:#$(BUILDD)/\1.o:#' >.depend
+			sed 's#^\(.*\)\.o:#$(BUILDD)/\1.o:#' >$(PWD)/.depend
 
 
 .PHONY: clean-depend
 clean-depend:
-	@rm -vf .depend
+	@rm -vf $(PWD)/.depend
 
 
 .PHONY: clean
