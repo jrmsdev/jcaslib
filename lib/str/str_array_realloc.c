@@ -11,9 +11,8 @@ str_array_realloc (str_array_type *arr)
         str_type **d = (str_type **) xrealloc (arr->data, newsize);
         arr->data = d;
         arr->allocated = newsize;
-        for (size_t i = str_array_len (arr) + STR_ARRAY_ALLOC; i < newsize; i++)
-        {
+        for (size_t i = str_array_len (arr);
+             i < str_array_len (arr) + STR_ARRAY_ALLOC; i++)
             arr->data[i] = NULL;
-        }
     }
 }
