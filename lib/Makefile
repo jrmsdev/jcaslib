@@ -3,8 +3,8 @@
 include configure.mk
 .endif
 
-BUILDD = ../build/lib
-SCRIPTSD = ../scripts
+BUILDD != echo $$(realpath $(PWD)/..)/build/lib
+SCRIPTSD != realpath ../scripts
 LIB_PATH = $(BUILDD)/libjcas.a
 SHARED_LIB_PATH = $(BUILDD)/libjcas.so
 

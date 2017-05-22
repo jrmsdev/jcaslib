@@ -3,13 +3,13 @@
 include configure.mk
 .endif
 
-INCD = ../../include/jcaslib
-CFLAGS_INCLUDE = -I../../include
+INCD != realpath ../../include
+CFLAGS_INCLUDE = -I$(INCD)
 CFLAGS += $(CFLAGS_INCLUDE) $(CFLAGS_DEFINE) -fPIC -c
 
 MOD_NAME != basename $(PWD)
 
-BUILDD = ../../build/lib/$(MOD_NAME)
+BUILDD != echo $$(realpath $(PWD)/../..)/build/lib/$(MOD_NAME)
 MOD_SRCS != ls *.c
 
 MOD_OBJS =
@@ -18,7 +18,7 @@ MOD_OBJS += $(BUILDD)/$(src:S/.c/.o/)
 .endfor
 
 MOD_LIBNAME := libjcas-$(MOD_NAME)
-MOD_LIBDIR := ../../build/lib
+MOD_LIBDIR != echo $$(realpath $(PWD)/../..)/build/lib
 MOD_LIBPATH := $(MOD_LIBDIR)/$(MOD_LIBNAME).a
 MOD_LIBPATH_SO := $(MOD_LIBDIR)/$(MOD_LIBNAME).so
 

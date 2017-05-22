@@ -3,11 +3,11 @@
 include configure.mk
 .endif
 
-BINS != ls *.c | sed 's/\.c/\.bin/'
+BINS != ls $(PWD)/*.c | sed 's/\.c/\.bin/'
 OBJS = $(BINS:S/.bin/.o/)
-INCD = ../../include
+INCD != realpath ../../include
 CFLAGS += -I$(INCD) $(CFLAGS_DEFINE)
-LIB_PATH = ../../build/lib/libjcas.a
+LIB_PATH != echo $$(realpath $(PWD)/../..)/build/lib/libjcas.a
 
 
 .PHONY: build

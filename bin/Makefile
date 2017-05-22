@@ -1,4 +1,4 @@
-SCRIPTSD = ../scripts
+SCRIPTSD != realpath $(PWD)/../scripts
 
 .PHONY: all
 all: build

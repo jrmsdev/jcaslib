@@ -94,7 +94,8 @@ distclean: clean
 	@$(MAKE) -C bin distclean
 	@$(MAKE) -C examples distclean
 	@$(MAKE) -C tests distclean
-	@rm -rfv build dist mk/configure.mk include/jcaslib/configure.h
+	@rm -rfv $(PWD)/build $(PWD)/dist
+	@rm -rfv $(PWD)/mk/configure.mk $(PWD)/include/jcaslib/configure.h
 
 
 .PHONY: check

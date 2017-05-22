@@ -4,8 +4,8 @@ include configure.mk
 .endif
 
 LDFLAGS += -ljcas
-BUILDD = ../../build
-INCD = ../../include
+BUILDD != echo $$(realpath $(PWD)/../..)/build
+INCD != realpath $(PWD)/../../include
 BIN_NAME != basename $(PWD)
 BIN_PATH = $(BUILDD)/bin/$(BIN_NAME)
 BIN_STATIC_PATH = $(BUILDD)/bin/$(BIN_NAME).static

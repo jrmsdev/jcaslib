@@ -5,10 +5,10 @@ include ../mk/vars.mk
 include configure.mk
 .endif
 
-INCD = ../include
-SCRIPTSD = ../scripts
-TESTSD = ../build/tests
-TESTLIB = ../build/lib/libjcas.a
+INCD != realpath ../include
+SCRIPTSD != realpath ../scripts
+TESTSD != echo $$(realpath $(PWD)/..)/build/tests
+TESTLIB != echo $$(realpath $(PWD)/..)/build/lib/libjcas.a
 TEST_NAMES != ls *_t.c | sed 's/_t\.c//'
 TEST_SUITE ?= $(TEST_NAMES)
 CHECK_COVERAGE ?= false
@@ -56,7 +56,8 @@ build-testlib:
 
 .PHONY: clean
 clean:
-	@rm -vrf $(TESTSD) *.gcov *.gcno *.gcda gcovhtml .build-coverage
+	@rm -vrf $(TESTSD) $(PWD)/*.gcov $(PWD)/*.gcno
+	@rm -vrf $(PWD)/*.gcda $(PWD)/gcovhtml $(PWD)/.build-coverage
 	@$(MAKE) -C ../lib clean
 
 
