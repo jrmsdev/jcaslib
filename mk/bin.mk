@@ -71,6 +71,8 @@ depend: pre-build
 			sed 's#^\(.*\)\.o:#$(BIN_OBJS_DIR)/\1.o:#' >$(PWD)/.depend
 	$(CC) $(CFLAGS_DEFINE) -I$(INCD) -E -MM main.c |\
 			sed 's#^main\.o\:#$(BIN_PATH):#' >>$(PWD)/.depend
+	$(CC) $(CFLAGS_DEFINE) -I$(INCD) -E -MM main.c |\
+			sed 's#^main\.o\:#$(BIN_STATIC_PATH):#' >>$(PWD)/.depend
 
 
 .PHONY: clean-depend
@@ -94,6 +96,7 @@ uninstall:
 
 DEV_VG ?= valgrind
 DEV_VGARGS ?= --leak-check=full --show-leak-kinds=all
+
 
 .PHONY: dev
 dev: build
