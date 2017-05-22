@@ -1,9 +1,11 @@
 #!/bin/sh -ex
 
-bmake depend
-./build/bin/jcaslib.static
+CHECK_COVERAGE=${CHECK_COVERAGE:-"false"}
+CHECK_VG=${CHECK_VG:-"false"}
 
 bmake -j2
+./build/bin/jcaslib.static
+
 bmake examples
 bmake dist
 

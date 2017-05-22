@@ -1,8 +1,5 @@
 #!/bin/sh -ex
 
-bmake -j2
-./build/bin/jcaslib.static
-
 bmake examples
 bmake dist
 

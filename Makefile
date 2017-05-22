@@ -99,17 +99,17 @@ distclean: clean
 
 
 .PHONY: check
-check: clean build
+check:
 	@$(MAKE) -C tests check
 
 
 .PHONY: check-coverage
-check-coverage: clean build
+check-coverage:
 	@$(MAKE) -C tests check-coverage
 
 
 .PHONY: check-valgrind
-check-valgrind: clean build
+check-valgrind:
 	@$(MAKE) -C tests check-valgrind
 
 
