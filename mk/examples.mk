@@ -31,7 +31,7 @@ $(OBJS):
 
 .PHONY: clean
 clean:
-	@rm -vf *.bin *.o
+	@rm -vf $(PWD)/*.bin $(PWD)/*.o
 
 
 .PHONY: distclean

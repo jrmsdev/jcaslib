@@ -3,7 +3,6 @@
 include configure.mk
 .endif
 
-LDFLAGS += -ljcas
 BUILDD != echo $$(realpath $(PWD)/../..)/build
 INCD != realpath $(PWD)/../../include
 BIN_NAME != basename $(PWD)
@@ -32,13 +31,13 @@ pre-build:
 $(BIN_PATH): $(BIN_OBJS) $(SHARED_LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
-		-o $(BIN_PATH) $(BIN_OBJS) $(LDFLAGS)
+		-o $(BIN_PATH) $(BIN_OBJS) $(LDFLAGS) -ljcas
 
 
 $(BIN_STATIC_PATH): $(BIN_OBJS) $(LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
-		-o $(BIN_STATIC_PATH) $(BIN_OBJS) $(LIB_PATH)
+		-o $(BIN_STATIC_PATH) $(BIN_OBJS) $(LIB_PATH) $(LDFLAGS)
 
 
 $(BIN_OBJS):
@@ -48,7 +47,7 @@ $(BIN_OBJS):
 
 
 $(SHARED_LIB_PATH) $(LIB_PATH): $(LIB_SRCS)
-	@make -C ../../lib build
+	@$(MAKE) -C ../../lib build
 
 
 # clean-bin target could be overwritten per binary if needed
