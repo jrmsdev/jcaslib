@@ -8,23 +8,7 @@ variables:
     GCOV_CMD: gcov
 
 before_script:
-    - apt-get -qq update && apt-get -qq -y $APTARGS install $DEBPKGS $CC
-    - test "true" = "$CHECK_VG" && apt-get -qq -y $APTARGS install valgrind
-    - $CC --version
-    - ./configure --use-gdbm
-    - bmake depend
-
-.script: &build_script
-    - bmake -j2
-    - LD_LIBRARY_PATH=./build/lib ./build/bin/jcaslib
-    - bmake examples
-    - bmake dist
-
-.script: &check_script
-    - ($CHECK_COV || $CHECK_VG) || bmake check
-    - $CHECK_VG && bmake check-valgrind
-    - $CHECK_COV && bmake check-coverage
-    - /bin/true
+    - ./scripts/ci/before.sh
 
 build_gcc:
     stage: build
@@ -33,7 +17,8 @@ build_gcc:
     image: gcc
     variables:
         CC: gcc
-    script: *build_script
+    script:
+        - ./scripts/ci/build.sh
 
 build_clang:
     stage: build
@@ -42,7 +27,8 @@ build_clang:
     image: debian:stable
     variables:
         CC: clang
-    script: *build_script
+    script:
+        - ./scripts/ci/build.sh
 
 check_clang:
     stage: build
@@ -53,7 +39,8 @@ check_clang:
         CC: clang
         CHECK_VG: "false"
         CHECK_COV: "false"
-    script: *check_script
+    script:
+        - ./scripts/ci/check.sh
 
 check_valgrind:
     stage: build
@@ -64,7 +51,8 @@ check_valgrind:
         CC: gcc
         CHECK_VG: "true"
         CHECK_COV: "false"
-    script: *check_script
+    script:
+        - ./scripts/ci/check.sh
 
 check_coverage:
     stage: build
@@ -75,4 +63,5 @@ check_coverage:
         CC: gcc
         CHECK_VG: "false"
         CHECK_COV: "true"
-    script: *check_script
+    script:
+        - ./scripts/ci/check.sh
