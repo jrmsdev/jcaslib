@@ -8,9 +8,11 @@ BUILDD = ../../build
 INCD = ../../include
 BIN_NAME != basename $(PWD)
 BIN_PATH = $(BUILDD)/bin/$(BIN_NAME)
+BIN_STATIC_PATH = $(BUILDD)/bin/$(BIN_NAME).static
 BIN_SRCS != ls *.c
+LIB_SRCS != ls ../../lib/*/*.c ../../lib/*/*.h
+LIB_PATH = $(BUILDD)/lib/libjcas.a
 SHARED_LIB_PATH = $(BUILDD)/lib/libjcas.so
-SHARED_LIB_SRCS != ls ../../lib/*/*.c ../../lib/*/*.h
 BIN_OBJS_DIR = $(BIN_PATH).objs
 BIN_OBJS =
 .for srcf in $(BIN_SRCS)
@@ -19,7 +21,7 @@ BIN_OBJS += $(BIN_OBJS_DIR)/$(srcf:S/.c/.o/)
 
 
 .PHONY: build
-build: pre-build $(BIN_PATH)
+build: pre-build $(BIN_PATH) $(BIN_STATIC_PATH)
 
 
 # pre-build target could be overwritten per binary if needed
@@ -27,19 +29,25 @@ build: pre-build $(BIN_PATH)
 pre-build:
 
 
-$(BIN_PATH): $(BIN_OBJS)
+$(BIN_PATH): $(BIN_OBJS) $(SHARED_LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
 		-o $(BIN_PATH) $(BIN_OBJS) $(LDFLAGS)
 
 
-$(BIN_OBJS): $(SHARED_LIB_PATH)
+$(BIN_STATIC_PATH): $(BIN_OBJS) $(LIB_PATH)
+	@mkdir -p $(BUILDD)/bin
+	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
+		-o $(BIN_STATIC_PATH) $(BIN_OBJS) $(LIB_PATH)
+
+
+$(BIN_OBJS):
 	@mkdir -p $(BIN_OBJS_DIR)
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -fPIC -c\
 		-o $(.TARGET) $(.TARGET:T:S/.o/.c/)
 
 
-$(SHARED_LIB_PATH): $(SHARED_LIB_SRCS)
+$(SHARED_LIB_PATH) $(LIB_PATH): $(LIB_SRCS)
 	@make -C ../../lib build
 
 
@@ -92,21 +100,22 @@ DEV_VGARGS ?= --leak-check=full --show-leak-kinds=all
 dev: build
 	@rm -f $(BIN_NAME).sh $(BIN_NAME).valgrind $(BIN_NAME).gdb
 
-	@echo '#!/bin/sh' >$(BIN_NAME).sh
-	@echo 'export DYLD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
-	@echo 'export LD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
+	@echo '#!/bin/sh -x' >$(BIN_NAME).sh
 
-	@cat $(BIN_NAME).sh >$(BIN_NAME).valgrind
+#~ 	@echo 'export DYLD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
+#~ 	@echo 'export LD_LIBRARY_PATH=$(BUILDD)/lib' >>$(BIN_NAME).sh
+
 	@cat $(BIN_NAME).sh >$(BIN_NAME).gdb
+	@cat $(BIN_NAME).sh >$(BIN_NAME).valgrind
 
-	@echo 'exec $(BIN_PATH) $$@' >>$(BIN_NAME).sh
+	@echo 'exec $(BIN_STATIC_PATH) $$@' >>$(BIN_NAME).sh
 
 	@echo 'corefile=/var/dumps/$(BIN_NAME).core' >>$(BIN_NAME).gdb
 	@echo 'test -s $$corefile &&' >>$(BIN_NAME).gdb
-	@echo '  exec gdb $(BIN_PATH) $$corefile' >>$(BIN_NAME).gdb
-	@echo 'exec gdb $(BIN_PATH)' >>$(BIN_NAME).gdb
+	@echo '  exec gdb $(BIN_STATIC_PATH) $$corefile' >>$(BIN_NAME).gdb
+	@echo 'exec gdb $(BIN_STATIC_PATH)' >>$(BIN_NAME).gdb
 
 	@echo 'VGARGS=$${VGARGS:-"--leak-check=full --show-leak-kinds=all"}' >>$(BIN_NAME).valgrind
-	@echo 'exec $(DEV_VG) $${VGARGS} $(BIN_PATH) $$@' >>$(BIN_NAME).valgrind
+	@echo 'exec $(DEV_VG) $${VGARGS} $(BIN_STATIC_PATH) $$@' >>$(BIN_NAME).valgrind
 
 	@chmod 0750 $(BIN_NAME).sh $(BIN_NAME).valgrind $(BIN_NAME).gdb
