@@ -102,6 +102,6 @@ gcovmiss:
 	@$(SCRIPTSD)/gcov-miss.py
 
 
-.PHONY: includes
-includes:
-	@$(SCRIPTSD)/gcov-miss.py --includes >includes_t.c
+.PHONY: gcovincludes
+gcovincludes:
+	@$(SCRIPTSD)/gcov-includes.py >includes_t.c
