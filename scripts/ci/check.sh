@@ -12,6 +12,8 @@ bmake -j2 BUILD_COVERAGE=${BUILD_COVERAGE}
 test "true" = "$CHECK_VG" && bmake check-valgrind
 test "true" = "$CHECK_COV" && bmake check-coverage
 
-export LD_LIBRARY_PATH=./build/lib
-export DYLD_LIBRARY_PATH=./build/lib
-./build/bin/jcaslib
+if test "1" != "$BUILD_COVERAGE"; then
+    export LD_LIBRARY_PATH=./build/lib
+    export DYLD_LIBRARY_PATH=./build/lib
+    ./build/bin/jcaslib
+fi
