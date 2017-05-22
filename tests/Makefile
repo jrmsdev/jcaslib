@@ -104,4 +104,4 @@ gcovmiss:
 
 .PHONY: gcovincludes
 gcovincludes:
-	@$(SCRIPTSD)/gcov-includes.py >includes_t.c
+	@$(SCRIPTSD)/gcov-includes.py >includes_t.h
