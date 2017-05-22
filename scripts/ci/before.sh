@@ -14,8 +14,4 @@ test "true" = "$CHECK_VG" && valgrind --version
 bmake distclean
 ./configure --use-gdbm
 
-bmake depend
-bmake -j2
-
-./build/bin/jcaslib.static
 exit $?

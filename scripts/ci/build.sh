@@ -1,6 +1,11 @@
 #!/bin/sh -ex
 
+bmake depend
+bmake -j2
+./build/bin/jcaslib.static
+
 bmake examples
+echo $?
 bmake dist
 
 export LD_LIBRARY_PATH=./build/lib

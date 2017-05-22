@@ -3,6 +3,9 @@
 CHECK_COVERAGE=${CHECK_COVERAGE:-"false"}
 CHECK_VG=${CHECK_VG:-"false"}
 
+echo CHECK_COVERAGE="$CHECK_COVERAGE" >/dev/null
+echo CHECK_VG="$CHECK_VG" >/dev/null
+
 bmake -j2
 ./build/bin/jcaslib.static
 
