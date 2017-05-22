@@ -4,7 +4,7 @@
 #include "license-header.h"
 
 void
-check_file (char *fpath, char *check_ext)
+check_file (char *fpath, const char *check_ext)
 {
     char *fext = path_filename_ext (fpath);
     if (memcmp (check_ext, fext, strlen (check_ext)) == 0)

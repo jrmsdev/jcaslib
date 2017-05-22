@@ -57,8 +57,9 @@ clean-bin:
 
 .PHONY: clean
 clean: clean-bin
-	@rm -vrf $(BIN_PATH) $(BIN_OBJS) $(BIN_NAME).sh $(BIN_NAME).valgrind
-	@rm -vf vgcore.* $(BIN_NAME).vg* $(BIN_NAME).gdb
+	@rm -vrf $(BIN_PATH) $(BIN_OBJS)
+	@rm -vf $(PWD)/$(BIN_NAME).sh $(PWD)/$(BIN_NAME).valgrind
+	@rm -vf $(PWD)/vgcore.* $(PWD)/$(BIN_NAME).gdb
 
 
 .PHONY: distclean
