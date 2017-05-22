@@ -30,8 +30,10 @@ pre-build:
 
 $(BIN_PATH): $(BIN_OBJS) $(SHARED_LIB_PATH)
 	@mkdir -p $(BUILDD)/bin
+.if $(BUILD_COVERAGE) != 1
 	$(CC) $(CFLAGS) $(CFLAGS_DEFINE) -I$(INCD) -L$(BUILDD)/lib\
 		-o $(BIN_PATH) $(BIN_OBJS) $(LDFLAGS) -ljcas
+.endif
 
 
 $(BIN_STATIC_PATH): $(BIN_OBJS) $(LIB_PATH)

@@ -87,7 +87,7 @@ build-coverage:
 
 .PHONY: check-coverage
 check-coverage: build-coverage
-	@$(MAKE) check CHECK_COVERAGE=true
+	@$(MAKE) check CHECK_COVERAGE=true BUILD_COVERAGE=1
 	@GCOV_CC=$(GCOV_CC) GCOV_CMD=$(GCOV_CMD) $(SCRIPTSD)/run-gcov.sh
 
 
