@@ -1,9 +1,9 @@
 #define _WITH_GETLINE
 
+#include <jcaslib/log.h>
 #include <jcaslib/os.h>
 #include <jcaslib/path.h>
 
-#include <err.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,7 +15,7 @@ walkdir (const char *basedir, const char *filename_ext)
     str_array_type *dlist = str_array_alloc ();
 
     if (!path_exists (basedir))
-        errx (1, "dir not found: %s", basedir);
+        log_exit (1, "dir not found: %s", basedir);
 
     os_lsdir (dlist, basedir, -1);
 
@@ -23,7 +23,7 @@ walkdir (const char *basedir, const char *filename_ext)
     {
         str_type *fpath = str_array_get (dlist, i);
         if (fpath == NULL)
-            warnx ("NULL fname");
+            log_warn ("NULL fname");
         else
             check_file (str_get (fpath), filename_ext);
     }

@@ -1,6 +1,6 @@
+#include <jcaslib/log.h>
 #include <jcaslib/os.h>
 
-#include <err.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -12,7 +12,7 @@ path_isdir (const char *path)
     int s = stat (path, sb);
     if (s == -1)
     {
-        warn ("stat error");
+        log_warn ("stat error");
         free (sb);
         return (-1);
     }
