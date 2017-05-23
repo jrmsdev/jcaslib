@@ -31,7 +31,6 @@
 #include "../lib/log/log_exit.c"
 #include "../lib/log/log_warn.c"
 #include "../lib/log/_logfp.c"
-#include "../lib/log/log_set_progname.c"
 #include "../lib/log/log_dbg.c"
 #include "../lib/log/log_err.c"
 #include "../lib/log/log_print.c"
