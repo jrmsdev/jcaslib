@@ -5,6 +5,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-int _logfp (FILE *fp, const char *tag, char *fmt, va_list ap);
+extern int _logfp (FILE *fp, const char *tag, char *fmt, va_list ap);
 
 #endif /* JCASLIB_LOG__LOG_H */
