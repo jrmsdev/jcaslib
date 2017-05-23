@@ -12,7 +12,7 @@ path_islink (const char *path)
     int s = stat (path, sb);
     if (s == -1)
     {
-        log_warn ("stat error");
+        log_perror ("stat error");
         free (sb);
         return (-1);
     }

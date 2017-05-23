@@ -6,6 +6,7 @@
 extern int log_print (char *fmt, ...);
 extern int log_dbg (char *fmt, ...);
 extern int log_err (char *fmt, ...);
+extern int log_perror (char *fmt, ...);
 extern int log_warn (char *fmt, ...);
 extern void log_exit (int stat, char *fmt, ...);
 
