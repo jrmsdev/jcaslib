@@ -57,7 +57,6 @@ installdirs:
 
 .do-install: $(LIB_PATH) $(SHARED_LIB_PATH)
 	@$(INSTALL_F) include/jcaslib/*.h $(DESTDIR)$(PREFIX)/include/jcaslib
-	@rm -f $(DESTDIR)$(PREFIX)/include/jcaslib/configure.h
 	@$(INSTALL_F) LICENSE $(DESTDIR)$(PREFIX)/share/licenses/jcaslib
 	@$(MAKE) -C lib install
 	@$(MAKE) -C bin install
